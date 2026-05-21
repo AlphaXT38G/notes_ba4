@@ -2035,10 +2035,8 @@ Pour plusieurs sorties ($C > 1$), on remplace $w_{(2)}$ par une matrice $W_{(2)}
 \begin{defnbox}[title=Fonctions d'activation courantes]
 \begin{itemize}
     \item \textbf{Sigmoid :} $\sigma(z) = \frac{1}{1+e^{-z}} \in (0,1)$ -- utilisée pour les sorties binaires.
-
-    \item \textbf{ReLU :} $\sigma(z) = \max(0, z)$ -- la plus utilisée dans les couches cachées (évite le problème de vanishing gradient).
-
     \item \textbf{Softmax :} $\sigma(z)^{(k)} = \frac{e^{z^{(k)}}}{\sum_j e^{z^{(j)}}}$ -- utilisée en sortie pour la classification multi-classe.
+    \item \textbf{ReLU :} $\sigma(z) = \max(0, z)$ -- la plus utilisée dans les couches cachées.
 \end{itemize}
 \end{defnbox}
 
@@ -2186,7 +2184,7 @@ R(\{W_{(l)}\})
 \ell_i
 \]
 
-On définit la sensibilité de la loss à la pré-activation du neurone $(k,l)$ :
+On définit la sensibilité de la loss à la pré-activation du neurone $(k,l)$ avec $\ell_i$ la loss du sample $i$:
 
 \[
 \delta^{(k)}_{(l)}
