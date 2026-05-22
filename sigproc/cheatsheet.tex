@@ -449,11 +449,40 @@ ROC: $|z|>\lambda$ (causal). Stable $\Leftrightarrow$ $|\lambda|<1$ (pole inside
 
 \section{Filtering III - Stochastic and Adaptive SP}
 
+\begin{thm}[title=Rappel de proba +]
+\begin{itemize}
+  \item \textbf{Auto-correlation} $R_{X}=E[x²]$
+  \item \textbf{Cross-correlation} $R_{XY}=E[xy]$
+  \item \textbf{Covariance} $C_{XY}=E[(x-m_x)(y-m_y)]$
+  \item \textbf{if zero-mean} $C_{XY}=R_{XY}$
+  \item \textbf{Uncorrelated} $E_{XY}=E[x]E[y]$
+  \item \textbf{Independent} $f_{XY}(x,y)=f_{X}(x)f_{Y}(y)$
+\end{itemize}
+\end{thm}
 
-\newpage
+\begin{defn}[title=Deterministic vs Stochastic]
+\textbf{Deterministic}: $x[n]$ fully described by a formula.\\
+\textbf{Stochastic}: a machine of $\infty$ RVs indexed by $n$; each run produces one \textbf{realization} $\check{x}[n]$. \\
+$k$-th order description:
+\begin{itemize}
+  \item \textbf{1st:} $f_{X[n]}(x[n])$
+  \item \textbf{2nd:} $f_{X[n]X[m]}(x[n],x[m])$
+\end{itemize}
+Full description (all orders) is impossible.
+\end{defn}
+
+\begin{defn}[title=Stationarity]
+\textbf{1 - Strict}: all joint PDFs are time-shift invariant.\\
+\textbf{2 - WSS} (Wide-Sense stationarity):
+\begin{enumerate}
+  \item $E[x[n]]=m_x$
+  \item $E[x[n]x[m]]=r_x[n-m]$
+\end{enumerate}
+Properties: $r_x[-k]=r_x[k]$;\quad $r_x[0]=E[x[n]^2]=P_x\ge 0$.
+\end{defn}
 
 % ============================================================
-\section{Interpolation \& Sampling}
+\newpage \section{A/D I - Interpolation \& Sampling}
 
 \subsection{The Continuous-Time World}
 
@@ -519,6 +548,8 @@ $\mathrm{sinc}(m-n)=\delta[m-n]$, $\forall\, m,n\in\Z$\\
 \[\varphi(t)=\mathrm{sinc}\!\left(\tfrac{t}{T_s}\right)\longleftrightarrow\Phi(f)=\tfrac{1}{F_s}\,\mathrm{rect}\!\left(\tfrac{f}{F_s}\right)\]
 \end{defn}
 
+\section{A/D II - Aliasing}
+
 \begin{defn}[title=Raw Sampling]
 \[x[n] = x(nT_s)\]
 \includegraphics[width=\linewidth]{images/raw_sampling.png}
@@ -535,7 +566,7 @@ $\mathrm{sinc}(m-n)=\delta[m-n]$, $\forall\, m,n\in\Z$\\
 Map the frequency into [$-F_s/2$ ; $F_s/2$] to make the signal $F_s$-BL.
 \end{defn}
 
-\section{Multirate}
+\section{A/D III - Multirate}
 
 \begin{defn}[title=Downsampling by $N$ "DTFT pov"]
 Copier à tout 2 pi/N. Multiplier les indices par N.
@@ -545,7 +576,7 @@ Copier à tout 2 pi/N. Multiplier les indices par N.
 Montrer la périodiciter. Diviser les indices par N. 
 \end{defn}
 
-\section{Quantization}
+\section{A/D IV - A/D and D/A conversion}
 \begin{defn}[title=Quantization schemes]
 \includegraphics[width=\linewidth]{images/quantization_schemes.png}
 \end{defn}
