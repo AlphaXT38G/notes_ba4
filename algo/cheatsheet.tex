@@ -271,37 +271,28 @@ At the start of each iteration, we have for all $v \in S$ that the distance $v.d
 The runtime is the same as Prim's algorithm.
 \end{prop}
 
-\newpage
-% needs to be checked:
 % ============================================================
 \section{Probabilistic Analysis}
 
-\subsection{Motivation}
 Worst case rarely happens. Randomization helps avoid worst-case and adversarial inputs (e.g., random pivot in quicksort). Also necessary in cryptography.
-
-\subsection{Indicator Random Variables}
 
 \begin{defn}[title=Indicator RV]
 Given sample space and event $A$:
 \[I\{A\} = \begin{cases}1 & A\text{ occurs}\\0 & \text{otherwise}\end{cases}\]
-\textbf{Lemma:} $\E[I\{A\}] = \Pr\{A\}$\quad (since $\E[X_A]=1\cdot\Pr\{A\}+0\cdot\Pr\{\bar{A}\}$)
+\textbf{Lemma:} $\E[I\{A\}] = P\{A\}$
 \end{defn}
 
-\begin{thm}[title=Linearity of expectation]
-$\E[aX+bY] = a\E[X]+b\E[Y]$\\
-\emph{Holds even when $X$ and $Y$ are dependent!}
-\end{thm}
+\begin{prop}[title=Hiring Problem]
+Expected $\#$ of hires is $O(\ln n)$ vs worst case $O(n)$.
+\end{prop}
 
-\subsection{Hiring Problem}
-Hire candidate if taller than current best; $n$ candidates, random arrival order.
-\begin{itemize}
-  \item Worst case: $n$ hires (candidates arrive sorted)
-  \item Let $X_i = I\{\text{candidate }i\text{ hired}\}$, $X = \sum_{i=1}^n X_i$
-  \item $\Pr\{\text{candidate }i\text{ hired}\} = \frac{1}{i}$ (is tallest among first $i$)
-  \item By linearity: $\E[\#\text{hires}] = \sum_{i=1}^{n}\frac{1}{i} = H_n = \ln n + O(1)$
-\end{itemize}
-Expected number of hires is $O(\ln n)$ vs worst case $O(n)$.
+\begin{prop}[title=Birthday lemma]
+Prob.\ of \emph{no} collision among $q$ items drawn uniformly from $[n]$:
+$\leq e^{-q(q-1)/(2n)}$.
+\end{prop}
 
+\newpage
+% to be continued:
 % ============================================================
 \section{Hash Tables}
 
@@ -321,16 +312,6 @@ $h(k) = k \bmod m$. Avoid $m=2^p$ (only uses low-order bits of $k$).
 
 \begin{prop}[title=Multiplication method]
 $h(k) = \lfloor m\cdot(kA \bmod 1)\rfloor$,\quad $0 < A < 1$.
-\end{prop}
-
-\begin{prop}[title=Birthday paradox]
-$n$ items into $m$ slots: collision likely when $n\gtrsim\sqrt{2m}$.\\
-$\Pr[\text{collision}]\geq\tfrac{1}{2}$ when $n\geq\sqrt{2m\ln 2}\approx 1.18\sqrt{m}$.
-\end{prop}
-
-\begin{prop}[title=Birthday lemma]
-Prob.\ of \emph{no} collision among $q$ items drawn uniformly from $[n]$:
-$\leq e^{-q(q-1)/(2n)}$.
 \end{prop}
 
 \end{multicols*}
