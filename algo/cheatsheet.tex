@@ -16,7 +16,6 @@
 % ============================================================
 
 \section{Data Structures for Disjoint Sets}
-\subsection{Disjoint sets (Union-Find)}
 Each set identified by a representative.
 
 \begin{defn}[title=Operations]
@@ -45,20 +44,10 @@ CONNECTED-COMPONENTS(G)
     \includegraphics[width=\linewidth]{images/linkedList_representation.png}
 \end{center}
 
-
-\begin{thm}[title=Weighted-union heuristic]
-Always merge smaller into larger. $m$ ops on $n$ elements: $O(m + n\lg n)$. Each element's representative updated $\leq \lg n$ times (each update at least doubles set size).
-\end{thm}
-
 \subsection{Tree representation}
 \begin{center}
     \includegraphics[width=\linewidth]{images/tree_representation.png}
 \end{center}
-\begin{thm}[title=Runtime with both heuristics]
-\textbf{Union by rank:} smaller-rank root $\to$ child of larger-rank root (rank $\approx$ height upper bound).\\
-\textbf{Path compression:} all nodes on FIND path become direct children of root.\\
-Union by rank + path compression: $O(m\cdot\alpha(n))$ for $m$ operations on $n$ elements. $\alpha(n)\leq 5$ for any practical $n$. Bound is tight.
-\end{thm}
 
 \section{Flow network}
 \subsection{Definitions}
@@ -291,10 +280,9 @@ Prob.\ of \emph{no} collision among $q$ items drawn uniformly from $[n]$:
 $\leq e^{-q(q-1)/(2n)}$.
 \end{prop}
 
-\newpage
-% to be continued:
 % ============================================================
-\section{Hash Tables}
+\section{Data Structure: Hash Tables}
+Insert, Delete and Search in $O(1)$
 
 \begin{defn}[title=Hash function]
 $h: U\to\{0,\ldots,m{-}1\}$ maps key universe to $m$ slots.\\
@@ -303,15 +291,7 @@ $h: U\to\{0,\ldots,m{-}1\}$ maps key universe to $m$ slots.\\
 \end{defn}
 
 \begin{prop}[title=Chaining (collision resolution)]
-Each slot: linked list of keys. Insert $O(1)$. Search/Delete $\Theta(1{+}\alpha)$ average. If $n=O(m)$ then $\alpha=O(1)$: all ops $O(1)$.
-\end{prop}
-
-\begin{prop}[title=Division method]
-$h(k) = k \bmod m$. Avoid $m=2^p$ (only uses low-order bits of $k$).
-\end{prop}
-
-\begin{prop}[title=Multiplication method]
-$h(k) = \lfloor m\cdot(kA \bmod 1)\rfloor$,\quad $0 < A < 1$.
+Each slot: linked list of keys.
 \end{prop}
 
 \end{multicols*}
