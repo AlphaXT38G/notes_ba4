@@ -1,59 +1,78 @@
-# BA4 Cheat Sheets
+# Notes BA4
 
-LaTeX cheat sheets for the BA4 semester.
+LaTeX notes for the BA4 semester.
 
-## Setup
+---
 
-Follow this tutorial to set up the LaTeX environment:
+## Build
 
-👉 [Watch the tutorial](https://www.youtube.com/watch?v=4lyHIQl4VM8)
+Compile all subjects and sync PDFs to `_overview/`:
+
+```bash
+python build.py
+```
+
+Compile specific subjects:
+
+```bash
+python build.py algo
+python build.py algo iml sigproc
+```
+
+---
 
 ## Exam Instructions
 
-- **Signal Processing** *[HANDWRITTEN]*: 2 double-sided A4 sheets of handwritten personal notes (no photocopies or printouts).
+| Subject | Allowed |
+|---|---|
+| Algorithms I | 1 double-sided A4 sheet, any format |
+| Signal Processing | 2 double-sided A4 sheets, handwritten only |
+
+---
 
 ## Subjects
 
 ### Algorithms I — `algo/`
-
 - [Cheat sheet](_overview/algo/cheatsheet.pdf)
-- [Long notes](_overview/algo/course.pdf)
+- [Course notes](_overview/algo/course.pdf)
 
 ### Intro to Machine Learning — `iml/`
-
 - [Cheat sheet](_overview/iml/cheatsheet.pdf)
-- [Long notes](_overview/iml/course.pdf)
+- [Course notes](_overview/iml/course.pdf)
+- [Python notes](_overview/iml/python_raw_notes.pdf)
 
 ### Signal Processing — `sigproc/`
-
 - [Cheat sheet](_overview/sigproc/cheatsheet.pdf)
+
+### Computer Systems — `compsys/`
+- [Course notes](_overview/compsys/course.pdf)
 
 ---
 
-## Repository Structure
+## Setup
+
+[LaTeX environment setup tutorial](https://www.youtube.com/watch?v=4lyHIQl4VM8)
+
+---
+
+## Structure
 
 ```
 notes_ba4/
-├── _overview/          # Compiled PDF overviews for each subject
-│   ├── iml/
-│   ├── algo/
-│   └── sigproc/
-├── _shared/            # Shared LaTeX style files
-│   ├── cheatsheet.sty
-│   └── course.sty
-├── iml/
+├── _overview/      # Compiled PDFs, one folder per subject
+├── _shared/        # Shared LaTeX style files
 ├── algo/
-└── sigproc/
+├── iml/
+├── sigproc/
+└── compsys/
 ```
 
-Each subject folder contains `cheatsheet.tex` (the cheat sheet) and `course.tex` (extended notes).
-
-## Authors 
-
-**Salim Chaoui El Faiz**  
-🔗 [GitHub – Salim Chaoui El Faiz](https://github.com/SalimThePokemonMaster)
-
-**Sami Kabbaj**  
-🔗 [GitHub – Sami Kabbaj](https://github.com/SamiPro206)
+Each subject folder contains `.tex` sources; run `build.py` to recompile.
 
 ---
+
+## Authors
+
+**Salim Chaoui El Faiz** — [GitHub](https://github.com/SalimThePokemonMaster)
+
+**Sami Kabbaj** — [GitHub](https://github.com/SamiPro206)
