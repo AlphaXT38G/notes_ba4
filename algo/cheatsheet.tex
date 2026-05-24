@@ -97,6 +97,37 @@ $f=\Omega(n^{\alpha+\varepsilon})$, $af(n/b)\le cf(n)$ & $T=\Theta(f(n))$ \\
 \end{tabular}
 \end{thm}
 
+\section{Maximum-Subarray Problem}
+
+{\centering\includegraphics[width=\linewidth,height=1.5cm,keepaspectratio]{images/max-crossing-subarray.png}\par}
+
+\begin{lstlisting}
+FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)
+    ls=-inf; rs=-inf; sum=0
+    for i=mid downto low      // max: form A[i..mid]
+        sum+=A[i]
+        if sum>ls: ls=sum; ml=i
+    sum=0
+    for j=mid+1 to high     // max: form A[mid+1..j]
+        sum+=A[j]
+        if sum>rs: rs=sum; mr=j
+    return (ml, mr, ls+rs)
+
+FIND-MAXIMUM-SUBARRAY(A, low, high)
+    if high==low: return (low, high, A[low])
+    mid=floor((low+high)/2)
+    (ll,lh,ls) = FIND-MAXIMUM-SUBARRAY(A,low,mid)
+    (rl,rh,rs) = FIND-MAXIMUM-SUBARRAY(A,mid+1,high)
+    (cl,ch,cs) = FIND-MAX-CROSSING-SUBARRAY(A,low,mid,high)
+    if ls>=rs and ls>=cs: return (ll,lh,ls)
+    elseif rs>=cs: return (rl,rh,rs)
+    else: return (cl,ch,cs)
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+$T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
+\end{prop}
+
 \newpage
 
 % 2 part of the course [Almost done] (il manque merge sort et ce qu'il y a après)
