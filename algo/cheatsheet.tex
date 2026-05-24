@@ -82,6 +82,16 @@ MERGE-SORT(A, p, r)
 Sometimes solution is to prove something stronger
 \end{prop}
 
+\subsection{Master method}
+\begin{thm}[title=Master Theorem]
+$T(n)=aT(n/b)+f(n)$, $a\ge1$, $b>1$, $\alpha=\log_b a$:\\[2pt]
+\begin{tabular}{@{}l@{$\;\Rightarrow\;$}l@{}}
+$f=O(n^{\alpha-\varepsilon})$                        & $T=\Theta(n^\alpha)$ \\
+$f=\Theta(n^{\alpha})$                               & $T=\Theta(n^\alpha\log n)$ \\
+$f=\Omega(n^{\alpha+\varepsilon})$, $af(n/b)\le cf(n)$ & $T=\Theta(f(n))$ \\
+\end{tabular}
+\end{thm}
+
 \newpage
 
 % 2 part of the course [Almost done] (il manque merge sort et ce qu'il y a après)
