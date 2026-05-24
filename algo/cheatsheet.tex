@@ -159,10 +159,38 @@ So only \textbf{3 recursive multiplications} needed.
 $T(n)=3T(n/2)+\Theta(n)=\Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
 \end{prop}
 
+\iffalse % à reprendre:
+
+\section{Heaps}
+\textbf{Max-heap:} $A[\text{parent}(i)]\ge A[i]$.\\
+\texttt{LEFT}$(i)=2i$,\ \texttt{RIGHT}$(i)=2i{+}1$,\ \texttt{PARENT}$(i)=\lfloor i/2\rfloor$
+
+\begin{lstlisting}
+MAX-HEAPIFY(A, i, n)   // subtrees already heaps
+    l=LEFT(i); r=RIGHT(i)
+    if l<=n and A[l]>A[i]: largest=l
+    else: largest=i
+    if r<=n and A[r]>A[largest]: largest=r
+    if largest != i
+        exchange A[i] with A[largest]
+        MAX-HEAPIFY(A, largest, n)
+
+BUILD-MAX-HEAP(A, n)
+    for i=floor(n/2) downto 1
+        MAX-HEAPIFY(A, i, n)
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+\texttt{MAX-HEAPIFY}: $O(\lg n)$.\ \texttt{BUILD-MAX-HEAP}: $\Theta(n)$.
+\end{prop}
+
+\subsection{Implementation of priority queue}
 \newpage
 
-% 2 part of the course [Almost done] (il manque merge sort et ce qu'il y a après)
-\iffalse % to gain time
+\fi
+
+\newpage
+
 \section{Data Structures for Disjoint Sets}
 Each set identified by a representative.
 
@@ -539,6 +567,6 @@ $h: U\to\{0,\ldots,m{-}1\}$ maps key universe to $m$ slots.\\
 \begin{prop}[title=Chaining (collision resolution)]
 Each slot: linked list of keys.
 \end{prop}
-\fi
+
 \end{multicols*}
 \end{document}
