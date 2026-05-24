@@ -38,7 +38,7 @@ INSERTION-SORT(A, n)
 \end{lstlisting}
 
 \begin{prop}[title=Runtime \& Loop invariant (like induction)]
-$\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sorted.
+In-place. $\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sorted.
 \textbf{Init:} $j{=}2$, trivial. \textbf{Maint:} key inserted correctly. \textbf{Term:} $A$ sorted.
 \end{prop}
 
@@ -67,7 +67,7 @@ MERGE-SORT(A, p, r)
 \end{lstlisting}
 
 \begin{prop}[title=Runtime]
-    $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
+Not in-place. $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
 \end{prop}
 
 \section{Solving recurrences}
@@ -85,7 +85,7 @@ Sometimes solution is to prove something stronger
 \subsection{Recursion trees}
 Draw tree, sum cost per level, sum all levels.
 
-{\centering\includegraphics[width=\linewidth,height=3cm,keepaspectratio]{images/recursion-trees.png}\par}
+{\centering\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{images/recursion-trees.png}\par}
 
 \subsection{Master method}
 \begin{thm}[title=Master Theorem]
