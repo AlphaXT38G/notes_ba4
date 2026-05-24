@@ -114,6 +114,22 @@ For all $u,v$, exactly one of:
   \includegraphics[width=\linewidth]{images/classification_of_edges.png}
 \end{center}
 
+\subsection{Topological sort}
+
+\begin{lstlisting}
+TOPOLOGICAL-SORT(G):
+    Call DFS(G) to compute v.f for all v in G.V
+    Output vertices in order of decreasing v.f
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+Same as DFS: $\Theta(V+E)$
+\end{prop}
+
+\begin{center} % A retirer si besoin d'espace
+  \includegraphics[width=\linewidth]{images/topological-sort.png}
+\end{center}
+
 \section{Flow network}
 \subsection{Definitions}
 \begin{center}
