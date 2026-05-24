@@ -144,6 +144,21 @@ C21=M2+M4        C22=M1-M2+M3+M6
 $T(n)=7T(n/2)+\Theta(n^2)=\Theta(n^{\lg 7})\approx\Theta(n^{2.807})$
 \end{prop}
 
+\section{Karatsuba's Algorithm}
+\textbf{Problem:} multiply two $n$-digit integers $x,y$ in base $b$.
+
+\textbf{Divide:} split each number in two halves of $n/2$ digits:
+\[x=x_H b^{n/2}+x_L \qquad y=y_H b^{n/2}+y_L\]
+\[x\cdot y=x_Hy_H\cdot b^n+(x_Hy_L+x_Ly_H)\cdot b^{n/2}+x_Ly_L\]
+
+\textbf{Key:} naively 4 products, but:
+\[x_Hy_L+x_Ly_H=(x_H{+}x_L)(y_H{+}y_L)-x_Hy_H-x_Ly_L\]
+So only \textbf{3 recursive multiplications} needed.
+
+\begin{prop}[title=Runtime]
+$T(n)=3T(n/2)+\Theta(n)=\Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
+\end{prop}
+
 \newpage
 
 % 2 part of the course [Almost done] (il manque merge sort et ce qu'il y a après)
