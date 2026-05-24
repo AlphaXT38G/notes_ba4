@@ -13,7 +13,6 @@
 % ============================================================
 %                       COURSE OUTLINE
 % ============================================================
-% ============================================================
 
 \section{Data Structures for Disjoint Sets}
 Each set identified by a representative.
@@ -48,6 +47,17 @@ CONNECTED-COMPONENTS(G)
 \begin{center}
     \includegraphics[width=\linewidth]{images/tree_representation.png}
 \end{center}
+
+\section{Graphs G=(V,E)}
+
+\begin{defn}[title=Representation]
+\begin{tabular}{lll}
+ & \textbf{Adj. list} & \textbf{Adj. matrix} \\
+Space & $\Theta(V{+}E)$ & $\Theta(V^2)$ \\
+List G.adj[u] & $\Theta(\deg(u))$ & $\Theta(V)$ \\
+$(u,v)\in E$? & $O(\deg(u))$ & $\Theta(1)$ \\
+\end{tabular}
+\end{defn}
 
 \section{Flow network}
 \subsection{Definitions}
