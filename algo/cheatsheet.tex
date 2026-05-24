@@ -37,16 +37,37 @@ INSERTION-SORT(A, n)
         A[i + 1] = key
 \end{lstlisting}
 
-\begin{prop}[title=Runtime]
-$\Theta(n^2)$ worst case. $\Theta(n)$ best case.
+\begin{prop}[title=Runtime \& Loop invariant (like induction)]
+$\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sorted.
+\textbf{Init:} $j{=}2$, trivial. \textbf{Maint:} key inserted correctly. \textbf{Term:} $A$ sorted.
 \end{prop}
 
-\begin{thm}[title=Loop invariant]
-Before iter.\ $j$: $A[1..j{-}1]$ sorted (original elems).
-\end{thm}
+\subsection{Divide-and-conquer}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/divide-and-conquer.png}\par}
 
-\begin{prop}[title=How to prove it (similar to induction)]
-\textbf{Init:} true before 1st iter. \textbf{Maint:} true before iter $\Rightarrow$ true before next. \textbf{Term:} invariant + loop end
+\subsection{Merge Sort}
+\begin{lstlisting}
+MERGE(A, p, q, r)
+    n1 = q-p+1; n2 = r-q
+    L[1..n1+1] and R[1..n2+1] be new arrays
+    for i = 1 to n1: L[i] = A[p+i-1]
+    for j = 1 to n2: R[j] = A[q+j]
+    L[n1+1] = inf; R[n2+1] = inf
+    i = 1; j = 1
+    for k = p to r
+        if L[i] <= R[j]: A[k] = L[i]; i = i+1
+        else: A[k] = R[j]; j = j+1
+
+MERGE-SORT(A, p, r)
+    if p < r
+        q = floor((p+r)/2)
+        MERGE-SORT(A, p, q)
+        MERGE-SORT(A, q+1, r)
+        MERGE(A, p, q, r)
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+$T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
 \end{prop}
 
 \newpage
