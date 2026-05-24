@@ -11,13 +11,6 @@
 \cheattitle{Algorithms I}{}{BA4}
 
 \iffalse
-\section{TODO}
-Insertion sort\\
-Divide and conquer\\
-Merge sort\\
-maximum sub array problem\\
-strassen's algo for matrix multi\\
-solving recurrence\\
 heaps and heapsort\\
 data strctures\\
 dynamic programmic
@@ -126,6 +119,29 @@ FIND-MAXIMUM-SUBARRAY(A, low, high)
 
 \begin{prop}[title=Runtime]
 $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
+\end{prop}
+
+\section{Matrix Multiplication}
+
+$c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}$. \textbf{Naive:} $\Theta(n^3)$ time, $\Theta(n^2)$ space.
+
+\subsection{Raw Divide-and-Conquer}
+\begin{prop}[title=Runtime]
+8 calls: $T(n)=8T(n/2)+\Theta(n^2)=\Theta(n^3)$
+\end{prop}
+
+\subsection{Strassen's Algorithm using Divide-and-Conquer}
+Only \textbf{7} recursive calls. Partition as before, compute:
+\begin{lstlisting}
+M1=(A11+A22)(B11+B22)  M5=(A11+A12)B22
+M2=(A21+A22)B11        M6=(A21-A11)(B11+B12)
+M3=A11(B12-B22)        M7=(A12-A22)(B21+B22)
+M4=A22(B21-B11)
+C11=M1+M4-M5+M7  C12=M3+M5
+C21=M2+M4        C22=M1-M2+M3+M6
+\end{lstlisting}
+\begin{prop}[title=Runtime]
+$T(n)=7T(n/2)+\Theta(n^2)=\Theta(n^{\lg 7})\approx\Theta(n^{2.807})$
 \end{prop}
 
 \newpage
