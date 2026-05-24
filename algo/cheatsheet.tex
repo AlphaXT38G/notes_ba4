@@ -540,7 +540,6 @@ The runtime is the same as Prim's algorithm.
 Worst case rarely happens. Randomization helps avoid worst-case and adversarial inputs (e.g., random pivot in quicksort). Also necessary in cryptography.
 
 \begin{defn}[title=Indicator RV]
-Given sample space and event $A$:
 \[I\{A\} = \begin{cases}1 & A\text{ occurs}\\0 & \text{otherwise}\end{cases}\]
 \textbf{Lemma:} $\E[I\{A\}] = P\{A\}$
 \end{defn}
@@ -567,6 +566,54 @@ $h: U\to\{0,\ldots,m{-}1\}$ maps key universe to $m$ slots.\\
 \begin{prop}[title=Chaining (collision resolution)]
 Each slot: linked list of keys.
 \end{prop}
+
+% ============================================================
+\section{Quick Sort}
+\begin{thm}[title=Loop invariant of Partitioning]
+\begin{enumerate}
+  \item All entries in A[p...i] are <= pivot
+  \item All entries in A[i+1...j] are > pivot
+  \item A[r] = pivot
+\end{enumerate}
+\end{thm}
+
+\begin{lstlisting}
+PARTITION(A,p,r)
+    x = A[r]
+    i = p-1
+    for j = p to r - 1
+        if A[j] <= x
+            i = i + 1
+            exchange A[i] with A[j]
+    exchange A[i+1] with A[r]
+    return i+1
+
+QUICKSORT(A, p, r)
+    if p < r
+        q = PARTITION(A, p, r)
+        QUICKSORT(A, p, q-1)
+        QUICKSORT(A, q+1, r)
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+In-place $\Theta(n^2)$ worst, $\Theta(n\lg(n))$ on best/average
+\end{prop}
+
+
+\subsection{Randomized version}
+\begin{lstlisting}
+RANDOMIZED-PARTITION(A, p, r)
+    i = RANDOM(p, r)
+    exchange A[r] with A[i]
+    return PARTITION(A, p, r)
+
+RANDOMIZED-QUICKSORT(A, p, r)
+    if p < r
+        q = RANDOMIZED-PARTITION(A, p, r)
+        RANDOMIZED-QUICKSORT(A, p, q-1)
+        RANDOMIZED-QUICKSORT(A, q+1, r)
+\end{lstlisting}
+It changes how likely the worst case is to occur.
 
 \end{multicols*}
 \end{document}
