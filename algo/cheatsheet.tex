@@ -10,10 +10,6 @@
 
 \cheattitle{Algorithms I}{}{BA4}
 
-% ============================================================
-%                       COURSE OUTLINE
-% ============================================================
-
 \section{Data Structures for Disjoint Sets}
 Each set identified by a representative.
 
@@ -41,14 +37,12 @@ CONNECTED-COMPONENTS(G)
 
 \section{Traversing/Searching a Graph G=(V,E)}
 
-\begin{defn}[title=Representation]
 \begin{tabular}{lll}
  & \textbf{Adj. list} & \textbf{Adj. matrix} \\
 Space & $\Theta(V{+}E)$ & $\Theta(V^2)$ \\
 List G.adj[u] & $\Theta(\deg(u))$ & $\Theta(V)$ \\
 $(u,v)\in E$? & $O(\deg(u))$ & $\Theta(1)$ \\
 \end{tabular}
-\end{defn}
 
 \subsection{BFS - Breadth-First Search}
 
@@ -128,6 +122,24 @@ Same as DFS: $\Theta(V+E)$
 
 \begin{center} % A retirer si besoin d'espace
   \includegraphics[width=\linewidth]{images/topological-sort.png}
+\end{center}
+
+\subsection{Strongly connected components (SCC)}
+\begin{lstlisting}
+SCC(G):
+    Call DFS(G) to compute u.f for all u
+    Compute G^T (with all edges reversed)
+    Call DFS(G^T), visiting vertices in
+      decreasing u.f order
+    Output each tree in DFS forest = one SCC
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+Same as DFS: $\Theta(V+E)$
+\end{prop}
+
+\begin{center} % A retirer si besoin d'espace
+  \includegraphics[width=\linewidth]{images/scc.png}
 \end{center}
 
 \section{Flow network}
