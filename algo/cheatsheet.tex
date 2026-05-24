@@ -42,7 +42,7 @@ $\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sorted.
 \textbf{Init:} $j{=}2$, trivial. \textbf{Maint:} key inserted correctly. \textbf{Term:} $A$ sorted.
 \end{prop}
 
-\subsection{Divide-and-conquer}
+\subsection{Divide-and-conquer} % A retirer si besoin d'espace
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/divide-and-conquer.png}\par}
 
 \subsection{Merge Sort}
@@ -67,7 +67,19 @@ MERGE-SORT(A, p, r)
 \end{lstlisting}
 
 \begin{prop}[title=Runtime]
-$T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
+    $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
+\end{prop}
+
+\section{Solving recurrences}
+
+\subsection{The substitution method}
+\begin{enumerate}
+  \item Guess the form of the solution.
+  \item Use \textbf{induction} to find constants \& verify.
+\end{enumerate}
+
+\begin{prop}[title=Unintuitive trick]
+Sometimes solution is to prove something stronger
 \end{prop}
 
 \newpage
