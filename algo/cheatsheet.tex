@@ -37,13 +37,7 @@ CONNECTED-COMPONENTS(G)
             UNION(u, v)
 \end{lstlisting}
 
-\begin{center}
-\begin{tabular}{cc}
-  \small Linked list & \small Tree \\
-  \includegraphics[width=0.48\linewidth]{images/linkedList_representation.png} &
-  \includegraphics[width=0.48\linewidth]{images/tree_representation.png}
-\end{tabular}
-\end{center}
+\noindent\includegraphics[width=0.56\linewidth]{images/linkedList_representation.png}\hfill\includegraphics[width=0.38\linewidth]{images/tree_representation.png}
 
 \section{Traversing/Searching a Graph G=(V,E)}
 
@@ -75,8 +69,50 @@ BFS(G, s)
 \end{lstlisting}
 
 \begin{prop}[title=BFS properties]
-Finds shortest paths from $s$. Runtime: $O(V+E)$.
+Search for all vertices from $s$. Runtime: $O(V+E)$.
 \end{prop}
+
+\subsection{DFS - Depth-First Search}
+
+\begin{lstlisting}
+DFS(G)
+    for each u in G.V: u.color = WHITE
+    time = 0
+    for each u in G.V
+        if u.color == WHITE: DFS-VISIT(G, u)
+
+DFS-VISIT(G, u)
+    time = time + 1; u.d = time
+    u.color = GRAY
+    for each v in G.Adj[u]
+        if v.color == WHITE: DFS-VISIT(v)
+    u.color = BLACK
+    time = time + 1; u.f = time
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+$\Theta(V+E)$
+\end{prop}
+
+\begin{thm}[title=Parenthesis theorem]
+For all $u,v$, exactly one of:
+\begin{itemize}
+  \item \textbf{Neither ances.:} $u.d<u.f<v.d<v.f$ (or >)
+  \item \textbf{$v$ descendant of $u$:} $u.d<v.d<v.f<u.f$
+  \item \textbf{$u$ descendant of $v$:} $v.d<u.d<u.f<v.f$
+\end{itemize}
+\end{thm}
+
+\begin{defn}[title=Classification of edges]
+\textcolor{orange}{\textbf{Tree:}} found by exploring $(u,v)$ in DF forest\\
+\textcolor{blue}{\textbf{Back:}} $(u,v)$, $u$ descendant of $v$\\
+\textcolor{red}{\textbf{Forward:}} $(u,v)$, $v$ desc.\ of $u$, not tree edge\\
+\textcolor{green!60!black}{\textbf{Cross:}} any other edge\\
+\textbf{UDG:} only tree/back edges. | \textbf{DAG:} no back edge.
+\end{defn}
+\begin{center} % A retirer si besoin d'espace
+  \includegraphics[width=\linewidth]{images/classification_of_edges.png}
+\end{center}
 
 \section{Flow network}
 \subsection{Definitions}
