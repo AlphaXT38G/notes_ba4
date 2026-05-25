@@ -315,12 +315,8 @@ $\mathbf{h}=\mathcal{H}\boldsymbol{\delta}$. An LTI system is \emph{fully} descr
 \end{itemize}
 \end{defn}
 
-\begin{defn}[title=Causality]
-\begin{itemize}
-  \item \textbf{Up to a delay}: $h[n]=0$ for $0>n_0>n$.
-  \item \textbf{Anticausal}: $h[n]=0$ for $n>0$; offline use only.
-  \item \textbf{Ideal}: $h$ has infinite two-sided support.
-\end{itemize}
+\begin{defn}[title=Definition of causal]
+Only responds to present or past inputs.
 \end{defn}
 
 \begin{thm}[title=BIBO Stability]
@@ -336,9 +332,8 @@ LTI is BIBO stable $\Longleftrightarrow$ $\mathbf{h}$ is absolutely summable:
 
 % --- 5. FREQUENCY RESPONSE ---
 \begin{thm}[title=Frequency Response]
-C'est un masque chez les fréquences (ex: lowpass)
+We extract from it the magnitude/phase response.
 \[H(\omega)= \mathrm{DTFT}\{\boldsymbol{h}[n]\} \]
-\[\mathcal{H}\{e^{j\omega_0 n}\} = H(\omega_0)\cdot e^{j\omega_0 n}\]
 \end{thm}
 
 \begin{thm}[title=Convolution theorem]
@@ -386,24 +381,20 @@ $\mathrm{rect}(x)=\begin{cases}1&|x|\le\tfrac{1}{2}\\0&|x|>\tfrac{1}{2}\end{case
 \subsection{Transfer Function}
 
 \begin{defn}[title=Transfer function $H(z)$]
-\[H(z) = \frac{\displaystyle\sum_{k=0}^{M}b_k z^{-k}}{\displaystyle 1+\sum_{k=1}^{N}a_k z^{-k}} = \frac{B(z)}{A(z)}\]
-$B(z)$: feedforward (FIR part).\\$A(z)$: feedback (IIR part). FIR: $A(z)=1$.
-\end{defn}
-
-\begin{defn}[title=Zeros \& poles — factored form]
-\[H(z) = b_0\,\frac{\displaystyle\prod_{k=0}^{M-1}(1-z_k z^{-1})}{\displaystyle\prod_{k=0}^{N-1}(1-p_k z^{-1})}\]
+\[H(z)  = \frac{B(z)}{A(z)} = b_0\,\frac{\displaystyle\prod_{k=0}^{M-1}(1-z_k z^{-1})}{\displaystyle\prod_{k=0}^{N-1}(1-p_k z^{-1})}\]
+$B(z)$: feedforward (FIR part).\\$A(z)$: feedback (IIR part). FIR: $A(z)=1$.\\
 \textbf{Zeros} $z_k$: roots of $B(z)$, where $|H|=0$.\\
 \textbf{Poles} $p_k$: roots of $A(z)$, where $|H|\to\infty$.
 \end{defn}
 
 % --- 4. STABILITY & ROC ---
-\subsection{Stability \& ROC}
+\subsection{Region Of Convergence (ROCs)}
 
 \begin{prop}[title=ROC \& causality]
-The ROC is the set of $z\in\mathbb{C}$: $\sum_n|x[n]z^{-n}|<\infty$.
+$$z \in \text{ROC}\{X(z)\} \iff \sum_{n=-\infty}^{\infty} \left|x[n]z^{-n}\right| < \infty$$
 Poles bound the ROC — zeros do not affect it.\\[2pt]
 \textbf{Causal IIR}: ROC $= \{|z|>R\}$: $R=\max_k|p_k|$.\\
-\textbf{FIR}: ROC $= \mathbb{C}$ (except possibly $z=0$).
+\textbf{FIR}: ROC $= \mathbb{C}$.
 \end{prop}
 
 \begin{thm}[title=BIBO stability]
@@ -412,9 +403,9 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \end{thm}
 
 \begin{center}
+{\footnotesize Stable (unit circle in ROC)\hfill Unstable (unit circle not in ROC)}
 \includegraphics[width=0.47\linewidth]{images/roc_causal_stable.png}\hfill
 \includegraphics[width=0.47\linewidth]{images/roc_causal_unstable.png}\\[1pt]
-{\footnotesize Stable (unit circle in ROC)\hfill Unstable (unit circle not in ROC)}
 \end{center}
 
 \section{Filtering III - Stochastic and Adaptive SP}
