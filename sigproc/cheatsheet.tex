@@ -342,17 +342,8 @@ C'est un masque chez les fréquences (ex: lowpass)
 \end{thm}
 
 \begin{thm}[title=Convolution theorem]
-\[y=x*h \;\Longleftrightarrow\; Y(\omega)=X(\omega)\cdot H(\omega)\]
+\[y=x*h \;\Longleftrightarrow\; Y(\omega)=H(\omega)X(\omega)\]
 \end{thm}
-
-\begin{defn}[title=Filter types by magnitude response]
-\begin{itemize}
-  \item \textbf{Lowpass}: passes low freqs ($\omega\approx 0$)
-  \item \textbf{Highpass}: passes high freqs
-  \item \textbf{Bandpass}: passes freqs near $\pm\omega_c$
-  \item \textbf{Allpass}: $|H(\omega)|=\text{const}$ — modifies phase only
-\end{itemize}
-\end{defn}
 
 \subsection{Example of filters}
 
@@ -377,32 +368,24 @@ $\mathrm{rect}(x)=\begin{cases}1&|x|\le\tfrac{1}{2}\\0&|x|>\tfrac{1}{2}\end{case
 \textbf{DTFT pair}: $\dfrac{\omega_p}{\pi}\,\mathrm{sinc}\!\left(\dfrac{\omega_p}{\pi}n\right)\overset{\mathrm{DTFT}}{\longleftrightarrow}\mathrm{rect}\!\left(\dfrac{\omega}{2\omega_p}\right)$
 \end{defn}
 
+\begin{defn}[title=Filter types by magnitude response]
+\begin{itemize}
+  \item \textbf{Lowpass}: passes low freqs ($\omega\approx 0$)
+  \item \textbf{Highpass}: passes high freqs
+  \item \textbf{Bandpass}: passes freqs near $\pm\omega_c$
+  \item \textbf{Allpass}: $|H(\omega)|=\text{const}$ — modifies phase only
+\end{itemize}
+\end{defn}
+
 \section{Filtering II - Filter Design}
 \begin{thm}[title=Modulation theorem]
 \[z[n]=x[n]y[n] \;\Longleftrightarrow\; Z(\omega)=X(\omega) * Y(\omega)\]
 \end{thm}
 
-\begin{defn}[title=Z-Transform]
-\[X(z) = \sum_{n=-\infty}^{\infty} x[n]\,z^{-n}, \quad z\in\mathbb{C}\]
-A formal power series in $z^{-1}$; existence requires the sum to converge absolutely for a given $z$.
-\end{defn}
-
-\begin{prop}[title=Fundamental properties]
-\textbf{Linearity:} $\mathcal{Z}\{\alpha\mathbf{x}+\beta\mathbf{y}\} = \alpha X(z)+\beta Y(z)$\\
-\textbf{Time-shift:} $\mathcal{Z}\{x[n-N]\} = z^{-N}X(z)$
-\end{prop}
-
-\begin{prop}[title=Link to DTFT]
-\[X(e^{j\omega}) = \sum_{n=-\infty}^{\infty} x[n]\,e^{-j\omega n} = \mathrm{DTFT}\{\mathbf{x}\}\]
-The DTFT is the z-transform restricted to $|z|=1$
-\end{prop}
-
 % --- 2. TRANSFER FUNCTION ---
 \subsection{Transfer Function}
 
 \begin{defn}[title=Transfer function $H(z)$]
-From $y[n]=h[n]*x[n]$ $\Rightarrow$ $Y(z)=H(z)X(z)$, so $H(z)=\mathcal{Z}\{\mathbf{h}\}=\dfrac{Y(z)}{X(z)}$.\\[4pt]
-Applying $\mathcal{Z}\{\cdot\}$ to the CCDE (time-shift: $x[n-k]\to z^{-k}X(z)$):
 \[H(z) = \frac{\displaystyle\sum_{k=0}^{M}b_k z^{-k}}{\displaystyle 1+\sum_{k=1}^{N}a_k z^{-k}} = \frac{B(z)}{A(z)}\]
 $B(z)$: feedforward (FIR part).\\$A(z)$: feedback (IIR part). FIR: $A(z)=1$.
 \end{defn}
@@ -433,19 +416,6 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \includegraphics[width=0.47\linewidth]{images/roc_causal_unstable.png}\\[1pt]
 {\footnotesize Stable (unit circle in ROC)\hfill Unstable (unit circle not in ROC)}
 \end{center}
-
-
-\subsection{Running Examples in Z-Domain}
-
-\begin{prop}[title=Moving Average — z-domain]
-\[H(z)=\frac{1}{N}\cdot\frac{1-z^{-N}}{1-z^{-1}}=\frac{1}{N}\prod_{k=1}^{N-1}(1-e^{j\frac{2\pi}{N}k}z^{-1})\]
-$N{-}1$ zeros at $N$-th roots of unity (all except $z=1$); no poles. ROC: all $\mathbb{C}$ except $z=0$. Always stable (FIR).
-\end{prop}
-
-\begin{prop}[title=Leaky Integrator — z-domain]
-\[H(z)=\frac{1-\lambda}{1-\lambda z^{-1}}, \quad \text{pole at } z=\lambda\]
-ROC: $|z|>\lambda$ (causal). Stable $\Leftrightarrow$ $|\lambda|<1$ (pole inside unit circle). As $\lambda\to 1$: pole approaches unit circle, bandwidth narrows.
-\end{prop}
 
 \section{Filtering III - Stochastic and Adaptive SP}
 
@@ -580,60 +550,6 @@ Montrer la périodiciter. Diviser les indices par N.
 \begin{defn}[title=Quantization schemes]
 \includegraphics[width=\linewidth]{images/quantization_schemes.png}
 \end{defn}
-\newpage
-% ============================================================
-\section{Quick Reference}
-
-\subsection{Geometric sum}
-\[
-  \sum_{n=0}^{N-1}r^n = \frac{1-r^N}{1-r},\quad r\ne 1
-\]
-Used in rectangular DFT derivation; also the orthogonality of Fourier vectors (set $r=e^{j\frac{2\pi}{N}(k-h)}$, $k\ne h$).
-
-\subsection{Euler \& trig}
-\begin{itemize}
-
-  \item $(e^{j\theta})^* = e^{-j\theta}$
-  \item $\cos(a+b)=\cos a\cos b - \sin a\sin b$
-  \item $\sin(a+b)=\sin a\cos b + \cos a\sin b$
-  \item $\sin a\sin b = \tfrac{1}{2}[\cos(a-b)-\cos(a+b)]$
-  \item $\cos a\cos b = \tfrac{1}{2}[\cos(a-b)+\cos(a+b)]$
-  \item $\sin a\cos b = \tfrac{1}{2}[\sin(a+b)+\sin(a-b)]$
-\end{itemize}
-
-\subsection{Complex number tricks}
-\begin{itemize}
-  \item $z_1 = z_2^* \Rightarrow |z_1|=|z_2|$ \quad ($|z|=|z^*|$ always)
-  \item $z + z^* = 2\,\mathrm{Re}\{z\}$, \quad $z - z^* = 2j\,\mathrm{Im}\{z\}$
-  \item $z = z^* \;\Longleftrightarrow\; z\in\mathbb{R} \;\Longleftrightarrow\; \mathrm{Im}\{z\}=0$
-  \item $|z_1 z_2| = |z_1||z_2|$, \quad $\angle(z_1 z_2) = \angle z_1 + \angle z_2$
-  \item $|z|^2 = z\cdot z^*$
-\end{itemize}
-
-\subsection{\texorpdfstring{Inner product in $\mathbb{C}^N$}{Inner product in CN}}
-Coefficients: $X[k]=\langle\mathbf{w}_k,\mathbf{x}\rangle$ (projection onto basis).
-
-\subsection{{DTFT inner product in \texorpdfstring{$L_2([-\pi,\pi])$}{L2([-pi,pi])}}}
-$\langle\mathbf{F},\mathbf{G}\rangle = \frac{1}{2\pi}\int_{-\pi}^{\pi}F^*(\omega)\,G(\omega)\,d\omega$\\
-Set $\{e^{-j\omega n}\}_{n\in\Z}$ forms an orthogonal basis.\\
-$x[n] = \langle e^{j\omega n}, X(\omega)\rangle$
-
-\subsection{Key warnings}
-\begin{warn}[title=DFT normalization]
-\textbf{Analysis}: no $1/N$ factor. \textbf{Synthesis}: $1/N$ factor. Convention: $\mathbf{W}^H\mathbf{W}=N\mathbf{I}$.
-\end{warn}
-
-\begin{warn}[title=Phase wrapping]
-Phase plots show $\angle X[k] \in [-\pi,\pi]$ (wrapped). Apparent discontinuities are $\pm\pi$ jumps, not real.
-\end{warn}
-
-\begin{warn}[title=Real signal DFT]
-For real $\mathbf{x}$: $X[k]=X^*[N-k]$. Only first $\lfloor N/2\rfloor+1$ coefficients are independent. Magnitude symmetric around $k=N/2$.
-\end{warn}
-
-\begin{warn}[title=Circular vs.\ linear shift]
-DFT/DFS time shifts are always \textbf{circular} (modulo $N$). For aperiodic finite signals, multiplying by phase in freq domain gives circular shift.
-\end{warn}
 
 \end{multicols*}
 \end{document}
