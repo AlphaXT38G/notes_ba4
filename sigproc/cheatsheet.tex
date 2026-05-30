@@ -120,59 +120,24 @@ $\mathbf{X} = \mathbf{W}\mathbf{x}$, \quad $\mathbf{x} = \tfrac{1}{N}\mathbf{W}^
     W_N^0 & W_N^{N-1} & \cdots & W_N^{(N-1)^2}
   \end{bmatrix}
 \]
-$\mathbf{W}^H\mathbf{W} = N\mathbf{I}$.
+$\mathbf{W}^H\mathbf{W} = N\mathbf{I}$.\\
+$W_N^n = W_N^{n\,\mathrm{mod}\,N}$ (aliasing property).
 \end{prop}
 
-\begin{warn}[title=Powers modulo $N$]
-$W_N^n = W_N^{n\,\mathrm{mod}\,N}$ (aliasing property).
-\end{warn}
-
-\subsubsection{Small DFT matrices}
 \[
-  \mathbf{W}_2 = \begin{bmatrix}1&1\\1&-1\end{bmatrix}
-\]
-\[
+  \mathbf{W}_2 = \begin{bmatrix}1&1\\1&-1\end{bmatrix} \quad
   \mathbf{W}_4 = \begin{bmatrix}1&1&1&1\\1&-j&-1&j\\1&-1&1&-1\\1&j&-1&-j\end{bmatrix}
 \]
 
 % ============================================================
 \section{Properties}
 A signal $\mathbf{x}$ is \textbf{symmetric} if $x[n]=x[N-n]$.\\
-A signal is \textbf{Hermitian-symmetric} if $x[n]=x^*[N-n]$.
-
-\begin{thm}[title=Symmetry summary]
-\renewcommand{\arraystretch}{1}
-\begin{tabularx}{\linewidth}{@{}XX@{}}
-\toprule
-\textbf{Time domain} $x[n]$ & \textbf{Freq.\ domain} $X[k]$ \\
-\midrule
-Real & $X[-k]=X^*[k]$ \\
-Real \& even & Real \& even \\
-Real \& odd & Imaginary \& odd \\
-Complex \& even & Complex \& even \\
-Complex \& odd & Complex \& odd \\
-\bottomrule
-\end{tabularx}
-\end{thm}
-
-% ============================================================
-\section{DFS: $X[k]$}
-\begin{defn}[title=DFS (Discrete Fourier Series)]
-For an $N$-periodic signal $\tilde{x}$:
-\[
-  \tilde{\mathbf{X}} = \mathrm{DFS}\{\tilde{\mathbf{x}}\} = \mathrm{DFT}\{\tilde{x}[0],\ldots,\tilde{x}[N-1]\}
-\]
-DFS $\equiv$ DFT: same formulas, different interpretation (explicit periodicity).
-\end{defn}
-
-\begin{prop}[title=Circular shift]
-$\tilde{x}[n-n_0] \overset{\mathrm{DFS}}{\longleftrightarrow} e^{-j\frac{2\pi}{N}n_0 k}\,\tilde{X}[k]$
-\end{prop}
+A signal is \textbf{Hermitian-symmetric} if $x[n]=x^*[N-n]$.\\
+\textbf{DFS} $\equiv$ DFT: same formulas, different interpretation (explicit periodicity).
 
 % ============================================================
 \section{DTFT: $X(e^{j\omega})$}
 
-\subsection{As a limit of the DFT}
 \[
   X[k] \;\longrightarrow\; X(e^{j\omega}) \quad \text{with} \quad \omega = \frac{2\pi k}{N}
 \]
@@ -283,8 +248,6 @@ Let $y[n] = \mathcal{H}\{x[n]\}$. \\
 \[
     \underbrace{\mathcal{H}\{x[n - n_0]\}}_{x[\cdot] \,\leftarrow\, x[\cdot - n_0]} \stackrel{?}{=} \underbrace{y[n - n_0]}_{n \,\leftarrow\, n - n_0}
 \]
-\emph{Key consequence:} an LTI system cannot create new frequency content.
-
 \end{defn}
 
 \subsection{Impulse Response \& Convolution}
@@ -370,6 +333,7 @@ $\mathrm{rect}(x)=\begin{cases}1&|x|\le\tfrac{1}{2}\\0&|x|>\tfrac{1}{2}\end{case
   \item \textbf{Bandpass}: passes freqs near $\pm\omega_c$
   \item \textbf{Allpass}: $|H(\omega)|=\text{const}$ — modifies phase only
 \end{itemize}
+Stop Band: 0 \textbf{-} Transition Band \textbf{-} Pass Band: 1.
 \end{defn}
 
 \section{Filtering II - Filter Design}
