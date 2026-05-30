@@ -381,16 +381,15 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \textbf{Variance}: $\sigma_x^2 = E[(x-\mu_x)^2]$
 \end{defn}
 
-\begin{thm}[title=Rappel de proba +]
-\begin{itemize}
-  \item \textbf{Auto-correlation} $R_{X}=E[x^2]$
-  \item \textbf{Cross-correlation} $R_{XY}=E[xy]$
-  \item \textbf{Covariance} $C_{XY}=E[(x-m_x)(y-m_y)]$
-  \item \textbf{if zero-mean} $C_{XY}=R_{XY}$
-  \item \textbf{Uncorrelated} $E_{XY}=E[x]E[y]$
-  \item \textbf{Independent} $f_{XY}(x,y)=f_{X}(x)f_{Y}(y)$
-\end{itemize}
-\end{thm}
+\begin{defn}[title=Cross-correlation \& Covariance]
+\textbf{Cross-correlation}: $R_{xy} = E[xy]$ \\
+\textbf{Covariance}: $C_{xy} = E[(x-m_x)(y-m_y)]$ \\
+\textbf{If zero-mean}: $C_{xy} = R_{xy}$ \\[2pt]
+To compute covariance, need the joint PDF $f_{xy}(x,y)$:
+\[ E[g(x,y)] = \int\!\!\int_{-\infty}^{\infty} g(x,y)\,f_{xy}(x,y)\,dx\,dy \]
+\textbf{Uncorrelated}: $E[xy]=E[x]E[y]=m_x m_y$ \\
+\textbf{Independent}: $f_{xy}(x,y)=f_x(x)f_y(y)$
+\end{defn}
 
 \begin{defn}[title=Deterministic vs Stochastic]
 \textbf{Deterministic}: $x[n]$ fully described by a formula.\\
