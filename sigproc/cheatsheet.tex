@@ -287,12 +287,6 @@ LTI is BIBO stable $\Longleftrightarrow$ $\mathbf{h}$ is absolutely summable:
 \[\sum_{k=-\infty}^{\infty}|h[k]|<\infty\]
 \end{thm}
 
-\begin{defn}[title=Constant-Coefficient Difference Equation (CCDE)]
-\[y[n]=\underbrace{\sum_{k=0}^{M-1}b_k\,x[n-k]}_{\text{feedforward (FIR part)}}-\underbrace{\sum_{k=1}^{N-1}a_k\,y[n-k]}_{\text{feedback (IIR part)}}\]
-\textbf{FIR}: all $a_k=0$ for $k\ge 1$.\\
-\textbf{IIR}: at least one $a_k\ne 0$ for $k\ge 1$ — recursion introduces a feedback loop.
-\end{defn}
-
 % --- 5. FREQUENCY RESPONSE ---
 \begin{thm}[title=Frequency Response]
 We extract from it the magnitude/phase response.
@@ -302,6 +296,16 @@ We extract from it the magnitude/phase response.
 \begin{thm}[title=Convolution theorem]
 \[y=x*h \;\Longleftrightarrow\; Y(\omega)=H(\omega)X(\omega)\]
 \end{thm}
+
+\begin{prop}[title=Filter types by magnitude response]
+\begin{itemize}
+  \item \textbf{Lowpass}: passes low freqs ($\omega\approx 0$)
+  \item \textbf{Highpass}: passes high freqs
+  \item \textbf{Bandpass}: passes freqs near $\pm\omega_c$
+  \item \textbf{Allpass}: $|H(\omega)|=\text{const}$ — modifies phase only
+\end{itemize}
+Stop Band: 0 \textbf{-} Transition Band \textbf{-} Pass Band: 1.
+\end{prop}
 
 \subsection{Example of filters}
 
@@ -315,25 +319,6 @@ Causal FIR $\Rightarrow$ always BIBO stable. Big cost.
 \[y[n]=\lambda\,y[n-1]+(1-\lambda)\,x[n], \quad |\lambda|<1\]
 \[h[n]=(1-\lambda)\lambda^n\,u[n]\quad\text{(causal, exponential decay)}\]
 Causal IIR. Constant cost. Approximates MA of length $M$ with $\lambda=\frac{M-1}{M}$.
-\end{defn}
-
-\subsection{Ideal Filters}
-
-\begin{defn}[title=sinc \& rect]
-$\mathrm{sinc}(x)=\dfrac{\sin(\pi x)}{\pi x}$,\; $\mathrm{sinc}(0)=1$.\qquad \\
-$\mathrm{rect}(x)=\begin{cases}1&|x|\le\tfrac{1}{2}\\0&|x|>\tfrac{1}{2}\end{cases}$
-
-\textbf{DTFT pair}: $\dfrac{\omega_p}{\pi}\,\mathrm{sinc}\!\left(\dfrac{\omega_p}{\pi}n\right)\overset{\mathrm{DTFT}}{\longleftrightarrow}\mathrm{rect}\!\left(\dfrac{\omega}{2\omega_p}\right)$
-\end{defn}
-
-\begin{defn}[title=Filter types by magnitude response]
-\begin{itemize}
-  \item \textbf{Lowpass}: passes low freqs ($\omega\approx 0$)
-  \item \textbf{Highpass}: passes high freqs
-  \item \textbf{Bandpass}: passes freqs near $\pm\omega_c$
-  \item \textbf{Allpass}: $|H(\omega)|=\text{const}$ — modifies phase only
-\end{itemize}
-Stop Band: 0 \textbf{-} Transition Band \textbf{-} Pass Band: 1.
 \end{defn}
 
 \section{Filtering II - Filter Design}
@@ -352,11 +337,8 @@ $B(z)$: feedforward (FIR part).\\$A(z)$: feedback (IIR part). FIR: $A(z)=1$.\\
 \end{defn}
 
 % --- 4. STABILITY & ROC ---
-\subsection{Region Of Convergence (ROCs)}
-
 \begin{prop}[title=ROC \& causality]
-$$z \in \text{ROC}\{X(z)\} \iff \sum_{n=-\infty}^{\infty} \left|x[n]z^{-n}\right| < \infty$$
-Poles bound the ROC — zeros do not affect it.\\[2pt]
+\[z \in \text{ROC}\{X(z)\} \iff \sum_{n=-\infty}^{\infty} \left|x[n]z^{-n}\right| < \infty\]
 \textbf{Causal IIR}: ROC $= \{|z|>R\}$: $R=\max_k|p_k|$.\\
 \textbf{FIR}: ROC $= \mathbb{C}$.
 \end{prop}
