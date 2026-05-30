@@ -418,6 +418,17 @@ Properties: $r_x[-k]=r_x[k]$;\quad $r_x[0]=E[x[n]^2]=P_x\ge 0$.
 \textbf{Autocorrelation}: $r_x[n] = \sigma_x^2\,\delta[n]$
 \end{defn}
 
+\begin{prop}[title=Power Spectral Density]
+\textbf{Estimator (DFT)}: $P[k] = E\left[|X_N[k]|^2/N\right]$\\
+\textbf{Exact definition (Wiener-Khinchin)}:
+\[ P_x(e^{j\omega}) = \sum_{k=-\infty}^{\infty} r_x[k]\,e^{-j\omega k} = \mathrm{DTFT}\{r_x[k]\} \]
+\end{prop}
+
+\begin{thm}[title=Convolution theorem (stochastic)]
+If $y[n] = h[n] * x[n]$, then:
+\[ P_y[k] = P_x[k]\,|H[k]|^2, \quad H[k] = \mathrm{DFT}\{h[n]\} \]
+\end{thm}
+
 % ============================================================
 \newpage \section{A/D I - Interpolation \& Sampling}
 
