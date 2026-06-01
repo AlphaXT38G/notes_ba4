@@ -1,0 +1,59 @@
+\documentclass[8pt,a4paper,landscape]{extarticle}
+\makeatletter
+\def\input@path{{../_shared/}}
+\makeatother
+\usepackage{cheatsheet}
+\usepackage{graphicx}
+
+\begin{document}
+\begin{multicols*}{4}
+
+\cheattitle{Computer Systems}{}{BA4}
+
+\section{Lecture 8}
+
+\begin{prop}[title=Headers]
+\begin{itemize}
+    \item \textbf{Transport header - TCP}: SYN flag, checksum, SEQ, ACK, receiver window, src/dst port.
+    \item \textbf{Network header - IP:} src/dst IP addr. 
+\end{itemize}
+\end{prop}
+
+\iffalse
+askip on a dit quelque part que:
+packet switches
+ - link layer (couche 2 ; ex: ethernet: dans un prochain cours)
+ - network layer (couche 3 ; also called routers)
+\fi
+
+\subsection{Network Layer functions}
+
+\subsubsection{Forwarding}
+\begin{defn}[title=Forwarding]
+Determines the output link for each packet.
+\textbf{How:} \textbf{read} field from packet's network layer header, \textbf{search} forwarding table for output link.
+\end{defn}
+
+\subsubsection{Routing}
+\begin{defn}[title=Routing]
+Populates forwarding tables.
+\textbf{How:} routing algorithm run on a logically centralised \textbf{network controller} or the \textbf{routers themselves}
+\end{defn}
+
+\subsection{Internet (IP) forwarding}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture8/forwarding-table.png}\par}
+Each entry is a \textbf{prefix} (e.g.\ \texttt{01**}); a packet is forwarded using the \textbf{longest matching prefix}.
+
+\begin{defn}[title=IP prefix]
+\texttt{a.b.c.d/n} denotes a range of addresses sharing the same first $n$ bits (prefix length); the remaining $32-n$ bits are wildcards.
+\end{defn}
+
+\subsubsection{IP subnet (subnetwork)}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture8/ip-subnet-overview.png}\par}
+
+\begin{defn}[title=Broadcast IP address]
+The \texttt{biggest IP address} an IP subnet. If a packet has this destination, it's destined to \textbf{all the end-systems} and \textbf{routers} in the IP subnet.
+\end{defn}
+
+\end{multicols*}
+\end{document}
