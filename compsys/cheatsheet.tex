@@ -203,5 +203,22 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     \end{itemize}
 \end{prop}
 
+\section{Lecture 12 - Processes and Threads}
+
+\begin{defn}[title=Process]
+    An instance of a running program. Has its own \textbf{isolated memory space} (code, data, heap, stack) and OS resources (file descriptors, etc.).
+\end{defn}
+
+\begin{defn}[title=Thread]
+    A unit of execution \textbf{within} a process. Threads share the process's memory and resources, but each has its own \textbf{stack} and \textbf{program counter}.
+\end{defn}
+
+\begin{prop}[title=Key properties]
+    \begin{itemize}
+        \item \textbf{Identifier}: unique id for processes and threads
+        \item Each Thread/Process has the \textbf{illusion} that is it the only one occupying the CPU/Memory (resp.)
+    \end{itemize}
+\end{prop}
+
 \end{multicols*}
 \end{document}
