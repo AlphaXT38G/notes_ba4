@@ -83,5 +83,71 @@ The \texttt{biggest IP address} an IP subnet. If a packet has this destination, 
 \subsubsection{NAT example}
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture8/nat-overview.png}\par}
 
+\section{Lecture 9 - Routing \& BGP}
+
+\begin{defn}[title=First-hop router]
+    First router packets hit when leaving a subnet.
+\end{defn}
+
+\subsection{Internet Routing algorithms}
+
+\begin{prop}[title=Dijkstra's (Link state routing algo)]
+    \begin{enumerate}
+        \item At each step, consider a new router starting from "closest" neighbor
+        \item Check whether current paths can be improved
+        \item End when no improvement is possible
+    \end{enumerate}
+\end{prop}
+\begin{prop}[title=Bellman-Ford (Distance vector)]
+    \begin{enumerate}
+        \item All neighbors exchange information
+        \item Each router checks whether it can improve current paths by leveraging the new information
+        \item End when no improvement is possible
+    \end{enumerate}
+\end{prop}
+
+\begin{warn}[title=Link state VS Distance vector]
+    \begin{itemize}
+        \item Link state converges faster
+        \item Distance vector uses less bandwitdh
+    \end{itemize}
+\end{warn}
+
+\subsection{Putting things together}
+
+\subsubsection{}
+
+\begin{thm}[title=Internet rounting challenges]
+    \begin{itemize}
+        \item \textbf{Admin:} An ISP may want to hide its link costs
+        \item \textbf{Scale:} Too many IP subnets may cause trouble
+    \end{itemize}
+\end{thm}
+
+\begin{defn}[title=Autonomous System (AS)]
+    A network or group of networks under a \textbf{single administrative authority}, running its own internal routing protocol. Identified by a unique \textbf{ASN}.
+\end{defn}
+
+\subsection{Inter-AS Routing (BGP)}
+Routing \textbf{between} ASes. One universal protocol based on Bellman-Ford. Not always the shortest path.
+
+\begin{prop}[title=Border Gateway Protocol (BGP)]
+    \begin{enumerate}
+        \item All neighbors exchange reachable prefixes
+        \item Each router checks whether it can improve paths
+        \item End when no improvement is possible
+    \end{enumerate}
+\end{prop}
+
+\begin{thm}[title=Internet rounting solutions]
+    \begin{itemize}
+        \item Router $\leftrightarrow$ with \textbf{local} router
+        \item Border router $\leftrightarrow$ with \textbf{external neighbor}
+        \item Router keeps \textbf{forwarding state} for (1) \textbf{local IP subnets} and (2) \textbf{foreign aggregate IP prefixe}
+    \end{itemize}
+\end{thm}
+
+% Concrètement: Je ne connais pas toutes les maisons du monde. Je sais seulement sur quelle île aller. Une fois sur l'île, les habitants connaissent les routes locales et me dirigent vers la bonne maison.
+
 \end{multicols*}
 \end{document}
