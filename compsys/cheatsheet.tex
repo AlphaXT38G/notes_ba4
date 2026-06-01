@@ -154,5 +154,54 @@ Routing \textbf{between} ASes. One universal protocol based on Bellman-Ford. Not
 
 % Concrètement: Je ne connais pas toutes les maisons du monde. Je sais seulement sur quelle île aller. Une fois sur l'île, les habitants connaissent les routes locales et me dirigent vers la bonne maison.
 
+\section{Lecture 10 - Link layer \& Ethernet}
+
+\begin{defn}[title=Recall: Packet Switches types]
+    \begin{itemize}
+        \item \textbf{Network layer:} L3 = \underline{Routers}
+        \item \textbf{Link layer}: L2 = \underline{Switches}. Ex: ethernet
+    \end{itemize}
+\end{defn}
+
+\begin{prop}[title=Link layer services]
+    \begin{itemize}
+        \item Error detection \& Reliable data delivery
+        \item \textit{Medium access control (MAC)}
+    \end{itemize}
+\end{prop}
+
+\begin{defn}[title=Link layer header: MAC address]
+48-bit. Flat: not location dependent
+\end{defn}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture10/L2-forwarding.png}\par}
+
+\begin{prop}[title=Not a real routing]
+Learn from traffic. Broadcast when unknown.
+\end{prop}
+
+\begin{thm}[title=Spanning tree Broadcast]
+The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cycles.
+\end{thm}
+
+\begin{prop}[title=Address Resolution Protocol (ARP)]
+\textbf{Goal:} Map IP addr. to MAC addr.\\
+\textbf{How:} Broadcast + caching. 
+\end{prop}
+
+\begin{prop}[title=ARP vs DNS]
+    \begin{itemize}
+        \item \textbf{ARP:} Relies on broadcasting
+        \item \textbf{DNS:} Relies on DNS structure
+    \end{itemize}
+\end{prop}
+
+\begin{prop}[title=Three network levels]
+    \begin{itemize}
+        \item \textbf{IP Subnet:} L2 forwarding, L2 learning
+        \item \textbf{AS:} IP (L3) forwarding, intra domain routing
+        \item \textbf{Internet:} IP (L3) forwarding, BGP routing
+    \end{itemize}
+\end{prop}
+
 \end{multicols*}
 \end{document}
