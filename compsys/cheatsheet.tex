@@ -55,5 +55,28 @@ Each entry is a \textbf{prefix} (e.g.\ \texttt{01**}); a packet is forwarded usi
 The \texttt{biggest IP address} an IP subnet. If a packet has this destination, it's destined to \textbf{all the end-systems} and \textbf{routers} in the IP subnet.
 \end{defn}
 
+\begin{prop}[title=Internet principle]
+    \textbf{Global reachability:} Every end-system must be reachable from any other end-system.
+\end{prop}
+ 
+\subsection{Network Address Translation (NAT)}
+\begin{prop}[title=How does it work]
+    \begin{itemize}
+        \item Resolves IP address depletion problem
+        \item Rewrites src IP add. and port \# of outg. packets
+        \item Rewrites dst IP add. and port \# of inc. packets
+    \end{itemize}
+\end{prop}
+
+\begin{thm}[title=Layering violation (but it works)]
+    \begin{itemize}
+        \item Requires \textbf{per-connection state} at the border routers of the private IP subnets.
+        \item An end-system inside a private IP subnet is \textbf{unreachable} from the outside world. [trick possible]
+    \end{itemize}
+\end{thm}
+
+\subsubsection{NAT example}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture8/nat-overview.png}\par}
+
 \end{multicols*}
 \end{document}
