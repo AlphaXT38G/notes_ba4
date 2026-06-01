@@ -213,10 +213,76 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     A unit of execution \textbf{within} a process. Threads share the process's memory and resources, but each has its own \textbf{stack} and \textbf{program counter}.
 \end{defn}
 
+\begin{defn}[title=OS Scheduler]
+    Allows each thread to run by allocating CPU time slices, switching between threads (context switch) to give the illusion of parallelism.
+\end{defn}
+
 \begin{prop}[title=Key properties]
     \begin{itemize}
         \item \textbf{Identifier}: unique id for processes and threads
         \item Each Thread/Process has the \textbf{illusion} that is it the only one occupying the CPU/Memory (resp.)
+    \end{itemize}
+\end{prop}
+
+\section{Lecture 13 - Sharing the CPU}
+
+\begin{defn}[title=Limited direct execution]
+    A thread cannot do whatever it wants for as long as it wants. The CPU executes the thread's instructions without any intermediary.    
+\end{defn}
+
+\begin{prop}[title=CPU priviledge level = CPU mode]
+    A state stored in the CPU. Either "low" or "high".
+\end{prop}
+
+\begin{prop}[title=CPU instructions]
+    \begin{itemize}
+        \item \textbf{Non-priviledged:} can be executed anytime
+        \item \textbf{Priviledged:} only if it is in high mode
+    \end{itemize}
+\end{prop}
+
+\begin{defn}[title=Kernel definition]
+It is the software that runs with full privileges and manages the hardware on behalf of programs.
+\end{defn}
+
+\begin{prop}[title=User/Kernel mode]
+    \begin{itemize}
+        \item \textbf{Kernel mode:} High privilege
+        \item \textbf{User mode:} Low privilege
+    \end{itemize}
+\end{prop}
+
+\begin{thm}[title=3 mechanisms to invoke the kernel]
+    Syscall ; Exception/Trap ; Interrupt
+\end{thm}
+
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture13/kernel_overview.png}\par}
+
+How threads can share the CPU \textbf{safely} and \textbf{fairly}?
+\begin{thm}[title=Limited direct execution]
+    \begin{itemize}
+        \item A normal thread wants to do something high privilege $\rightarrow$ creates a syscall
+        \item A thread tries to do something illegal $\rightarrow$ exception
+        \item An externel entity needs attention $\rightarrow$ interrupt
+    \end{itemize}
+\end{thm}
+
+How are processes created and destroyed?
+\begin{prop}[title=Process lifecycle]
+    \begin{itemize}
+        \item \texttt{fork}: creates a \textbf{child} process (copy of parent)
+        \item \texttt{exec}: replaces process image with a new program
+        \item \texttt{exit}: terminates the process
+        \item \texttt{wait}: parent waits for child to finish
+    \end{itemize}
+\end{prop}
+
+\begin{prop}[title=Key processes]
+    \begin{itemize}
+        \item \textbf{Init}: first process after boot
+        \item \textbf{Idle}: runs when nothing else can
+        \item \textbf{Shell}: spawns new process on command
+        \item \textbf{GUI manager}: spawns new process on click
     \end{itemize}
 \end{prop}
 
