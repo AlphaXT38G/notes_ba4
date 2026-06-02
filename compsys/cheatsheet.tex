@@ -293,5 +293,42 @@ How are processes created and destroyed?
     \end{itemize}
 \end{prop}
 
+\section{Lecture 17/18 - Concurrency}
+
+\begin{defn}[title=Common confusion]
+    \begin{itemize}
+        \item \textbf{Concurrency:} how should we manage tasks
+        \item \textbf{Parallism:} how to execute tasks in parallel
+    \end{itemize}
+\end{defn}
+
+\begin{defn}[title=Race condition \& Data race]
+    \begin{itemize}
+        \item \textbf{Race cond.:} behavior depends on thread timing
+        \item \textbf{Data race:} unsynchronized concurrent access to shared writable state
+    \end{itemize}
+\end{defn}
+
+\begin{defn}[title=Critical section]
+    Code that will be executed by the threads. Must enforce: \textbf{atomicity} (uninterruptible) and \textbf{mutual exclusion} (one thread at a time).
+\end{defn}
+
+\begin{warn}[title=Synchronization primitives]
+    \begin{itemize}
+        \item \textbf{Lock} $\rightarrow$ prevent concurrent access
+        \item \textbf{Condition variable} $\rightarrow$ wait until a condition holds
+        \item \textbf{Semaphore} $\rightarrow$ count available resources
+    \end{itemize}
+\end{warn}
+
+\begin{prop}[title=Locks]
+Ensure atomicity via mutual exclusion:
+    \begin{itemize}
+        \item \textbf{Interrupt-lock:} disable interrupts. Simple but privileged, single-CPU only.
+        \item \textbf{Spinlock:} broken — race condition still possible.
+        \item \textbf{Test-and-set}: correct, but busy-waits (\$ CPU).
+    \end{itemize}
+\end{prop}
+
 \end{multicols*}
 \end{document}
