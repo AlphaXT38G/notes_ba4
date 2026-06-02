@@ -286,5 +286,30 @@ How are processes created and destroyed?
     \end{itemize}
 \end{prop}
 
+\section{Lecture 14 - Memory \& Loose Ends}
+
+\subsection{Memory virtualization}
+\begin{thm}[title=Safe illusion]
+    The process thinks it's occupying the whole memory alone and can only touch its own memory image
+\end{thm}
+
+\begin{prop}[title=Memory Management Unit (MMU)]
+    \begin{itemize}
+        \item \textbf{Base/bound:} base and bound in the memory
+        \item \textbf{Segmentation:} variable-sized chunks (segments)
+        \item \textbf{Paging:} same-sized chunks (frames)
+    \end{itemize}
+\end{prop}
+
+\subsection{Process state diagram}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture14/process_fsm.png}\par}
+
+\subsection{Thread state diagram}
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture14/thread_fsm.png}\par}
+
+\begin{prop}[title=End of a process]
+    \texttt{exit()} syscall: kernel destroys memory image but \textbf{keeps exit status} $\Rightarrow$ process becomes a \textbf{zombie} until parent \textbf{reaps} it via \texttt{wait()} to read the exit status.
+\end{prop}
+
 \end{multicols*}
 \end{document}
