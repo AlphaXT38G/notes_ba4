@@ -33,13 +33,11 @@
 
 \subsection{Network Layer functions}
 
-\subsubsection{Forwarding}
 \begin{defn}[title=Forwarding]
 Determines the output link for each packet.
 \textbf{How:} \textbf{read} field from packet's network layer header, \textbf{search} forwarding table for output link.
 \end{defn}
 
-\subsubsection{Routing}
 \begin{defn}[title=Routing]
 Populates forwarding tables.
 \textbf{How:} routing algorithm run on a logically centralised \textbf{network controller} or the \textbf{routers themselves}
@@ -56,7 +54,7 @@ Each entry is a \textbf{prefix} (e.g.\ \texttt{01**}); a packet is forwarded usi
 \subsubsection{IP subnet (subnetwork)}
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture08/ip-subnet-overview.png}\par}
 
-\begin{defn}[title=Broadcast IP address]
+\begin{defn}[title=Broadcast IP address (+1)]
 The \texttt{biggest IP address} an IP subnet. If a packet has this destination, it's destined to \textbf{all the end-systems} and \textbf{routers} in the IP subnet.
 \end{defn}
 
@@ -213,57 +211,31 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     A unit of execution \textbf{within} a process. Threads share the process's memory and resources, but each has its own \textbf{stack} and \textbf{program counter}.
 \end{defn}
 
-\begin{defn}[title=OS Scheduler]
-    Allows each thread to run by allocating CPU time slices, switching between threads (context switch) to give the illusion of parallelism.
-\end{defn}
-
-\begin{prop}[title=Key properties]
+\begin{thm}[title=Key properties]
     \begin{itemize}
         \item \textbf{Identifier}: unique id for processes and threads
         \item Each Thread/Process has the \textbf{illusion} that is it the only one occupying the CPU/Memory (resp.)
     \end{itemize}
-\end{prop}
+\end{thm}
 
 \section{Lecture 13 - Sharing the CPU}
 
-\begin{defn}[title=Limited direct execution]
-    A thread cannot do whatever it wants for as long as it wants. The CPU executes the thread's instructions without any intermediary.    
-\end{defn}
-
-\begin{prop}[title=CPU priviledge level = CPU mode]
-    A state stored in the CPU. Either "low" or "high".
-\end{prop}
-
-\begin{prop}[title=CPU instructions]
+\begin{prop}[title=CPU mode \& instructions]
+    CPU stores a privilege level: \textbf{Kernel mode} (high) or \textbf{User mode} (low).
     \begin{itemize}
-        \item \textbf{Non-priviledged:} can be executed anytime
-        \item \textbf{Priviledged:} only if it is in high mode
+        \item \textbf{Non-privileged:} executable anytime
+        \item \textbf{Privileged:} only in kernel mode
     \end{itemize}
 \end{prop}
-
-\begin{defn}[title=Kernel definition]
-It is the software that runs with full privileges and manages the hardware on behalf of programs.
-\end{defn}
-
-\begin{prop}[title=User/Kernel mode]
-    \begin{itemize}
-        \item \textbf{Kernel mode:} High privilege
-        \item \textbf{User mode:} Low privilege
-    \end{itemize}
-\end{prop}
-
-\begin{thm}[title=3 mechanisms to invoke the kernel]
-    Syscall ; Exception/Trap ; Interrupt
-\end{thm}
 
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture13/kernel_overview.png}\par}
 
 How threads can share the CPU \textbf{safely} and \textbf{fairly}?
-\begin{thm}[title=Limited direct execution]
+\begin{thm}[title=Limited direct execution (invoking the kernel)]
     \begin{itemize}
-        \item A normal thread wants to do something high privilege $\rightarrow$ creates a syscall
-        \item A thread tries to do something illegal $\rightarrow$ exception
-        \item An externel entity needs attention $\rightarrow$ interrupt
+        \item A normal thread wants to do something high privilege $\rightarrow$ creates a \textbf{syscall}
+        \item Tries to do something illegal $\rightarrow$ \textbf{exception}
+        \item An externel entity needs attention $\rightarrow$ \textbf{interrupt}
     \end{itemize}
 \end{thm}
 
@@ -277,7 +249,7 @@ How are processes created and destroyed?
     \end{itemize}
 \end{prop}
 
-\begin{prop}[title=Key processes]
+\begin{prop}[title=Type of system processes]
     \begin{itemize}
         \item \textbf{Init}: first process after boot
         \item \textbf{Idle}: runs when nothing else can
