@@ -283,5 +283,15 @@ How are processes created and destroyed?
     \texttt{exit()} syscall: kernel destroys memory image but \textbf{keeps exit status} $\Rightarrow$ process becomes a \textbf{zombie} until parent \textbf{reaps} it via \texttt{wait()} to read the exit status.
 \end{prop}
 
+\section{Lecture 16 - Virtualization}
+
+\begin{prop}[title=Virtualization types]
+    \begin{itemize}
+        \item \textbf{Multiplexing:} one resource $\rightarrow$ multiple virtual entities (e.g.\ CPU, memory)
+        \item \textbf{Aggregation:} multiple resources $\rightarrow$ one virtual resource (e.g.\ disk volumes)
+        \item \textbf{Emulation:} one physical resource appears as another (e.g.\ serial port over USB/SSH)
+    \end{itemize}
+\end{prop}
+
 \end{multicols*}
 \end{document}
