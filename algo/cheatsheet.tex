@@ -212,6 +212,30 @@ HEAPSORT(A, n)
 $O(n \lg n)$, in-place.
 \end{prop}
 
+\subsection{Implementation of priority queue}
+
+\begin{lstlisting}
+HEAP-EXTRACT-MAX(A, n) # error if n < 1
+    max, A[1] = A[1], A[n]
+    MAX-HEAPIFY(A, 1, n-1)
+    return max
+
+HEAP-INCREASE-KEY(A, i, key) # error if key < A[i]
+    A[i] = key
+    while i > 1 and A[PARENT(i)] < A[i]
+        exchange A[i] with A[PARENT(i)]
+        i = PARENT(i)
+
+MAX-HEAP-INSERT(A, key, n)
+    n = n + 1
+    A[n] = -inf
+    HEAP-INCREASE-KEY(A, n, key)
+\end{lstlisting}
+
+\begin{prop}[title=Runtimes]
+\texttt{Insert}: $O(\lg n)$, \texttt{Maximum}: $O(1)$, \texttt{Extract-Max}: $O(\lg n)$, \texttt{Increase-Key}: $O(\lg n)$
+\end{prop}
+
 \newpage
 
 \section{Data Structures for Disjoint Sets}
