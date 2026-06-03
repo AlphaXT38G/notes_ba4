@@ -164,35 +164,53 @@ So only \textbf{3 recursive multiplications} needed.
 $T(n)=3T(n/2)+\Theta(n)=\Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
 \end{prop}
 
-\iffalse % à reprendre:
-
 \section{Heaps}
-\textbf{Max-heap:} $A[\text{parent}(i)]\ge A[i]$.\\
-\texttt{LEFT}$(i)=2i$,\ \texttt{RIGHT}$(i)=2i{+}1$,\ \texttt{PARENT}$(i)=\lfloor i/2\rfloor$
+\subsection{Max-Heapify}
+Assumes subtrees rooted at \texttt{LEFT}$(i)$ and \texttt{RIGHT}$(i)$ are already max-heaps.
 
 \begin{lstlisting}
-MAX-HEAPIFY(A, i, n)   // subtrees already heaps
-    l=LEFT(i); r=RIGHT(i)
-    if l<=n and A[l]>A[i]: largest=l
-    else: largest=i
-    if r<=n and A[r]>A[largest]: largest=r
+MAX-HEAPIFY(A, i, n)
+    l = LEFT(i)
+    r = RIGHT(i)
+    if l <= n and A[l] > A[i]
+        largest = l
+    else largest = i
+    if r <= n and A[r] > A[largest]
+        largest = r
     if largest != i
         exchange A[i] with A[largest]
         MAX-HEAPIFY(A, largest, n)
+\end{lstlisting}
 
+\begin{prop}[title=Runtime]
+$T(n) \le T(2n/3) + \Theta(1) = O(\lg n)$
+\end{prop}
+
+\subsection{Build-Max-Heap}
+
+\begin{lstlisting}
 BUILD-MAX-HEAP(A, n)
-    for i=floor(n/2) downto 1
+    for i = floor(n/2) downto 1
         MAX-HEAPIFY(A, i, n)
 \end{lstlisting}
 
 \begin{prop}[title=Runtime]
-\texttt{MAX-HEAPIFY}: $O(\lg n)$.\ \texttt{BUILD-MAX-HEAP}: $\Theta(n)$.
+$O(n)$ (tighter than the naive $O(n \lg n)$)
 \end{prop}
 
-\subsection{Implementation of priority queue}
-\newpage
+\subsection{Heapsort}
 
-\fi
+\begin{lstlisting}
+HEAPSORT(A, n)
+    BUILD-MAX-HEAP(A, n)
+    for i = n downto 2
+        exchange A[1] with A[i]
+        MAX-HEAPIFY(A, 1, i-1)
+\end{lstlisting}
+
+\begin{prop}[title=Runtime]
+$O(n \lg n)$, in-place.
+\end{prop}
 
 \newpage
 
