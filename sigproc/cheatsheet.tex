@@ -39,8 +39,6 @@ $x[n] = A\,e^{j(\omega n + \phi)}$, \quad $A\in\R$, $\omega\in\R$, $\phi\in\R$
 \begin{itemize}
   \item $E_x = \|x\|^2$ \quad (sum or integral of $|x|^2$)
   \item $P_x = \lim_{N\to\infty}\frac{1}{2N+1}\sum_{n=-N}^{N}|x[n]|^2$
-  \item $E_x < \infty \;\Rightarrow$ Energy signal ($x \in \ell_2$ or $L_2$)
-  \item $P_x < \infty$ and $E_x = \infty \;\Rightarrow$ Power signal
 \end{itemize}
 \end{thm}
 
@@ -50,6 +48,7 @@ $x[n] = A\,e^{j(\omega n + \phi)}$, \quad $A\in\R$, $\omega\in\R$, $\phi\in\R$
 \begin{defn}[title=Time reversal]
   $y[n] = \mathcal{R} x[n] = \mathcal{S}^{-n} x[0] = x[-n]$
 \end{defn}
+
 \begin{thm}[title=Sum of a sequence]
   $\sum_{k=m}^{n} k = \frac{(m+n)(n-m+1)}{2}$\\
   $\sum_{k=m}^{n} z^{k} = \begin{cases} n-m+1 & z=1 \\ \frac{z^m-z^{n+1}}{1-z} & z\ne 1 \end{cases}$
@@ -108,8 +107,6 @@ $\langle \mathbf{w}_h, \mathbf{w}_k \rangle = N\,\delta[h-k]$, where
 \]
 \end{thm}
 
-\includegraphics[width=1\linewidth]{images/dft.png}
-
 \begin{prop}[title=DFT matrix form]
 $\mathbf{X} = \mathbf{W}\mathbf{x}$, \quad $\mathbf{x} = \tfrac{1}{N}\mathbf{W}^H\mathbf{X}$, where $W_N = e^{-j\frac{2\pi}{N}}$:
 \[
@@ -132,16 +129,11 @@ $W_N^n = W_N^{n\,\mathrm{mod}\,N}$ (aliasing property).
 
 % ============================================================
 \section{Properties}
-A signal $\mathbf{x}$ is \textbf{symmetric} if $x[n]=x[N-n]$.\\
 A signal is \textbf{Hermitian-symmetric} if $x[n]=x^*[N-n]$.\\
 \textbf{DFS} $\equiv$ DFT: same formulas, different interpretation (explicit periodicity).
 
 % ============================================================
 \section{DTFT: $X(e^{j\omega})$}
-
-\[
-  X[k] \;\longrightarrow\; X(e^{j\omega}) \quad \text{with} \quad \omega = \frac{2\pi k}{N}
-\]
 
 \begin{thm}[title=Symmetry summary]
 \renewcommand{\arraystretch}{1}
@@ -163,63 +155,11 @@ TODO [Explain the difference]
 % ============================================================
 
 \section{FFT}
-
-\begin{prop}[title=Complexity comparison]
-\begin{itemize}
-  \item Naive DFT: $O(N^2)$ multiplications
-  \item FFT: $O(N\log N)$ operations
-  \item For $N=10{,}000$: $\sim\!40{,}000$ vs.\ $>100$ million ops
-\end{itemize}
-\end{prop}
-
-\begin{defn}[title=Decimation in time (Cooley-Tukey)]
-Split $N=2^L$ input into even/odd:
-$x_e[n]=x[2n]$, $x_o[n]=x[2n+1]$, $n=0,\ldots,\tfrac{N}{2}-1$
-
-Output halves:
-$X_a[k]=X[k]$ and $X_b[k]=X[k+\tfrac{N}{2}]$, $k=0,\ldots,\tfrac{N}{2}-1$
-
-\textbf{Butterfly equations:}
-\[
-  X_a[k] = X_e[k] + e^{j\frac{2\pi}{N}k}\,X_o[k]
-\]
-\[
-  X_b[k] = X_e[k] - e^{j\frac{2\pi}{N}k}\,X_o[k]
-\]
-where $X_e$, $X_o$ are the $(N/2)$-point DFTs of $x_e$, $x_o$.
-\end{defn}
-
-\begin{warn}[title=Cost breakdown]
-\begin{itemize}
-  \item $2(N/2)^2 = N^2/2$ mults for $\mathbf{X}_e$ and $\mathbf{X}_o$
-  \item $N/2$ mults by twiddle factors for $\mathbf{X}_o$
-  \item Second half is free (just sign change)
-\end{itemize}
-Recursion gives $O(N\log_2 N)$ total.
-\end{warn}
+TODO [Explain the difference]
 
 % ============================================================
 \section{Spectrograms (STFT)}
-
-\begin{defn}[title=Short-Time Fourier Transform]
-Analyse a signal $\mathbf{x}$ of length $L$ time-locally:
-\begin{enumerate}
-  \item Slide a window of size $W$ to get $\lfloor L/W \rfloor$ non-overlapping bins
-  \item Compute a $W$-point DFT in each bin
-  \item Result: 2D time $\times$ frequency representation
-\end{enumerate}
-\end{defn}
-
-\begin{prop}[title=Kronecker delta in spectrogram]
-DFT of a length-$W$ Kronecker delta $\delta[n-m]$ (even shifted): $|X[k]|=1$ for all $k$.\\
-$\Rightarrow$ In a spectrogram with window $W$: the bin containing $m$ has \textbf{constant magnitude} $W$ across all frequencies; all other bins are $\mathbf{0}$.
-\end{prop}
-
-\begin{warn}[title=Window size trade-off]
-\textbf{Large} $W$: good frequency resolution, poor time resolution.\\
-\textbf{Small} $W$: good time resolution, poor frequency resolution.\\
-This is an instance of the time--frequency concentration duality.
-\end{warn}
+TODO [Explain the difference]
 
 % ============================================================
 
@@ -227,9 +167,7 @@ This is an instance of the time--frequency concentration duality.
 
 \section{Filtering I - Digital Filters}
 
-\subsection{LTI Systems}
-
-\begin{defn}[title=Linearity \& time-invariance]
+\begin{defn}[title=LTI: Linearity \& time-invariance]
 Let $y[n] = \mathcal{H}\{x[n]\}$. \\
 \textbf{Linearity} ($\forall\, \alpha,\beta \in\mathbb{C}$, $\forall\, x_1, x_2$):
 \[
@@ -242,7 +180,6 @@ Let $y[n] = \mathcal{H}\{x[n]\}$. \\
 \]
 \end{defn}
 
-\subsection{Impulse Response \& Convolution}
 
 \begin{thm}[title=Impulse response]
 $\mathbf{h}=\mathcal{H}\boldsymbol{\delta}$. An LTI system is \emph{fully} described by $\mathbf{h}$.
@@ -261,12 +198,10 @@ $\mathbf{h}=\mathcal{H}\boldsymbol{\delta}$. An LTI system is \emph{fully} descr
 \end{prop}
 
 % --- 3. FILTER PROPERTIES FROM h ---
-\subsection{\texorpdfstring{Filter Properties (from $\mathbf{h}$)}{Filter Properties (from h)}}
-
-\begin{defn}[title=FIR vs IIR]
+\begin{defn}[title=FIR vs IIR (Finite/Infinite Impulse Response)]
 \begin{itemize}
-  \item \textbf{FIR} (Finite Impulse Response): $\mathbf{h}$ has finite support. No feedback; \emph{always} BIBO stable.
-  \item \textbf{IIR} (Infinite Impulse Response): $\mathbf{h}$ has infinite support. Realizable IIRs use feedback and have a one-sided $\mathbf{h}$.
+  \item \textbf{FIR}: $\mathbf{h}$ finite support. No feedback; \emph{always} BIBO stable.
+  \item \textbf{IIR}: $\mathbf{h}$ infinite support.
 \end{itemize}
 \end{defn}
 
@@ -275,18 +210,13 @@ Only responds to present or past inputs.
 \end{defn}
 
 \begin{thm}[title=BIBO Stability]
-LTI is BIBO stable $\Longleftrightarrow$ $\mathbf{h}$ is absolutely summable:
-\[\sum_{k=-\infty}^{\infty}|h[k]|<\infty\]
+LTI is BIBO stable $\Longleftrightarrow$ $\mathbf{h}$ is absolutely summable
 \end{thm}
 
 % --- 5. FREQUENCY RESPONSE ---
 \begin{thm}[title=Frequency Response]
 We extract from it the magnitude/phase response.
 \[H(\omega)= \mathrm{DTFT}\{\boldsymbol{h}[n]\} \]
-\end{thm}
-
-\begin{thm}[title=Convolution theorem]
-\[y=x*h \;\Longleftrightarrow\; Y(\omega)=H(\omega)X(\omega)\]
 \end{thm}
 
 \begin{prop}[title=Filter types by magnitude response]
@@ -314,12 +244,6 @@ Causal IIR. Constant cost. Approximates MA of length $M$ with $\lambda=\frac{M-1
 \end{defn}
 
 \section{Filtering II - Filter Design}
-\begin{thm}[title=Modulation theorem]
-\[z[n]=x[n]y[n] \;\Longleftrightarrow\; Z(\omega)=X(\omega) * Y(\omega)\]
-\end{thm}
-
-% --- 2. TRANSFER FUNCTION ---
-\subsection{Transfer Function}
 
 \begin{defn}[title=Transfer function $H(z)$]
 \[H(z)  = \frac{B(z)}{A(z)} = b_0\,\frac{\displaystyle\prod_{k=0}^{M-1}(1-z_k z^{-1})}{\displaystyle\prod_{k=0}^{N-1}(1-p_k z^{-1})}\]
