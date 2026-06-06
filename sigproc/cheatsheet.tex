@@ -42,11 +42,21 @@ $x[n] = A\,e^{j(\omega n + \phi)}$, \quad $A\in\R$, $\omega\in\R$, $\phi\in\R$
 \end{itemize}
 \end{thm}
 
-\begin{defn}[title=Time shift by k $\in \Z$]
-  $y[n] = \mathcal{S}^{k} x[n] = x[n+k]$
-\end{defn}
-\begin{defn}[title=Time reversal]
-  $y[n] = \mathcal{R} x[n] = \mathcal{S}^{-n} x[0] = x[-n]$
+\begin{defn}[title=Operator combinations]
+\begin{center}
+\begin{tabular}{cc}
+\toprule
+signal & sample at time $n$ \\
+\midrule
+$\mathcal{R}\mathbf{x}$ & $x[-n]$ \\
+$\mathcal{S}^d\mathbf{x}$ & $x[n+d]$ \\
+\midrule
+$\mathcal{R}\mathcal{S}^d\mathbf{x}$, \; $\mathcal{S}^{-d}\mathcal{R}\mathbf{x}$ & $x[-n+d]$ \\
+\midrule
+$\mathcal{R}\mathcal{S}^{-d}\mathbf{x}$, \; $\mathcal{S}^d\mathcal{R}\mathbf{x}$ & $x[-n-d]$ \\
+\bottomrule
+\end{tabular}
+\end{center}
 \end{defn}
 
 \begin{thm}[title=Sum of a sequence]
@@ -308,6 +318,10 @@ Full description (all orders) is impossible.
   \item $E[x[n]x[m]]=r_x[n-m]$
 \end{enumerate}
 Properties: $r_x[-k]=r_x[k]$;\quad $r_x[0]=E[x[n]^2]=P_x\ge 0$.
+\end{defn}
+
+\begin{defn}[title=Cross-Correlation]
+\[ r_{xy}[k] = \langle \mathbf{x}, \mathcal{S}^k \mathbf{y} \rangle = \sum_{n=-\infty}^{\infty} x^*[n]\,y[n+k] \]
 \end{defn}
 
 \begin{defn}[title=White Noise Process]
