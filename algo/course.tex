@@ -580,14 +580,77 @@ KARATSUBA-MULT(x, y, n)
 
 
 % ---------------------------------------------------------
-\section{Heaps}
+\chapter{Heap data structure}
 % ---------------------------------------------------------
+
+\begin{defnbox}[title=Heap]
+
+Un \textbf{heap} (ou tas) est une structure de données sous forme d’arbre binaire presque complet, utilisée pour gérer efficacement des priorités.
+
+COMMENT ON LE STOCKE DANS UN COMPUTER ?????????? \\
+Il est généralement stocké sous forme de tableau :
+\[
+\begin{aligned}
+\text{LEFT}(i) &= 2i \\
+\text{RIGHT}(i) &= 2i + 1 \\
+\text{PARENT}(i) &= \left\lfloor \frac{i}{2} \right\rfloor
+\end{aligned}
+\]
+Cette structure est très utilisée pour les files de priorité et l’algorithme de tri \textit{heapsort}.
+\end{defnbox}
+
 
 \begin{defnbox}[title=Max-heap property]
 A \textbf{max-heap} is a nearly complete binary tree where every node satisfies
 $A[\text{parent}(i)] \geq A[i]$.
-Stored as an array: $\text{LEFT}(i)=2i$, $\text{RIGHT}(i)=2i+1$, $\text{PARENT}(i)=\lfloor i/2\rfloor$.
 \end{defnbox}
+
+\begin{defnbox}[title=Min-heap property]
+A \textbf{min-heap} is a nearly complete binary tree where every node satisfies
+$A[\text{parent}(i)] \leq A[i]$.
+\end{defnbox}
+
+
+
+
+
+
+
+\begin{defnbox}[title=Root]
+The \textbf{root} is the top node of the heap. In array representation, it is at index 1.  
+In a max-heap, it contains the largest element.
+\end{defnbox}
+
+\begin{defnbox}[title=Leaf]
+A \textbf{leaf} is a node with no children.  
+Leaves are located at the bottom level of the heap.
+\end{defnbox}
+
+\begin{defnbox}[title=Height]
+The \textbf{height} of a heap is the number of edges on the longest path from the root to a leaf.  
+A heap of size $n$ has height $\Theta(\log n)$.
+\end{defnbox}
+
+\begin{defnbox}[title=Shape property]
+A heap is a \textbf{complete binary tree}: all levels are full except possibly the last, which is filled from left to right.
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \subsection{Heapify}
 \begin{propbox}[title=Complexity] $O(\log n)$ — tree height. \end{propbox}
