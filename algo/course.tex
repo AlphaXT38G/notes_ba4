@@ -732,19 +732,92 @@ BUILD-MAX-HEAP(A, n)
 
 
 \section{Heapsort}
-\begin{propbox}[title=Complexity]
-Time: $\Theta(n \log n)$ in all cases. \quad Space: $O(1)$ in-place.
-\end{propbox}
+\textbf{Concept and idea:}
+
+The \texttt{HEAPSORT} algorithm sorts an array by first building a max-heap, then repeatedly extracting the maximum element.
+
+After building the max-heap, the largest element is always at the root.  
+The algorithm swaps it with the last element of the heap, then “removes” it by reducing the heap size.
+
+After each removal, \texttt{MAX-HEAPIFY} is applied to restore the heap property.  
+This process is repeated until the entire array is sorted in increasing order.
 
 \begin{lstlisting}
-HEAPSORT(A, n):
+HEAPSORT(A, n)
     BUILD-MAX-HEAP(A, n)
-    for i = n downto 2:
-        swap A[1] and A[i]
+
+    for i = n downto 2
+        exchange A[1] with A[i]
         MAX-HEAPIFY(A, 1, i - 1)
 \end{lstlisting}
 
-\subsection{Priority Queue}
+\textbf{Goal:} Sort an array using a max-heap \\
+\textbf{Time complexity:} $O(n \log n)$ \\
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\chapter{Priority Queue}
+
+
+\textbf{Concept and idea:}
+
+A \textbf{priority queue} maintains a dynamic set $S$ of elements.  
+Each element in the set has a \textbf{key}, which represents its priority (importance).
+
+The structure supports efficient management of elements based on their keys, especially when priorities change over time.
+
+\textbf{Main operations:}
+\begin{itemize}
+    \item \texttt{INSERT(S, x)}: inserts element $x$ into $S$
+    \item \texttt{MAXIMUM(S)}: returns the element with the largest key
+    \item \texttt{EXTRACT-MAX(S)}: removes and returns the element with the largest key
+    \item \texttt{INCREASE-KEY(S, x, k)}: increases the key of element $x$ to value $k$ (where $k \geq$ current key of $x$)
+\end{itemize}
+
+\textbf{Example application:} scheduling jobs on a shared computer, where higher priority jobs are executed first.
+
+Heaps are commonly used to efficiently implement priority queues.
+
+\begin{defnbox}[title=Element]
+An \textbf{element} is an item stored in a priority queue. It consists of a value and an associated key that determines its priority.
+\end{defnbox}
+
+\begin{defnbox}[title=Maximum element]
+The \textbf{maximum element} is the element in $S$ with the largest key.  
+It is always the element returned by a max-priority queue.
+\end{defnbox}
+
+\begin{defnbox}[title=Priority queue operations]
+Beyond the basic operations, a priority queue relies on the idea that all updates maintain ordering by key, allowing fast access to the highest-priority element.
+\end{defnbox}
+
+\begin{defnbox}[title=Application]
+Priority queues are widely used in scheduling systems (e.g., CPU job scheduling), where tasks with higher priority are executed first.
+\end{defnbox}
+
+
+
 \begin{propbox}
 \begin{tabular}{ll}
 \texttt{Maximum}     & $O(1)$ \\
@@ -753,6 +826,61 @@ HEAPSORT(A, n):
 \texttt{Increase-Key}& $O(\log n)$ \\
 \end{tabular}
 \end{propbox}
+
+
+
+\begin{defnbox}[title=Heap implementation]
+BEN OUI FAUT QUE CA AIT DU SENS DE LE FAIRE APRES HEAP. DONC ON DEFINIT SYMPATIQUEMENT UNE PRIORITY QUEUE AVEC UN HEAP. 
+A priority queue is efficiently implemented using a \textbf{heap}, which supports logarithmic-time insertion and extraction operations.
+\end{defnbox}
+
+
+
+Une \textbf{priority queue} peut être implémentée à l'aide d'un \textbf{heap} pour gérer efficacement les éléments selon leur priorité.
+
+On stocke tous les éléments dans un max-heap :
+le nœud au sommet (la racine) contient toujours l'élément avec la plus grande clé.
+
+Grâce à cette structure :
+\begin{itemize}
+    \item l'insertion se fait en ajoutant l'élément puis en remontant dans le heap,
+    \item l'accès au maximum est direct (racine),
+    \item la suppression du maximum se fait en remplaçant la racine par le dernier élément puis en réorganisant le heap.
+\end{itemize}
+
+Ainsi, le heap permet de réaliser une priority queue efficace, avec des opérations rapides en temps logarithmique.
+
+(Dans le cas où on a une paire clé-valeur et pas juste ici les valeurs de priorité, alors
+on met dans le heap ces paires et on bouge les deux elements en meme temps mais on regarde
+roujours seulement la valeur de la key pour l'ordering)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % ---------------------------------------------------------
 \section{Binary Search Trees}
