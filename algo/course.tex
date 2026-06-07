@@ -807,6 +807,40 @@ HEAP-EXTRACT-MAX(A, n)
 
 \vspace{2cm}
 
+\section{Heap maximum in a max-heap}
+\textbf{Concept and idea:}
+
+The \texttt{HEAP-MAXIMUM} operation simply returns the largest element in a max-heap.
+
+Since the max-heap property guarantees that the maximum element is always stored at the root, this operation only needs to access the first element of the array.
+
+\begin{lstlisting}
+HEAP-MAXIMUM(A)
+    return A[1]
+\end{lstlisting}
+
+\textbf{Goal:} Return the maximum element of a max-heap \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
 
 
 
