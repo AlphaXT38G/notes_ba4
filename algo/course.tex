@@ -1307,6 +1307,93 @@ This structure is efficient because insertions and deletions do not require shif
 \end{defnbox}
 
 
+Implementation using arrays: Q consists of elements
+$S[Q.head, \ldots, Q.tail - 1]$
+
+\begin{itemize}
+    \item $Q.head$ points at the first element (the next element to be removed)
+    \item $Q.tail$ points at the next location where a newly arrived element will be placed
+\end{itemize}
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+\section{ENQUEUE}
+\textbf{Concept and idea:}
+
+The \texttt{ENQUEUE} operation inserts a new element at the rear of the queue.  
+In a circular array implementation, it places the element at \texttt{Q.tail} and then updates the tail pointer, wrapping around if needed.
+
+\begin{lstlisting}
+ENQUEUE(Q, x)
+    Q[Q.tail] = x
+
+    if Q.tail == Q.length
+        Q.tail = 1
+    else
+        Q.tail = Q.tail + 1
+\end{lstlisting}
+
+\textbf{Goal:} Insert an element into a queue \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+\section{DEQUEUE}
+\textbf{Concept and idea:}
+
+The \texttt{DEQUEUE} operation removes and returns the element at the front of the queue.  
+In a circular array implementation, it reads the element at \texttt{Q.head} and then advances the head pointer, wrapping around if needed.
+
+\begin{lstlisting}
+DEQUEUE(Q)
+    x = Q[Q.head]
+
+    if Q.head == Q.length
+        Q.head = 1
+    else
+        Q.head = Q.head + 1
+
+    return x
+\end{lstlisting}
+
+\textbf{Goal:} Remove and return the front element of a queue \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
 
 
 
