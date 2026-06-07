@@ -397,14 +397,42 @@ MAXIMUM-SUBARRAY-SLOW(A[1..n]):
 
 
 
-\section{Matrix Multiplication}
+\section{Matrix Multiplication naive}
 
-\subsubsection{Naive algorithm}
 Standard $O(n^3)$ triple loop, or the recursive divide-and-conquer that splits each
 $n \times n$ matrix into four $n/2 \times n/2$ blocks: $T(n) = 8\,T(n/2) + \Theta(n^2)$,
 giving the same $\Theta(n^3)$ by Master Theorem (case 1).
 
-\subsubsection{Strassen's algorithm}
+
+
+\begin{lstlisting}
+REC-MAT-MULT(A, B, n)
+    let C be a new n * n matrix
+    if n == 1
+        c11 = a11 * b11
+    else partition A, B, and C into n/2 * n/2 submatrices
+        C11 = REC-MAT-MULT(A11, B1, n/2) + REC-MAT-MULT(A12, B21, n/2)
+        C12 = REC-MAT-MULT(A11, B12, n/2) + REC-MAT-MULT(A12, B22, n/2)
+        C21 = REC-MAT-MULT(A21, B11, n/2) + REC-MAT-MULT(A22, B21, n/2)
+        C22 = REC-MAT-MULT(A21, B12, n/2) + REC-MAT-MULT(A22, B22, n/2)
+    return C
+\end{lstlisting}
+
+\textbf{Goal:} Perform Matrix multiplication \\
+\textbf{Time complexity:} $O(n^3)$ \\
+\textbf{Space:} $O(n^2)$
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+\section{Strassen's algorithm - better matrix multiplication}
 \begin{propbox}[title=Complexity]
 $T(n) = 7\,T(n/2) + \Theta(n^2)$ $\Rightarrow$ $\Theta(n^{\log_2 7}) \approx \Theta(n^{2.807})$.
 \end{propbox}
