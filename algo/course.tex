@@ -1794,6 +1794,33 @@ TREE-SEARCH(x, k)
 
 
 
+\vspace{2cm}
+
+
+
+
+\section{Tree minimum}
+
+\textbf{Concept and idea:}
+
+The \texttt{TREE-MINIMUM} operation finds the smallest key in a binary search tree by always going to the left child until reaching a node with no left child.
+
+\begin{lstlisting}
+TREE-MINIMUM(x)
+    while x.left != NIL
+        x = x.left
+    return x
+\end{lstlisting}
+
+\textbf{Goal:} Find the minimum element in a BST \\
+
+\textbf{Time complexity:} $O(h)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
 
 
 
