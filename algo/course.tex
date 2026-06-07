@@ -771,6 +771,42 @@ HEAPSORT(A, n)
 
 
 
+\section{Heap extract max}
+
+\textbf{Concept and idea:}
+
+The \texttt{HEAP-EXTRACT-MAX} operation removes the maximum element from a max-heap (the root) and restores the heap structure afterwards.
+
+It works by first checking that the heap is not empty, then storing the root (maximum element).  
+The last element of the heap is moved to the root position, and the heap size is reduced.  
+Finally, \texttt{MAX-HEAPIFY} is called to restore the max-heap property.
+
+\begin{lstlisting}
+HEAP-EXTRACT-MAX(A, n)
+    if n < 1
+        error "heap underflow"
+
+    max = A[1]
+    A[1] = A[n]
+    n = n - 1
+
+    MAX-HEAPIFY(A, 1, n)
+
+    return max
+\end{lstlisting}
+
+\textbf{Goal:} Remove and return the maximum element of a heap \\
+\textbf{Time complexity:} $O(\log n)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+\vspace{2cm}
+
 
 
 
