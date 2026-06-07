@@ -1162,10 +1162,58 @@ STACK-EMPTY(S)
 
 
 
-\section{Stack empty}
+\section{Stack push}
+\textbf{Concept and idea:}
+
+The \texttt{PUSH} operation adds an element to the top of the stack.  
+It increases the \texttt{top} pointer and stores the new value at that position.
+
+\begin{lstlisting}
+PUSH(S, x)
+    S.top = S.top + 1
+    S[S.top] = x
+\end{lstlisting}
+
+\textbf{Goal:} Insert an element into a stack \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
 
 
 
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+\section{Stack pop}
+\textbf{Concept and idea:}
+
+The \texttt{POP} operation removes and returns the top element of the stack.  
+It first checks if the stack is empty to avoid underflow, then decreases the \texttt{top} pointer.
+
+\begin{lstlisting}
+POP(S)
+    if STACK-EMPTY(S)
+        error "underflow"
+    else
+        S.top = S.top - 1
+        return S[S.top + 1]
+\end{lstlisting}
+
+\textbf{Goal:} Remove and return the top element of a stack \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
 
 
 
