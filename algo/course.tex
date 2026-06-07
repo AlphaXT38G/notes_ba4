@@ -810,7 +810,7 @@ HEAP-EXTRACT-MAX(A, n)
 \section{Heap maximum in a max-heap}
 \textbf{Concept and idea:}
 
-The \texttt{HEAP-MAXIMUM} operation simply returns the largest element in a max-heap.
+The \texttt{HEAP-MAXIMUM} operation simply returns the lagrest element in a max-heap.
 
 Since the max-heap property guarantees that the maximum element is always stored at the root, this operation only needs to access the first element of the array.
 
@@ -825,6 +825,51 @@ HEAP-MAXIMUM(A)
 
 \textbf{Space:} $O(1)$
 
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+\section{Heap increase key}
+
+\textbf{Concept and idea:}
+
+The \texttt{HEAP-INCREASE-KEY} operation updates the value of a node in a max-heap and restores the heap property.
+
+It assumes that the new key is not smaller than the current key.  
+After updating the value, the algorithm moves the element upward in the tree, swapping it with its parent as long as it is larger.  
+This process continues until the heap property is restored.
+
+\begin{lstlisting}
+HEAP-INCREASE-KEY(A, i, key)
+    if key < A[i]
+        error "new key is smaller than current key"
+
+    A[i] = key
+
+    while i > 1 and A[PARENT(i)] < A[i]
+        exchange A[i] and A[PARENT(i)]
+        i = PARENT(i)
+\end{lstlisting}
+
+\textbf{Goal:} Update a key and restore the max-heap property \\
+\textbf{Time complexity:} $O(\log n)$ \\
+
+\textbf{Space:} $O(1)$
 
 
 
