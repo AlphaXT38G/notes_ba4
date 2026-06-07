@@ -688,6 +688,19 @@ MAX-HEAPIFY(A, i, n)
 
 
 
+\textbf{Loop invariant:} At the start of every iteration of the for loop, each node
+$i + 1, i + 2, \ldots, n$ is the root of a max-heap.
+
+\textbf{Maintenance:}
+\begin{itemize}
+    \item The children of node $i$ are indexed higher than $i$, so by the loop invariant, they are both roots of max-heaps.
+    \item Therefore, \texttt{MAX-HEAPIFY} makes node $i$ a root of a max-heap (so $i, i + 1, \ldots, n$ are all roots of max-heaps).
+    \item Hence, the invariant remains true when $i$ is decremented at the beginning of the next iteration.
+\end{itemize}
+
+
+
+
 \vspace{2cm}
 
 
