@@ -1435,7 +1435,71 @@ Implementations using arrays have a fixed capacity \\
 
 
 
+\chapter{Linked List}
 
+\begin{defnbox}[title=Linked List]
+A \textbf{linked list} is a linear data structure where elements are stored in nodes.  
+Each node contains a value and a pointer to the next node in the sequence.  
+Unlike arrays, elements are not stored contiguously in memory.
+\end{defnbox}
+
+\begin{defnbox}[title=Node]
+A \textbf{node} is the basic building block of a linked list.  
+It contains:
+\begin{itemize}
+    \item a \textbf{key/value} (the data)
+    \item a \textbf{next pointer} pointing to the next node
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Head]
+The \textbf{head} is the first node of the linked list.  
+It is the entry point used to access the entire structure.
+\end{defnbox}
+
+\begin{defnbox}[title=Tail]
+The \textbf{tail} is the last node of the linked list.  
+Its next pointer is \texttt{NULL}, meaning the end of the list.
+\end{defnbox}
+
+\begin{defnbox}[title=Next pointer]
+The \textbf{next pointer} links one node to the next node in the list.  
+It defines the ordering of elements.
+\end{defnbox}
+
+\begin{defnbox}[title=Insertion]
+Insertion in a linked list means creating a new node and updating pointers to include it in the list.  
+It can be done at the head, tail, or in the middle depending on the case.
+\end{defnbox}
+
+\begin{defnbox}[title=Deletion]
+Deletion removes a node from the list by changing pointers so that the previous node points to the next one.
+\end{defnbox}
+
+\begin{defnbox}[title=Advantages]
+\begin{itemize}
+    \item Dynamic size (no fixed capacity)
+    \item Efficient insertions and deletions (no shifting required)
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Disadvantages]
+\begin{itemize}
+    \item No direct access to elements (no indexing)
+    \item Extra memory usage due to pointers
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Linked lists are used in dynamic memory management, graph adjacency lists, and implementing stacks/queues.
+\end{defnbox}
+
+\textbf{Representation:}
+
+A linked list is represented as:
+\[
+\text{Head} \rightarrow node_1 \rightarrow node_2 \rightarrow \cdots \rightarrow \text{NULL}
+\]
 
 
 
