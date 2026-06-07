@@ -891,6 +891,40 @@ HEAP-INCREASE-KEY(A, i, key)
 
 
 
+\section{Max heap insert}
+
+
+
+\textbf{Concept and idea:}
+
+The \texttt{MAX-HEAP-INSERT} operation adds a new element into a max-heap while maintaining the heap property.
+
+The idea is to first increase the heap size and place a temporary very small value (so it will not violate the heap structure).  
+Then the algorithm uses \texttt{HEAP-INCREASE-KEY} to replace this value with the correct key and move the element upward until the heap property is restored.
+
+\begin{lstlisting}
+MAX-HEAP-INSERT(A, key, n)
+    n = n + 1
+    A[n] = -8
+    HEAP-INCREASE-KEY(A, n, key)
+\end{lstlisting}
+
+\textbf{Goal:} Insert a new element into a max-heap \\
+
+\textbf{Time complexity:} $O(\log n)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
 
 \chapter{Priority Queue}
 
