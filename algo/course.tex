@@ -1591,6 +1591,41 @@ LIST-INSERT(L, x)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+
+\section{Linked list delete}
+\textbf{Concept and idea:}
+
+The \texttt{LIST-DELETE} operation removes a given node $x$ from a doubly linked list.
+
+It updates the pointers of the neighboring nodes so that the list remains correctly connected after deletion.  
+Depending on whether $x$ is the head or not, the head pointer may also need to be updated.
+
+\begin{lstlisting}
+LIST-DELETE(L, x)
+    if x.prev != NIL
+        x.prev.next = x.next
+    else
+        L.head = x.next
+
+    if x.next != NIL
+        x.next.prev = x.prev
+\end{lstlisting}
+
+\textbf{Goal:} Delete a node from a doubly linked list \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
 
 
 
