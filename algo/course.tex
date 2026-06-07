@@ -263,7 +263,7 @@ Then, $T(n)$ has the following asymptotic bounds:
 
 
 % ---------------------------------------------------------
-\chapter{Maximum Subarray, Matrix Multiplication and Strassen}
+\chapter{Maximum Subarray, Matrix Multiplication and Strassen ect}
 % ---------------------------------------------------------
 
 \section{Maximum Subarray optimized}
@@ -522,7 +522,10 @@ STRASSEN-MAT-MULT(A, B, n)
 
 \subsection{Karatsuba Multiplication}
 
-Multiply two $n$-digit integers faster than the naive $O(n^2)$ schoolbook method.
+Multiply two $n$-digit integers (en base b n'importe laquelle) faster than the naive $O(n^2)$ schoolbook method.
+Pourquoi est-ce qu'on en parle maintenant ? Parce que tout simplement
+ça va utiliser un peu la même logique que Strassen's algorithm parce que on va séparer
+en différents calculs qui vont nous permettre de résuire au final le nombre de multiplicationsà réaliser.
 
 Split: $x = x_H b^{n/2} + x_L$, $y = y_H b^{n/2} + y_L$.
 
@@ -537,6 +540,44 @@ then $x \cdot y = p_1 b^n + (p_3 - p_1 - p_2)\,b^{n/2} + p_2$.
 \begin{propbox}[title=Complexity]
 $T(n) = 3\,T(n/2) + \Theta(n)$ $\Rightarrow$ $\Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$.
 \end{propbox}
+
+Ceci n'estr  pas un pseudocode pseudocodesque mais ça explique bien le principe
+de l'algo: 
+
+\begin{lstlisting}
+KARATSUBA-MULT(x, y, n)
+    if n == 1
+        return x * y
+
+    else
+        split x into xH, xL
+        split y into yH, yL
+
+        p1 = KARATSUBA-MULT(xH, yH, n/2)
+        p2 = KARATSUBA-MULT(xL, yL, n/2)
+        p3 = KARATSUBA-MULT(xH + xL, yH + yL, n/2)
+
+        return p1 * b^n + (p3 - p1 - p2) * b^(n/2) + p2
+\end{lstlisting}
+
+\textbf{Goal:} Perform multiplication faster than the naive method \\
+\textbf{Time complexity:} $O(n^{\log_2 3})$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
 
 % ---------------------------------------------------------
 \section{Heaps}
