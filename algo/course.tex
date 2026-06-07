@@ -218,6 +218,46 @@ MERGE(A,p,q,r)
 
 
 
+\section{Master theorem}
+
+\begin{defnbox}[title=Theorem (Master Theorem)]
+Let $a \geq 1$ and $b > 1$ be constants, let $T(n)$ be defined on the nonnegative integers by the recurrence
+\[
+T(n)=aT(n/b)+f(n).
+\]
+
+Then, $T(n)$ has the following asymptotic bounds:
+
+\begin{itemize}
+    \item If $f(n)=O\!\left(n^{\log_b a-\epsilon}\right)$ for some constant $\epsilon>0$, then
+    \[
+    T(n)=\Theta\!\left(n^{\log_b a}\right).
+    \]
+
+    \item If $f(n)=\Theta\!\left(n^{\log_b a}\right)$, then
+    \[
+    T(n)=\Theta\!\left(n^{\log_b a}\log n\right).
+    \]
+
+    \item If $f(n)=\Omega\!\left(n^{\log_b a+\epsilon}\right)$ for some constant $\epsilon>0$, and if
+    \[
+    a\cdot f(n/b)\leq c\cdot f(n)
+    \]
+    for some constant $c<1$ and all sufficiently large $n$, then
+    \[
+    T(n)=\Theta\!\left(f(n)\right).
+    \]
+\end{itemize}
+\end{defnbox}
+
+
+
+
+
+
+
+\vspace{2cm}
+
 
 
 
@@ -242,6 +282,59 @@ FIND-MAXIMUM-SUBARRAY(A, low, high):
     cross = FIND-MAX-CROSSING(A, low, mid, high)
     return the one with maximum sum
 \end{lstlisting}
+
+\begin{lstlisting}
+FIND-MAX-CROSSING(A, low, mid, high)
+
+  // Find a maximum subarray of the form A[i .. mid].
+  left-sum = -8
+  sum = 0
+  for i = mid downto low
+      sum = sum + A[i]
+      if sum > left-sum
+          left-sum = sum
+          max-left = i
+
+  // Find a maximum subarray of the form A[mid + 1 .. j].
+  right-sum = -8
+  sum = 0
+  for j = mid + 1 to high
+      sum = sum + A[j]
+      if sum > right-sum
+          right-sum = sum
+          max-right = j
+
+  // Return the indices and the sum of the two subarrays.
+  return (max-left, max-right, left-sum + right-sum)
+\end{lstlisting}
+//
+\textbf{Concept et objectif :}
+
+L'algorithme \texttt{FIND-MAXIMUM-SUBARRAY} utilise la méthode du \textit{divide and conquer} (diviser pour régner).  
+Son objectif est de trouver la sous-partie continue d'un tableau dont la somme des éléments est maximale, le
+sous-enesemble de nombres qui font que leur somme est maximale. 
+
+Le principe est simple :
+\begin{itemize}
+    \item le tableau est séparé en deux parties,
+    \item l'algorithme cherche récursivement la meilleure sous-partie à gauche,
+    \item puis la meilleure à droite,
+    \item et enfin la meilleure sous-partie qui traverse le milieu.
+\end{itemize}
+
+Parmi ces trois possibilités, il retourne celle ayant la plus grande somme.
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
 
 
 
