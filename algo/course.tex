@@ -262,9 +262,11 @@ Then, $T(n)$ has the following asymptotic bounds:
 
 
 
+% ---------------------------------------------------------
+\chapter{Maximum Subarray, Matrix Multiplication and Strassen}
+% ---------------------------------------------------------
 
-
-\section{Maximum Subarray}
+\section{Maximum Subarray optimized}
 
 Find indices $i \leq j$ maximising $\sum_{k=i}^{j} A[k]$.
 
@@ -280,7 +282,7 @@ FIND-MAXIMUM-SUBARRAY(A, low, high):
     left  = FIND-MAXIMUM-SUBARRAY(A, low, mid)
     right = FIND-MAXIMUM-SUBARRAY(A, mid+1, high)
     cross = FIND-MAX-CROSSING(A, low, mid, high)
-    
+
     if left-sum >= right-sum and left-sum >= cross-sum
     return (left-low, left-high, left-sum)
     elseif right-sum >= left-sum and right-sum >= cross-sum
