@@ -404,17 +404,16 @@ $n \times n$ matrix into four $n/2 \times n/2$ blocks: $T(n) = 8\,T(n/2) + \Thet
 giving the same $\Theta(n^3)$ by Master Theorem (case 1).
 
 
-
 \begin{lstlisting}
-REC-MAT-MULT(A, B, n)
-    let C be a new n * n matrix
-    if n == 1
-        c11 = a11 * b11
-    else partition A, B, and C into n/2 * n/2 submatrices
-        C11 = REC-MAT-MULT(A11, B1, n/2) + REC-MAT-MULT(A12, B21, n/2)
-        C12 = REC-MAT-MULT(A11, B12, n/2) + REC-MAT-MULT(A12, B22, n/2)
-        C21 = REC-MAT-MULT(A21, B11, n/2) + REC-MAT-MULT(A22, B21, n/2)
-        C22 = REC-MAT-MULT(A21, B12, n/2) + REC-MAT-MULT(A22, B22, n/2)
+SQUARE-MAT-MULT(A, B, n)
+    let C be a new n x n matrix
+
+    for i = 1 to n
+        for j = 1 to n
+            c_{ij} = 0
+            for k = 1 to n
+                c_{ij} = c_{ij} + a_{ik} * b_{kj}
+
     return C
 \end{lstlisting}
 
