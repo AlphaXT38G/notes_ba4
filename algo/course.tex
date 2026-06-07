@@ -114,6 +114,41 @@ Insertion-Sort(A, n)
 
 
 
+
+\vspace{2cm}
+
+
+
+
+
+% ---------------------------------------------------------
+\section{Divide and Conquer principles}
+% ---------------------------------------------------------
+
+\begin{defnbox}[title=Paradigm]
+\textbf{Divide} the problem into subproblems, \textbf{conquer} each recursively, then
+\textbf{combine} the results.
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
 \section{Merge Sort}
 
 \begin{propbox}[title=Complexity]
@@ -166,16 +201,30 @@ MERGE(A,p,q,r)
 
 
 
-% ---------------------------------------------------------
-\section{Divide and Conquer principles}
-% ---------------------------------------------------------
 
-\begin{defnbox}[title=Paradigm]
-\textbf{Divide} the problem into subproblems, \textbf{conquer} each recursively, then
-\textbf{combine} the results.
-\end{defnbox}
 
-\subsection{Maximum Subarray}
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Maximum Subarray}
 
 Find indices $i \leq j$ maximising $\sum_{k=i}^{j} A[k]$.
 
@@ -194,7 +243,12 @@ FIND-MAXIMUM-SUBARRAY(A, low, high):
     return the one with maximum sum
 \end{lstlisting}
 
-\subsection{Matrix Multiplication}
+
+
+
+
+
+\section{Matrix Multiplication}
 
 \subsubsection{Naive algorithm}
 Standard $O(n^3)$ triple loop, or the recursive divide-and-conquer that splits each
