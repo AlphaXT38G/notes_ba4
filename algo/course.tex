@@ -1029,8 +1029,64 @@ roujours seulement la valeur de la key pour l'ordering)
 
 
 
+
+
+
+
+
 \vspace{2cm}
 
+
+
+
+
+
+
+
+
+
+\chapter{Stacks}
+
+
+
+\begin{defnbox}[title=Stack (pile), colback=red!10, colframe=red]
+A \textbf{stack} is a linear data structure that follows the LIFO principle
+(Last In, First Out).  
+This means that the last element added is the first one to be removed.
+\end{defnbox}
+
+\begin{defnbox}[title=LIFO principle]
+\textbf{LIFO (Last In, First Out)} means that elements are removed in the reverse order of insertion.  
+The most recently inserted element is always at the top of the stack.
+\end{defnbox}
+
+\begin{defnbox}[title=Top]
+The \textbf{top} is the position of the last inserted element in the stack.  
+All insertions and deletions happen only at the top.
+\end{defnbox}
+
+\begin{defnbox}[title=Push operation]
+\texttt{PUSH} adds an element to the top of the stack.  
+After the operation, this element becomes the new top.
+\end{defnbox}
+
+\begin{defnbox}[title=Pop operation]
+\texttt{POP} removes and returns the element at the top of the stack.  
+The next element below becomes the new top.
+\end{defnbox}
+
+\begin{defnbox}[title=Stack underflow]
+A \textbf{stack underflow} occurs when trying to pop an element from an empty stack.  
+This is an invalid operation.
+\end{defnbox}
+
+\begin{defnbox}[title=Stack overflow]
+A \textbf{stack overflow} occurs when trying to push an element into a full stack (if the size is bounded).
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Stacks are used in function calls (call stack), expression evaluation, undo mechanisms, and depth-first search (DFS).
+\end{defnbox}
 
 
 
