@@ -1624,6 +1624,18 @@ LIST-DELETE(L, x)
 \textbf{Space:} $O(1)$
 
 
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
 \section{Simplified pseudocodes}
 
 \begin{lstlisting}
@@ -1646,108 +1658,7 @@ LIST-DELETE'(L, x)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\vspace{2cm}
 
 
 
@@ -1755,16 +1666,93 @@ LIST-DELETE'(L, x)
 
 
 % ---------------------------------------------------------
-\section{Binary Search Trees}
+\chapter{Binary Search Tree}
 % ---------------------------------------------------------
+
+\begin{defnbox}[title=Binary Search Tree (BST)]
+A \textbf{binary search tree} is a binary tree where each node follows a specific ordering rule:
+all values in the left subtree are smaller than the node, and all values in the right subtree are larger.
+\end{defnbox}
+
+\begin{defnbox}[title=Node]
+A \textbf{node} is the basic element of a BST.  
+It contains:
+\begin{itemize}
+    \item a \textbf{key/value}
+    \item a \textbf{left pointer}
+    \item a \textbf{right pointer}
+    \item (optionally) a \textbf{parent pointer}
+\end{itemize}
+\end{defnbox}
+
+
+\begin{defnbox}[title=BST property]
+For every node in the tree:
+\begin{itemize}
+    \item all keys in the left subtree are smaller
+    \item all keys in the right subtree are larger
+\end{itemize}
+This property is applied recursively at every node.
+\end{defnbox}
+
+\begin{defnbox}[title=Search]
+Searching in a BST means starting from the root and going left or right depending on comparisons with the current node’s key.
+\end{defnbox}
+
+\begin{defnbox}[title=Insertion]
+Insertion adds a new node by following the BST property until reaching a NULL position where the node is inserted.
+\end{defnbox}
+
+\begin{defnbox}[title=Deletion]
+Deletion removes a node while preserving the BST property.  
+It may require replacing the node with its successor or predecessor.
+\end{defnbox}
+
+\begin{defnbox}[title=Minimum and Maximum]
+\begin{itemize}
+    \item Minimum: leftmost node in the tree
+    \item Maximum: rightmost node in the tree
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+BSTs are used in searching, sorting, symbol tables, and implementing dynamic ordered sets.
+\end{defnbox}
+
+\textbf{Representation:}
+
+A BST is represented as:
+\[
+\text{root} \rightarrow \text{left subtree (smaller)} , \text{right subtree (larger)}
+\]
+
+
+
+
+
+
+
+
+
+
+
+
 
 \begin{defnbox}[title=BST property]
 For every node $x$: all keys in the left subtree $\leq x.\mathit{key} \leq$ all keys in
 the right subtree.
 \end{defnbox}
 
+
+
+
+
 All basic operations run in $O(h)$ where $h$ is the height.
 For a \emph{random} BST, $\mathbb{E}[h] = O(\log n)$; in the worst case $h = n-1$.
+
+
+
+
 
 \begin{lstlisting}
 TREE-SEARCH(x, k):
