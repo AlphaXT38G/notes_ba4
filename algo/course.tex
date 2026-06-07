@@ -11,7 +11,7 @@
 \tableofcontents
 \clearpage
 
-These notes cover the core algorithmic techniques of the BA4 Algorithms I course:
+These notes cover the core algorithmique techniques of the BA4 Algorithms I course:
 asymptotic analysis, sorting, divide-and-conquer, heaps, binary search trees, and
 graph algorithms (max flow, matchings).
 
@@ -42,8 +42,8 @@ Let $f, g : \mathbb{N} \to \mathbb{R}^+$.
   \item $f \in O(g)$ \textbf{(upper bound)}: $\exists\, c, n_0 > 0$ s.t.\ $f(n) \leq c\,g(n)$ for all $n \geq n_0$
   \item $f \in \Omega(g)$ \textbf{(lower bound)}: $\exists\, c, n_0 > 0$ s.t.\ $f(n) \geq c\,g(n)$ for all $n \geq n_0$
   \item $f \in \Theta(g)$ \textbf{(tight bound)}: $f \in O(g)$ and $f \in \Omega(g)$
-  \item $f \in o(g)$ \textbf{(strict upper)}: $\lim_{n\to\infty} f(n)/g(n) = 0$
-  \item $f \in \omega(g)$ \textbf{(strict lower)}: $\lim_{n\to\infty} f(n)/g(n) = \infty$
+  \item $f \in o(g)$ \textbf{(strict upper)}: $\lim_{n\to\infty} f(n)/g(n) = 0 or also f(n) < g(n)$
+  \item $f \in \omega(g)$ \textbf{(strict lower)}: $\lim_{n\to\infty} f(n)/g(n) = \infty or also f(n) > g(n)$
 \end{itemize}
 \end{defnbox}
 
@@ -63,11 +63,20 @@ For the \textbf{Master Theorem}: given $T(n) = a\,T(n/b) + f(n)$ with $a \geq 1$
 \end{itemize}
 \end{rembox}
 
+
+
+
+
+
+
+
+
+
 % ---------------------------------------------------------
-\section{Sorting Algorithms}
+\chapter{Sorting Algorithms}
 % ---------------------------------------------------------
 
-\subsection{Insertion Sort}
+\section{Insertion Sort}
 
 \begin{propbox}[title=Complexity]
 Time: $\Theta(n^2)$ worst/average, $\Theta(n)$ best (already sorted). \quad Space: $O(1)$ in-place.
@@ -84,9 +93,16 @@ def insertion_sort(A):
         A[i + 1] = key
 \end{lstlisting}
 
-\textbf{Loop invariant:} at the start of each iteration, \texttt{A[0..j-1]} is sorted.
+\textbf{Loop invariant:} at the start of each iteration, \texttt{A[0..j-1]} is sorted. \\
+\textbf{Concept and objective:} Sort an array
 
-\subsection{Merge Sort}
+
+
+
+
+
+
+\section{Merge Sort}
 
 \begin{propbox}[title=Complexity]
 Time: $\Theta(n \log n)$ in all cases. \quad Space: $O(n)$ auxiliary.
@@ -101,10 +117,44 @@ def merge_sort(A, p, r):
         merge(A, p, q, r)   # merge two sorted halves
 \end{lstlisting}
 
+\begin{lstlisting}
+MERGE-SORT(A, p, r)
+    if p < r                // check for base case
+        q = rounddown((p + r)/2)     // divide
+        MERGE-SORT(A, p, q) // conquer
+        MERGE-SORT(A, q + 1, r) // conquer
+        MERGE(A, p, q, r)   // combine
+
+MERGE(A,p,q,r)
+	n1 = q-p+1
+	n2 = r-q
+	let L[1...n1 + 1] and R[1 ... n2+1] be new arrays
+	for i = 1 to n1
+		L[i] = A[p+i-1]
+	for j = 1 to n2
+		R[j] = A[q+j]
+	L[,1+1] = 8
+	R[n2+1] = 8
+	i = 1
+	j = 1
+	for k = p to r
+		if L[i] <= R[j]
+			A[k] = L[i]
+			i = i + 1
+		else A[k] = R[j]
+			j = j + 1
+\end{lstlisting}
+
 \textbf{Recurrence:} $T(n) = 2\,T(n/2) + \Theta(n)$ $\Rightarrow$ $T(n) = \Theta(n \log n)$ by Master Theorem (case 2).
 
+
+
+
+
+
+
 % ---------------------------------------------------------
-\section{Divide and Conquer}
+\section{Divide and Conquer principles}
 % ---------------------------------------------------------
 
 \begin{defnbox}[title=Paradigm]
