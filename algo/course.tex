@@ -1754,6 +1754,50 @@ For a \emph{random} BST, $\mathbb{E}[h] = O(\log n)$; in the worst case $h = n-1
 
 
 
+
+
+\vspace{2cm}
+
+
+
+
+\section{Tree search}
+\textbf{Concept and idea:}
+
+The \texttt{TREE-SEARCH} operation looks for a node with key $k$ in a binary search tree.
+
+It starts from the root (or a given node) and uses the BST property:
+if the key is smaller, it goes left; otherwise, it goes right.
+
+\begin{lstlisting}
+TREE-SEARCH(x, k)
+    if x == NIL or k == x.key
+        return x
+
+    if k < x.key
+        return TREE-SEARCH(x.left, k)
+    else
+        return TREE-SEARCH(x.right, k)
+\end{lstlisting}
+
+\textbf{Goal:} Find a node with key $k$ in a BST \\
+
+\textbf{Time complexity:} $O(h)$ (where $h$ is the height of the tree) \\
+
+\textbf{Space:} $O(h)$ (recursive call stack)
+
+
+
+
+
+
+
+
+
+
+
+
+
 \begin{lstlisting}
 TREE-SEARCH(x, k):
     if x == NIL or k == x.key: return x
