@@ -280,7 +280,13 @@ FIND-MAXIMUM-SUBARRAY(A, low, high):
     left  = FIND-MAXIMUM-SUBARRAY(A, low, mid)
     right = FIND-MAXIMUM-SUBARRAY(A, mid+1, high)
     cross = FIND-MAX-CROSSING(A, low, mid, high)
-    return the one with maximum sum
+    
+    if left-sum >= right-sum and left-sum >= cross-sum
+    return (left-low, left-high, left-sum)
+    elseif right-sum >= left-sum and right-sum >= cross-sum
+        return (right-low, right-high, right-sum)
+    else
+        return (cross-low, cross-high, cross-sum)
 \end{lstlisting}
 
 \begin{lstlisting}
@@ -333,6 +339,54 @@ Parmi ces trois possibilités, il retourne celle ayant la plus grande somme.
 
 
 \vspace{2cm}
+
+
+\section{Maximum Subarray BRUTE FORCE}
+
+
+\begin{lstlisting}
+MAXIMUM-SUBARRAY-SLOW(A[1..n]):
+
+    B.val <- -8
+    B.i <- 1
+    B.j <- n
+
+    for i <- 1 to n
+        tmp <- 0
+
+        for j <- i to n
+            tmp <- tmp + A[j]
+
+            if tmp > B.val
+                B.val <- tmp
+                B.i <- i
+                B.j <- j
+
+    return (B.i, B.j, B.val)
+\end{lstlisting}
+
+\textbf{Running time:}
+
+\[
+\Theta(n^2)
+\]
+
+\textbf{Space usage:}
+
+\[
+\Theta(n)
+\]
+
+(\(\Theta(n)\) for input + \(\Theta(1)\) extra)
+
+
+
+\vspace{2cm}
+
+
+
+
+
 
 
 
