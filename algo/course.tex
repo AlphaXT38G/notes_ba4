@@ -631,6 +631,11 @@ The \textbf{height} of a heap is the number of edges on the longest path from th
 A heap of size $n$ has height $\Theta(\log n)$.
 \end{defnbox}
 
+\begin{defnbox}[title=Height of a node]
+Height of node is the number of edges on a longest simple path from the node
+down to a leaf. (logiquement ça ne peut pas être plus grand que la height du tree en entier)
+\end{defnbox}
+
 \begin{defnbox}[title=Shape property]
 A heap is a \textbf{complete binary tree}: all levels are full except possibly the last, which is filled from left to right.
 \end{defnbox}
@@ -639,37 +644,94 @@ A heap is a \textbf{complete binary tree}: all levels are full except possibly t
 
 
 
+\vspace{2cm}
 
 
 
 
+\section{MAX-HEAPIFY}
 
+Ce qu'on veut maintenant c'est un algorithm capable de prendre un heap et d'en 
+faire un max heap donc on utilise MAX HEAPIFY
+\textbf{Algorithme :}
+\begin{itemize}
+    \item Comparer $A[i]$, $A[\mathrm{LEFT}(i)]$ et $A[\mathrm{RIGHT}(i)]$.
+    
+    \item Si nécessaire, échanger $A[i]$ avec le plus grand de ses deux enfants afin de préserver la propriété de tas (heap).
+    
+    \item Continuer ce processus de comparaison et d'échange vers le bas du tas jusqu'à ce que le sous-arbre enraciné en $i$ soit un max-heap.
+\end{itemize}
 
-
-
-
-
-
-
-
-\subsection{Heapify}
-\begin{propbox}[title=Complexity] $O(\log n)$ — tree height. \end{propbox}
 
 \begin{lstlisting}
-MAX-HEAPIFY(A, i, n):
-    l = 2i;  r = 2i + 1;  largest = i
-    if l <= n and A[l] > A[largest]: largest = l
-    if r <= n and A[r] > A[largest]: largest = r
-    if largest != i:
-        swap A[i] and A[largest]
+MAX-HEAPIFY(A, i, n)
+    l = LEFT(i)
+    r = RIGHT(i)
+
+    if l <= n and A[l] > A[i]
+        largest = l
+    else
+        largest = i
+
+    if r <= n and A[r] > A[largest]
+        largest = r
+
+    if largest != i
+        exchange A[i] with A[largest]
         MAX-HEAPIFY(A, largest, n)
 \end{lstlisting}
 
-\subsection{Build-Heap}
+\textbf{Goal:} Restore the max-heap property at node $i$ \\
+\textbf{Time complexity:} $Theta(height of i) =  O(\log n)$ \\
+\textbf{Space:} $O(\log n)$
+
+
+
+
+\vspace{2cm}
+
+
+
+
+\section{Build-Heap}
+C'est bien toutes ces histoires de max-heap, de min-heap, de heap ect mais
+bon quand même au début il faudrait commencer par le constrruire et savoir 
+le construite cette data structure !!!!!!!!!!
+
 Call \texttt{MAX-HEAPIFY} on all internal nodes bottom-up.
 Though each call is $O(\log n)$, a tight analysis gives $O(n)$ total.
 
-\subsection{Heapsort}
+\textbf{Concept and idea:}
+
+The \texttt{BUILD-MAX-HEAP} algorithm takes an unordered array and transforms it into a valid max-heap.
+
+It works by starting from the last non-leaf node and going backwards to the root.  
+At each step, it applies \texttt{MAX-HEAPIFY} to ensure that the subtree rooted at that node satisfies the heap property.  
+By doing this bottom-up, the algorithm efficiently builds a correct max-heap.
+
+\begin{lstlisting}
+BUILD-MAX-HEAP(A, n)
+    for i = n/2 downto 1
+        MAX-HEAPIFY(A, i, n)
+\end{lstlisting}
+
+\textbf{Goal:} Build a max-heap from an unsorted array \\
+\textbf{Time complexity:} $O(n)$ \\
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+\section{Heapsort}
 \begin{propbox}[title=Complexity]
 Time: $\Theta(n \log n)$ in all cases. \quad Space: $O(1)$ in-place.
 \end{propbox}
