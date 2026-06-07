@@ -1240,6 +1240,99 @@ POP(S)
 
 
 
+
+\chapter{Queue}
+
+
+\begin{defnbox}[title=Queue (file)]
+A \textbf{queue} is a linear data structure that follows the FIFO principle
+(First In, First Out).  
+This means that the first element added is the first one to be removed.
+\end{defnbox}
+
+\begin{defnbox}[title=FIFO principle]
+\textbf{FIFO (First In, First Out)} means that elements are removed in the same order they were inserted.  
+The oldest element in the structure is always the first to leave.
+\end{defnbox}
+
+\begin{defnbox}[title=Front]
+The \textbf{front} is the position of the first element in the queue.  
+Deletions (dequeue) always happen at the front.
+\end{defnbox}
+
+\begin{defnbox}[title=Rear]
+The \textbf{rear} is the position where new elements are inserted.  
+Insertions (enqueue) always happen at the rear.
+\end{defnbox}
+
+\begin{defnbox}[title=Enqueue operation]
+\texttt{ENQUEUE} adds an element at the rear of the queue.  
+After insertion, the new element becomes the last element.
+\end{defnbox}
+
+\begin{defnbox}[title=Dequeue operation]
+\texttt{DEQUEUE} removes and returns the element at the front of the queue.  
+The next element becomes the new front.
+\end{defnbox}
+
+\begin{defnbox}[title=Queue underflow]
+A \textbf{queue underflow} occurs when trying to dequeue from an empty queue.  
+This is an invalid operation.
+\end{defnbox}
+
+\begin{defnbox}[title=Queue overflow]
+A \textbf{queue overflow} occurs when trying to enqueue into a full queue (if bounded).
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Queues are used in scheduling systems, breadth-first search (BFS), printer queues, and buffering.
+\end{defnbox}
+
+\begin{defnbox}[title=Queue implementation (how it is stored)]
+A queue is usually implemented using an array $Q[1..n]$ with two pointers: \texttt{front} and \texttt{rear}.
+
+\begin{itemize}
+    \item \texttt{front} points to the first element to remove
+    \item \texttt{rear} points to the position where the next element is inserted
+    \item If \texttt{front > rear}, the queue is empty
+\end{itemize}
+
+\textbf{Fixed size queue:}
+The array has a fixed capacity. When full, no more elements can be inserted.
+
+\textbf{Dynamic size queue:}
+The array can grow when needed (by resizing and copying elements), avoiding overflow but with occasional cost.
+
+This structure is efficient because insertions and deletions do not require shifting elements.(MAIS C PAS CE QUON A FAIT LA C DEF EN PLUS)
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 % ---------------------------------------------------------
 \section{Binary Search Trees}
 % ---------------------------------------------------------
