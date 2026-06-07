@@ -1549,6 +1549,36 @@ LIST-SEARCH(L, k)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+
+\section{Linked list insert}
+\textbf{Concept and idea:}
+
+The \texttt{LIST-INSERT} operation inserts a new node at the beginning of a doubly linked list.
+
+It updates pointers so that the new node becomes the new head of the list, and properly connects it to the previous first node if it exists.
+
+\begin{lstlisting}
+LIST-INSERT(L, x)
+    x.next = L.head
+
+    if L.head != NIL
+        L.head.prev = x
+
+    L.head = x
+    x.prev = NIL
+\end{lstlisting}
+
+\textbf{Goal:} Insert a new element at the head of a linked list \\
+
+\textbf{Time complexity:} $O(1)$ \\
+
+\textbf{Space:} $O(1)$
 
 
 
