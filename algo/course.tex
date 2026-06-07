@@ -1624,6 +1624,27 @@ LIST-DELETE(L, x)
 \textbf{Space:} $O(1)$
 
 
+\section{Simplified pseudocodes}
+
+\begin{lstlisting}
+LIST-INSERT'(L, x)
+    x.next = L.nil.next
+    L.nil.next.prev = x
+    L.nil.next = x
+    x.prev = L.nil
+\end{lstlisting}
+
+\begin{lstlisting}
+LIST-DELETE'(L, x)
+    x.prev.next = x.next
+    x.next.prev = x.prev
+\end{lstlisting}
+
+
+
+
+
+
 
 
 
