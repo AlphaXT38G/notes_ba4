@@ -1089,6 +1089,98 @@ Stacks are used in function calls (call stack), expression evaluation, undo mech
 \end{defnbox}
 
 
+\begin{defnbox}[title=Stack implementation (how it is stored)]
+A stack is usually implemented using an array $S[1..n]$ and a variable \texttt{top}.
+
+\texttt{top} keeps track of the index of the last inserted element:
+\begin{itemize}
+    \item If \texttt{top = 0}, the stack is empty
+    \item Elements are stored from $S[1]$ up to $S[top]$
+    \item All operations (push and pop) modify only the \texttt{top}
+\end{itemize}
+
+\textbf{Fixed size stack:}
+The array size is fixed in advance. If the stack becomes full, no more elements can be added (stack overflow).
+
+\textbf{Dynamic size stack:}
+The array can grow when it becomes full (usually by allocating a larger array and copying elements). This avoids overflow but may require resizing operations.
+
+This makes the stack very efficient, since no shifting of elements is needed. (PAS CE QUON A FAIT)
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+\section{Stack empty}
+\textbf{Concept and idea:}
+
+The \texttt{STACK-EMPTY} operation checks whether a stack contains any elements or not.  
+It simply tests the position of the top pointer: if the stack has no elements, the top is equal to 0.
+
+\begin{lstlisting}
+STACK-EMPTY(S)
+    if S.top == 0
+        return TRUE
+    else
+        return FALSE
+\end{lstlisting}
+
+\textbf{Goal:} Check whether a stack is empty \\
+\textbf{Time complexity:} $O(1)$ \\
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+\section{Stack empty}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
 
 
 
