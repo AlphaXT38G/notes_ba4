@@ -2656,6 +2656,41 @@ return m and s
 
 \textbf{Space:} $O(n^2)$
 
+\vspace{2cm}
+
+\textbf{Concept and idea:}
+
+The \texttt{PRINT-OPTIMAL-PARENS} procedure reconstructs the optimal parenthesization of a matrix chain using the table $s$ computed by the dynamic programming algorithm.
+
+It recursively splits the chain at the optimal position and prints parentheses accordingly.
+
+\begin{lstlisting}
+Print-Optimal-Parens(s, i, j)
+
+1 if i == j
+2     print "Ai"
+3 else print "("
+4     Print-Optimal-Parens(s, i, s[i, j])
+5     Print-Optimal-Parens(s, s[i, j] + 1, j)
+6     print ")"
+\end{lstlisting}
+
+\textbf{Goal:} Reconstruct and print the optimal parenthesization of a matrix chain \\
+
+\textbf{Time complexity:} $O(n)$ (visits each split once) \\
+
+\textbf{Space:} $O(h)$ (recursion stack, where $h$ is recursion depth)
+
+
+
+\vspace{2cm}
+
+
+
+
+\section{Matrix chain multiplication - find best separation}
+
+
 
 
 
