@@ -1955,6 +1955,38 @@ PREORDER-TREE-WALK(x)
 
 
 
+\vspace{2cm}
+
+
+
+\section{Preorder tree walk}
+
+\textbf{Concept and idea:}
+
+The \texttt{POSTORDER-TREE-WALK} operation traverses a binary tree by visiting the children first, and the root last.
+
+It follows the order: left subtree → right subtree → node.
+
+\begin{lstlisting}
+POSTORDER-TREE-WALK(x)
+
+    if x != NIL
+        POSTORDER-TREE-WALK(x.left)
+        POSTORDER-TREE-WALK(x.right)
+        print key[x]
+\end{lstlisting}
+
+\textbf{Goal:} Traverse a BST in postorder (left → right → root) \\
+
+\textbf{Time complexity:} $O(n)$ \\
+
+\textbf{Space:} $O(h)$ (recursion stack)
+
+
+
+
+
+
 
 
 
