@@ -1887,6 +1887,34 @@ TREE-SUCCESSOR(x)
 
 
 
+\vspace{2cm}
+
+
+
+\section{Tree successor}
+\textbf{Concept and idea:}
+
+The \texttt{INORDER-TREE-WALK} operation visits all nodes of a binary search tree in sorted order.
+
+It follows the in-order traversal strategy: left subtree → node → right subtree.
+
+\begin{lstlisting}
+INORDER-TREE-WALK(x)
+
+    if x != NIL
+        INORDER-TREE-WALK(x.left)
+        print key[x]
+        INORDER-TREE-WALK(x.right)
+\end{lstlisting}
+
+\textbf{Goal:} Traverse a BST in sorted (in-order) order \\
+
+\textbf{Time complexity:} $O(n)$ \\
+
+\textbf{Space:} $O(h)$ (recursion stack)
+
+
+
 
 
 \begin{warnbox}
