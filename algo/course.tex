@@ -2120,6 +2120,19 @@ A BST is only efficient when \emph{balanced}. For guaranteed $O(\log n)$, use a
 self-balancing variant such as a \textbf{Red-Black tree} (height $\leq 2\log_2(n+1)$).
 \end{warnbox}
 
+
+
+
+
+\vspace{2cm}
+
+
+
+
+\vspace{2cm}
+
+
+
 % ---------------------------------------------------------
 \chapter{Data Structures Comparison}
 % ---------------------------------------------------------
@@ -2187,6 +2200,149 @@ Supports insertion, deletion, search, minimum and maximum in $O(h)$ time, where 
 
 
 
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+\chapter{Dynamic programming}
+
+
+\begin{defnbox}[title=Dynamic Programming (DP)]
+\textbf{Main idea:}
+\begin{itemize}
+    \item Remember calculations already made
+    \item Saves enormous amounts of computation
+    \item Allows to solve many optimization problems
+    \item Always at least one question in Google Code Jam needs DP
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Dynamic Programming (DP)]
+Dynamic Programming is a technique used to solve problems by breaking them into smaller subproblems and reusing already computed results instead of recomputing them.
+\end{defnbox}
+
+\begin{defnbox}[title=Main idea]
+\begin{itemize}
+    \item Store results of subproblems (memoization or tabulation)
+    \item Avoid recomputing the same values multiple times
+    \item Transform exponential problems into polynomial time solutions
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Overlapping subproblems]
+A problem has overlapping subproblems when the same subproblems are solved multiple times during recursion.
+\end{defnbox}
+
+\begin{defnbox}[title=Optimal substructure]
+A problem has optimal substructure when the optimal solution can be built from optimal solutions of its subproblems.
+\end{defnbox}
+
+\begin{defnbox}[title=Memoization (Top-down)]
+Memoization is a DP technique where results are stored during recursion to avoid recomputation.
+\end{defnbox}
+
+\begin{defnbox}[title=Tabulation (Bottom-up)]
+Tabulation is a DP technique where solutions are built iteratively from the smallest subproblems to the final solution.
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Dynamic Programming is used in optimization problems such as shortest paths, knapsack, sequence alignment, and many combinatorial problems.
+\end{defnbox}
+
+\textbf{Representation:}
+
+DP is generally represented as:
+\[
+dp[i] = \text{optimal solution of subproblem } i
+\]
+or more generally:
+\[
+dp[state] = \text{best value achievable for a given state}
+\]
+
+
+
+
+
+\vspace{2cm}
+
+
+
+\section{IMPORTANT CONCEPT BASICS}
+
+\begin{defnbox}[title=Two ways of Dynamic Programming]
+Dynamic Programming can be implemented in two main ways: top-down and bottom-up approaches.
+\end{defnbox}
+
+\begin{defnbox}[title=Top-down (Memoization)]
+\begin{itemize}
+    \item Solve the problem recursively
+    \item Store each computed result in a table
+    \item Avoid recomputing already solved subproblems
+    \item Memoization means "remembering previously computed results"
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Bottom-up (Tabulation)]
+\begin{itemize}
+    \item Solve subproblems in increasing order of size
+    \item Start from the smallest subproblems
+    \item Use already computed results to build larger solutions
+\end{itemize}
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+\section{Exemples on fibonnaci}
+
+
+\begin{lstlisting}
+Bottom-Up-Fib(n)
+
+1. Let r = [0 ... n] be a new array
+2. r[0] \leftarrow 1
+3. r[1] \leftarrow 1
+4. for i = 2 to n
+5.     r[i] \leftarrow r[i - 1] + r[i - 2]
+6. return r[n]
+\end{lstlisting}
+
+\begin{lstlisting}
+Memoized-Fib(n)
+
+1. Let r = [0 ... n] be a new array
+2. for i = 0 to n
+3.     r[i] \leftarrow -\infty
+4. return Memoized-Fib-Aux(n, r)
+\end{lstlisting}
+
+\begin{lstlisting}
+Memoized-Fib-Aux(n, r)
+
+1. if r[n] \geq 0
+2.     return r[n]
+3. if n = 0 or n = 1
+4.     ans \leftarrow 1
+5. else
+6.     ans \leftarrow Memoized-Fib-Aux(n - 1, r) +
+                     Memoized-Fib-Aux(n - 2, r)
+7. r[n] \leftarrow ans
+8. return r[n]
+\end{lstlisting}
 
 
 
