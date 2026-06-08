@@ -1849,6 +1849,46 @@ TREE-MAXIMUM(x)
 
 
 
+\vspace{2cm}
+
+
+
+
+\section{Tree successor}
+\textbf{Concept and idea:}
+
+The \texttt{TREE-SUCCESSOR} operation finds the next node in in-order traversal of a binary search tree.
+
+If the node has a right subtree, the successor is simply the minimum element of that right subtree.  
+Otherwise, the algorithm moves up using parent pointers until it finds a node that is a left child of its parent.
+
+\begin{lstlisting}
+TREE-SUCCESSOR(x)
+
+    if x.right != NIL
+        return TREE-MINIMUM(x.right)
+
+    y = x.p
+
+    while y != NIL and x == y.right
+        x = y
+        y = y.p
+
+    return y
+\end{lstlisting}
+
+\textbf{Goal:} Find the in-order successor of a node in a BST \\
+
+\textbf{Time complexity:} $O(h)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
 \begin{warnbox}
 A BST is only efficient when \emph{balanced}. For guaranteed $O(\log n)$, use a
 self-balancing variant such as a \textbf{Red-Black tree} (height $\leq 2\log_2(n+1)$).
