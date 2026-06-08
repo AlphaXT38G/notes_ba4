@@ -2795,13 +2795,58 @@ else
 
 
 
-\section{Longest common subsequence}
+\section{Bottom-up optimal BST}
+
+\textbf{Concept and idea:}
+
+The Optimal Binary Search Tree (OBST) problem consists in building a BST from sorted keys such that the expected search cost is minimized, given probabilities of successful searches $p_i$ and unsuccessful searches $q_i$.
+
+The goal is not just to keep the tree valid, but to minimize the weighted search cost.
+
+\begin{lstlisting}
+OPTIMAL-BST(p, q, n)
+
+let e[1..n + 1, 0..n], w[1..n + 1, 0..n], and root[1..n, 1..n]
+    be new tables
+
+for i = 1 to n + 1
+    e[i, i - 1] = 0
+    w[i, i - 1] = 0
+
+for l = 1 to n
+    for i = 1 to n - l + 1
+        j = i + l - 1
+        e[i, j] = 8
+        w[i, j] = w[i, j - 1] + p_j
+
+        for r = i to j
+            t = e[i, r - 1] + e[r + 1, j] + w[i, j]
+
+            if t < e[i, j]
+                e[i, j] = t
+                root[i, j] = r
+
+return e and root
+\end{lstlisting}
+
+\textbf{Goal:} Construct a BST with minimum expected search cost \\
+
+\textbf{Time complexity:} $O(n^3)$ \\
+
+\textbf{Space:} $O(n^2)$
 
 
 
 
 
 
+
+\vspace{2cm}
+
+
+
+
+\section{Bottom-up optimal BST}
 
 
 
