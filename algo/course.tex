@@ -3085,9 +3085,81 @@ Since BFS explores vertices in increasing order of distance from the source (lev
 
 
 
-\section{Breadth-First Search}
+\section{Depth-First Search}
+
+\textbf{Concept and idea:}
+
+Depth-First Search (DFS) explores a graph by going as deep as possible along each branch before backtracking.  
+It starts from a vertex, explores one path completely, then backtracks and continues with other unexplored paths.
+
+Unlike BFS, which explores vertices level by level, DFS explores along depth first.
+
+The algorithm assigns two timestamps to each vertex:
+\begin{itemize}
+    \item discovery time $v.d$ when the vertex is first visited
+    \item finishing time $v.f$ when exploration of the vertex is complete
+\end{itemize}
+
+\begin{lstlisting}
+DFS(G)
+
+for each u appartient G.V
+    u.color = WHITE
+
+time = 0
+
+for each u appartent G.V
+    if u.color == WHITE
+        DFS-VISIT(G, u)
+\end{lstlisting}
+
+\begin{lstlisting}
+DFS-VISIT(G, u)
+
+time = time + 1
+u.d = time
+u.color = GRAY
+
+for each v appartient G.Adj[u]
+    if v.color == WHITE
+        DFS-VISIT(v)
+
+u.color = BLACK
+time = time + 1
+u.f = time
+\end{lstlisting}
+
+\textbf{Goal:} Explore all vertices and edges of the graph while computing discovery and finishing times \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V)$ (recursion stack)
+
+\begin{defnbox}[title=DFS Vertex Colors]
+As Depth-First Search (DFS) progresses, each vertex is assigned a color to track its exploration state:
+
+\begin{itemize}
+    \item \textbf{WHITE}: the vertex is undiscovered
+    \item \textbf{GRAY}: the vertex is discovered but not fully explored (DFS is still processing its neighbors)
+    \item \textbf{BLACK}: the vertex is finished (all reachable vertices from it have been explored)
+\end{itemize}
+
+These colors help DFS manage traversal order and avoid revisiting vertices.
+\end{defnbox}
 
 
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Depth-First Search}
 
 
 
