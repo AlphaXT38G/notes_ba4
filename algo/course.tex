@@ -1891,7 +1891,7 @@ TREE-SUCCESSOR(x)
 
 
 
-\section{Tree successor}
+\section{Inorder tree walk}
 \textbf{Concept and idea:}
 
 The \texttt{INORDER-TREE-WALK} operation visits all nodes of a binary search tree in sorted order.
@@ -1912,6 +1912,47 @@ INORDER-TREE-WALK(x)
 \textbf{Time complexity:} $O(n)$ \\
 
 \textbf{Space:} $O(h)$ (recursion stack)
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+\section{Postorder tree walk}
+\textbf{Concept and idea:}
+
+The \texttt{PREORDER-TREE-WALK} operation traverses a binary tree by visiting the root first, then the left subtree, and finally the right subtree.
+
+This is useful when you want to process a node before its children.
+
+\begin{lstlisting}
+PREORDER-TREE-WALK(x)
+
+    if x != NIL
+        print key[x]
+        PREORDER-TREE-WALK(x.left)
+        PREORDER-TREE-WALK(x.right)
+\end{lstlisting}
+
+\textbf{Goal:} Traverse a BST in preorder (root → left → right) \\
+
+\textbf{Time complexity:} $O(n)$ \\
+
+\textbf{Space:} $O(h)$ (recursion stack)
+
+
+
+
+
+
+
 
 
 
