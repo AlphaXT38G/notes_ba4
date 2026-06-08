@@ -2797,43 +2797,43 @@ else
 
 \section{Bottom-up optimal BST}
 
-\textbf{Concept and idea:}
+  \textbf{Concept and idea:}
 
-The Optimal Binary Search Tree (OBST) problem consists in building a BST from sorted keys such that the expected search cost is minimized, given probabilities of successful searches $p_i$ and unsuccessful searches $q_i$.
+  The Optimal Binary Search Tree (OBST) problem consists in building a BST from sorted keys such that the expected search cost is minimized, given probabilities of successful searches $p_i$ and unsuccessful searches $q_i$.
 
-The goal is not just to keep the tree valid, but to minimize the weighted search cost.
+  The goal is not just to keep the tree valid, but to minimize the weighted search cost.
 
-\begin{lstlisting}
-OPTIMAL-BST(p, q, n)
+  \begin{lstlisting}
+  OPTIMAL-BST(p, q, n)
 
-let e[1..n + 1, 0..n], w[1..n + 1, 0..n], and root[1..n, 1..n]
-    be new tables
+  let e[1..n + 1, 0..n], w[1..n + 1, 0..n], and root[1..n, 1..n]
+      be new tables
 
-for i = 1 to n + 1
-    e[i, i - 1] = 0
-    w[i, i - 1] = 0
+  for i = 1 to n + 1
+      e[i, i - 1] = 0
+      w[i, i - 1] = 0
 
-for l = 1 to n
-    for i = 1 to n - l + 1
-        j = i + l - 1
-        e[i, j] = 8
-        w[i, j] = w[i, j - 1] + p_j
+  for l = 1 to n
+      for i = 1 to n - l + 1
+          j = i + l - 1
+          e[i, j] = 8
+          w[i, j] = w[i, j - 1] + p_j
 
-        for r = i to j
-            t = e[i, r - 1] + e[r + 1, j] + w[i, j]
+          for r = i to j
+              t = e[i, r - 1] + e[r + 1, j] + w[i, j]
 
-            if t < e[i, j]
-                e[i, j] = t
-                root[i, j] = r
+              if t < e[i, j]
+                  e[i, j] = t
+                  root[i, j] = r
 
-return e and root
-\end{lstlisting}
+  return e and root
+  \end{lstlisting}
 
-\textbf{Goal:} Construct a BST with minimum expected search cost \\
+  \textbf{Goal:} Construct a BST with minimum expected search cost \\
 
-\textbf{Time complexity:} $O(n^3)$ \\
+  \textbf{Time complexity:} $O(n^3)$ \\
 
-\textbf{Space:} $O(n^2)$
+  \textbf{Space:} $O(n^2)$
 
 
 
@@ -2988,12 +2988,104 @@ C & 0 & 0 & 0 \\
 \end{defnbox}
 
 
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+ & \textbf{Adjacency List} & \textbf{Adjacency Matrix} \\
+\hline
+Space & $\Theta(V + E)$ & $\Theta(V^2)$ \\
+\hline
+List adjacent to $u$ & $\Theta(\deg(u))$ & $\Theta(V)$ \\
+\hline
+Test if $(u,v) \in E$ & $O(\deg(u))$ & $\Theta(1)$ \\
+\hline
+\end{tabular}
+\end{table}
 
 
 
 
 
 
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Breadth-First Search}
+\textbf{Concept and idea:}
+
+The BFS (Breadth-First Search) algorithm explores a graph level by level starting from a source vertex $s$.  
+It computes the shortest path (in number of edges) from $s$ to every reachable vertex in the graph.
+
+The idea is that vertices closer to the source are processed first using a queue, ensuring that the first time we reach a vertex, it is via the shortest path.
+
+\begin{lstlisting}
+BFS(V, E, s)
+
+for each u apparient V - {s}
+    u.d = 8
+
+s.d = 0
+Q = ensemble vide
+ENQUEUE(Q, s)
+
+while Q != ensemble vide
+    u = DEQUEUE(Q)
+
+    for each v apparient G.Adj[u]
+        if v.d == 8
+            v.d = u.d + 1
+            ENQUEUE(Q, v)
+\end{lstlisting}
+
+\textbf{Goal:} Compute the shortest distance (in number of edges) from source $s$ to every vertex $v \in V$ \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V)$
+\textbf{Idea of correctness:}
+
+If a vertex $v$ had a distance greater than the true shortest path from $s$ to $v$, this would contradict the BFS exploration order.
+
+Since BFS explores vertices in increasing order of distance from the source (level by level using a queue), the first time a vertex is discovered is always via a shortest path.
+
+---
+
+\textbf{Runtime analysis:} $\mathcal{O}(V + E)$
+
+\begin{itemize}
+    \item $\mathcal{O}(V)$: each vertex is enqueued at most once
+    \item $\mathcal{O}(E)$: each edge is examined at most once (or twice for undirected graphs)
+\end{itemize}
+
+---
+
+\textbf{Additional notes:}
+\begin{itemize}
+    \item BFS may not reach all vertices if the graph is not connected
+    \item We can reconstruct the shortest path tree by storing the predecessor (the edge that first discovered each vertex)
+\end{itemize}
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Breadth-First Search}
 
 
 
