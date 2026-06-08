@@ -2481,7 +2481,108 @@ This algorithm removes the exponential explosion of the naive recursive solution
 
 
 
-\section{Rod Cutting algorithm}
+\section{Rod Cutting algorithm bottom-up}
+
+\textbf{Concept and idea:}
+
+The \texttt{BOTTOM-UP-CUT-ROD} algorithm solves the rod cutting problem using the bottom-up dynamic programming approach.
+
+Instead of solving recursively like the memoized version, it starts from the smallest rod sizes and progressively builds solutions up to size $n$.
+
+At each step:
+\begin{itemize}
+    \item smaller subproblems are already solved
+    \item the algorithm reuses these results directly from the table
+    \item no recursive calls are needed
+\end{itemize}
+
+This avoids recursion overhead and guarantees that each subproblem is solved exactly once.
+
+\begin{lstlisting}
+BOTTOM-UP-CUT-ROD(p, n)
+
+let r[0..n] be a new array
+r[0] = 0
+
+for j = 1 to n
+    q = -8
+    for i = 1 to j
+        q = max(q, p[i] + r[j - i])
+
+    r[j] = q
+
+return r[n]
+\end{lstlisting}
+
+\textbf{Goal:} Compute the maximum obtainable revenue for a rod of size $n$ using bottom-up dynamic programming \\
+
+\textbf{Time complexity:} $O(n^2)$ \\
+
+\textbf{Space:} $O(n)$
+
+---
+
+\textbf{Difference with the memoized (top-down) approach:}
+
+\begin{itemize}
+    \item \textbf{Top-down:}
+    starts from the final problem and recursively explores smaller subproblems only when needed.
+
+    \item \textbf{Bottom-up:}
+    starts from the smallest subproblems and iteratively builds all larger solutions until reaching the final answer.
+
+    \item \textbf{Top-down:}
+    uses recursion + memoization.
+
+    \item \textbf{Bottom-up:}
+    uses iteration + tabulation (array filling).
+\end{itemize}
+
+---
+
+\textbf{General idea:}
+
+\begin{itemize}
+    \item Sort subproblems by size
+    \item Solve the smallest ones first
+    \item Reuse already computed solutions to build larger ones
+\end{itemize}
+
+
+
+\begin{defnbox}[title=Recovering the Optimal Solution]
+The previous rod cutting algorithms only return the optimal profit.  
+However, in many cases, we also want to know the actual cuts used to obtain this optimal solution.
+\end{defnbox}
+
+\begin{defnbox}[title=Main idea]
+Each cell of the dynamic programming table corresponds to a decision:
+the position of the leftmost cut chosen for that rod size.
+\end{defnbox}
+
+\begin{defnbox}[title=Approach]
+Store the decision associated with each subproblem in a separate table.  
+This allows reconstruction of the sequence of cuts after computing the optimal profit.
+\end{defnbox}
+
+
+\begin{lstlisting}
+EXTENDED-BOTTOM-UP-CUT-ROD(p, n)
+
+let r[0..n] and s[0..n] be new arrays
+r[0] = 0
+
+for j = 1 to n
+    q = -8
+    for i = 1 to j
+        if q < p[i] + r[j - i]
+            q = p[i] + r[j - i]
+            s[j] = i
+
+    r[j] = q
+
+return r and s
+\end{lstlisting}
 
 
 
@@ -2490,8 +2591,12 @@ This algorithm removes the exponential explosion of the naive recursive solution
 
 
 
+\vspace{2cm}
 
 
+
+
+\section{Rod Cutting algorithm bottom-up}
 
 
 
