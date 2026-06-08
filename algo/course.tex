@@ -2845,8 +2845,147 @@ return e and root
 
 
 
+% =========================================================
+\chapter{Graphs}
+% =========================================================
 
-\section{Bottom-up optimal BST}
+
+\begin{defnbox}[title=Graph (Graphe)]
+A \textbf{graph} is a data structure composed of a set of vertices (nodes) and edges (connections) between them.  
+It is used to model relationships between objects.
+\end{defnbox}
+
+\begin{defnbox}[title=Vertex (Node)]
+A \textbf{vertex} is a fundamental unit of a graph.  
+It represents an object or entity in the graph.
+\end{defnbox}
+
+\begin{defnbox}[title=Edge]
+An \textbf{edge} is a connection between two vertices.  
+It can be directed or undirected, and may have a weight.
+\end{defnbox}
+
+\begin{defnbox}[title=Directed Graph (Digraph)]
+A \textbf{directed graph} is a graph where edges have a direction, going from one vertex to another.
+\end{defnbox}
+
+\begin{defnbox}[title=Undirected Graph]
+An \textbf{undirected graph} is a graph where edges have no direction; the relationship is symmetric.
+\end{defnbox}
+
+\begin{defnbox}[title=Weighted Graph]
+A \textbf{weighted graph} is a graph where each edge has an associated cost or weight.
+\end{defnbox}
+
+\begin{defnbox}[title=Adjacent vertices]
+Two vertices are \textbf{adjacent} if they are connected by an edge.
+\end{defnbox}
+
+\begin{defnbox}[title=Degree]
+The \textbf{degree} of a vertex is the number of edges connected to it.
+In a directed graph, we distinguish in-degree and out-degree.
+\end{defnbox}
+
+\begin{defnbox}[title=Path]
+A \textbf{path} is a sequence of vertices connected by edges.
+\end{defnbox}
+
+\begin{defnbox}[title=Cycle]
+A \textbf{cycle} is a path that starts and ends at the same vertex.
+\end{defnbox}
+
+\begin{defnbox}[title=Connected Graph]
+An undirected graph is \textbf{connected} if there is a path between every pair of vertices.
+\end{defnbox}
+
+\begin{defnbox}[title=Connected Components]
+A \textbf{connected component} is a maximal set of vertices such that every pair is connected by a path.
+\end{defnbox}
+
+\begin{defnbox}[title=Tree (Graph Theory)]
+A \textbf{tree} is a connected acyclic graph.
+\end{defnbox}
+
+\begin{defnbox}[title=Directed Acyclic Graph (DAG)]
+A \textbf{DAG} is a directed graph with no cycles.
+\end{defnbox}
+
+\begin{defnbox}[title=Representation]
+Graphs are commonly represented using:
+\begin{itemize}
+    \item adjacency list (efficient for sparse graphs)
+    \item adjacency matrix (efficient for dense graphs)
+\end{itemize}
+\end{defnbox}
+
+\textbf{Representation:}
+
+A graph is written as:
+\[
+G = (V, E)
+\]
+where:
+\begin{itemize}
+    \item $V$ is the set of vertices
+    \item $E$ is the set of edges
+\end{itemize}
+
+
+\begin{defnbox}[title=Vertex]
+A \textbf{vertex} (or node) is a fundamental element of a graph.  
+It represents an entity or object in the structure.
+\end{defnbox}
+
+\begin{defnbox}[title=Weighted Vertex]
+A \textbf{weighted vertex} is a vertex that has an associated value (weight), which can represent cost, priority, distance, or any other metric.
+\end{defnbox}
+
+\begin{defnbox}[title=Weighted Edge]
+A \textbf{weighted edge} is an edge that has an associated weight.  
+This weight represents a cost, distance, time, or any numerical value assigned to the connection between two vertices.
+\end{defnbox}
+
+\begin{defnbox}[title=Adjacency List Representation]
+An \textbf{adjacency list} represents a graph by storing, for each vertex, a list of all vertices directly connected to it.
+
+\textbf{Idea:}
+\begin{itemize}
+    \item Each vertex stores its neighbors
+    \item Efficient for sparse graphs
+    \item Space complexity: $O(V + E)$
+\end{itemize}
+
+\textbf{Example:}
+\[
+A \rightarrow \{B, C\}, \quad B \rightarrow \{A, D\}
+\]
+\end{defnbox}
+
+\begin{defnbox}[title=Adjacency Matrix Representation]
+An \textbf{adjacency matrix} represents a graph using a 2D matrix $M$ where:
+
+\begin{itemize}
+    \item $M[i][j] = 1$ (or weight) if there is an edge from $i$ to $j$
+    \item $M[i][j] = 0$ (or $\infty$) otherwise
+\end{itemize}
+
+\textbf{Idea:}
+\begin{itemize}
+    \item Fast edge lookup: $O(1)$
+    \item Uses $O(V^2)$ space
+    \item Better for dense graphs
+\end{itemize}
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
 
 
 
