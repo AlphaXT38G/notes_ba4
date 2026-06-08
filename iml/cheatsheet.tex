@@ -164,25 +164,9 @@ Distance between the hyperplane $w^Tx+b=0$ and the closest points.
 \textbf{Support vectors:} the points defining the margin.
 \end{defn}
 
-\begin{thm}[title=Hard-Margin SVM (linearly separable)]
-\[ \min_{w,b}\frac{1}{2}\|w\|^2 \;\text{ s.t. }\; y_i(w^Tx_i+b)\geq 1\;\forall i \]
-\end{thm}
-
-\begin{thm}[title=Soft-Margin SVM (general)]
-\[ \min_{w,b,\xi}\frac{1}{2}\|w\|^2 + C\sum_i\xi_i \]
-\[ \text{s.t. } y_i(w^Tx_i+b)\geq 1-\xi_i,\;\xi_i\geq 0 \]
-\kv{$C$ large}{few errors tolerated $\Rightarrow$ risk overfitting}
-\kv{$C$ small}{wider margin, more errors $\Rightarrow$ risk underfitting}
-\end{thm}
-
 \begin{prop}[title=Prediction]
 \[ \hat{y} = \text{sign}(w^{\star T}x + b) \]
 \end{prop}
-
-\textit{Note:} $\frac{1}{2}\|w\|^2$ acts as built-in L2 regularization.\\
-\textit{Extension:} \textbf{Kernel SVM} replaces $x_i^Tx_j$ with $k(x_i,x_j)$ for non-linear boundaries.
-
-\textit{vs Logistic Reg:} SVM finds the optimal margin boundary; logistic regression finds any separating boundary.
 
 % ============================================================
 \section{k-Nearest Neighbors (KNN)}
