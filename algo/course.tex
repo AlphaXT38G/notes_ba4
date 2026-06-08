@@ -2047,6 +2047,75 @@ TREE-INSERT(T, z)
 
 
 
+\vspace{2cm}
+
+\section{Tree delete}
+
+\textbf{Concept and idea:}
+
+The \texttt{TREE-DELETE} operation removes a node from a binary search tree while preserving the BST property.  
+It relies on a helper operation called \texttt{TRANSPLANT}, which replaces one subtree with another.
+
+The \texttt{TRANSPLANT} method is used to replace one subtree with another while correctly updating parent pointers, allowing the tree structure to be modified safely without breaking the binary search tree properties.  
+
+The \texttt{TREE-DELETE} operation removes a node from a binary search tree while preserving the BST property. It handles all structural cases (no child, one child, or two children) and uses \texttt{TRANSPLANT} to correctly reconnect subtrees when needed.
+
+There are three cases when deleting a node $z$:
+\begin{itemize}
+    \item If $z$ has no children, it is simply removed.
+    \item If $z$ has one child, that child takes $z$'s position.
+    \item If $z$ has two children, we find its successor $y$ and replace $z$ with $y$.
+\end{itemize}
+
+\begin{lstlisting}
+TRANSPLANT(T, u, v)
+
+    if u.p == NIL
+        T.root = v
+
+    elseif u == u.p.left
+        u.p.left = v
+
+    else
+        u.p.right = v
+
+    if v != NIL
+        v.p = u.p
+\end{lstlisting}
+
+\begin{lstlisting}
+TREE-DELETE(T, z)
+
+    if z.left == NIL
+        TRANSPLANT(T, z, z.right)
+
+    elseif z.right == NIL
+        TRANSPLANT(T, z, z.left)
+
+    else
+        y = TREE-MINIMUM(z.right)
+
+        if y.p != z
+            TRANSPLANT(T, y, y.right)
+            y.right = z.right
+            y.right.p = y
+
+        TRANSPLANT(T, z, y)
+        y.left = z.left
+        y.left.p = y
+\end{lstlisting}
+
+\textbf{Goal:} Delete a node from a BST while preserving its structure \\
+
+\textbf{Time complexity:} $O(h)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
 
 
 
