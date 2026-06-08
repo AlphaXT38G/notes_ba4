@@ -2115,19 +2115,13 @@ TREE-DELETE(T, z)
 
 
 
-
-
-
-
-
-
 \begin{warnbox}
 A BST is only efficient when \emph{balanced}. For guaranteed $O(\log n)$, use a
 self-balancing variant such as a \textbf{Red-Black tree} (height $\leq 2\log_2(n+1)$).
 \end{warnbox}
 
 % ---------------------------------------------------------
-\section{Data Structures Comparison}
+\chapter{Data Structures Comparison}
 % ---------------------------------------------------------
 
 \begin{center}
@@ -2145,6 +2139,93 @@ Hash table     & $O(1)^*$& $O(1)^*$    & $O(1)^*$    & $^*$expected \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+
+
+
+\begin{table}[h]
+\centering
+
+\begin{tabular}{|p{3.5cm}|p{10cm}|}
+\hline
+\textbf{Data Structure} & \textbf{Properties} \\
+\hline
+
+\textbf{Stacks} &
+Last-In-First-Out (LIFO). \newline
+Insertion and deletion in $O(1)$ time. \newline
+Array implementation with fixed capacity. \\
+\hline
+
+\textbf{Queues} &
+First-In-First-Out (FIFO). \newline
+Insertion and deletion in $O(1)$ time. \newline
+Array implementation with fixed capacity. \\
+\hline
+
+\textbf{Linked Lists} &
+No fixed capacity. \newline
+Insertion and deletion in $O(1)$ time (if position is known). \newline
+Search takes $O(n)$ time. \\
+\hline
+
+\textbf{Binary Search Trees} &
+No fixed capacity. \newline
+Supports insertion, deletion, search, minimum and maximum in $O(h)$ time, where $h$ is the height of the tree. \\
+\hline
+
+\end{tabular}
+
+\caption{Summary of basic data structures and their complexities}
+\end{table}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 % =========================================================
 \chapter{Graph Algorithms — Max Flow}
