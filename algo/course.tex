@@ -2898,6 +2898,14 @@ A \textbf{cycle} is a path that starts and ends at the same vertex.
 An undirected graph is \textbf{connected} if there is a path between every pair of vertices.
 \end{defnbox}
 
+\begin{defnbox}[title=Strongly Connected Graph]
+A \textbf{directed graph} is strongly connected if for every pair of vertices $u$ and $v$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+\end{defnbox}
+
+\begin{defnbox}[title=Weakly Connected Graph]
+A \textbf{directed graph} is weakly connected if, after ignoring the direction of edges, the resulting undirected graph is connected.
+\end{defnbox}
+
 \begin{defnbox}[title=Connected Components]
 A \textbf{connected component} is a maximal set of vertices such that every pair is connected by a path.
 \end{defnbox}
@@ -2910,13 +2918,6 @@ A \textbf{tree} is a connected acyclic graph.
 A \textbf{DAG} is a directed graph with no cycles.
 \end{defnbox}
 
-\begin{defnbox}[title=Representation]
-Graphs are commonly represented using:
-\begin{itemize}
-    \item adjacency list (efficient for sparse graphs)
-    \item adjacency matrix (efficient for dense graphs)
-\end{itemize}
-\end{defnbox}
 
 \textbf{Representation:}
 
@@ -2930,11 +2931,6 @@ where:
     \item $E$ is the set of edges
 \end{itemize}
 
-
-\begin{defnbox}[title=Vertex]
-A \textbf{vertex} (or node) is a fundamental element of a graph.  
-It represents an entity or object in the structure.
-\end{defnbox}
 
 \begin{defnbox}[title=Weighted Vertex]
 A \textbf{weighted vertex} is a vertex that has an associated value (weight), which can represent cost, priority, distance, or any other metric.
@@ -2975,6 +2971,20 @@ An \textbf{adjacency matrix} represents a graph using a 2D matrix $M$ where:
     \item Uses $O(V^2)$ space
     \item Better for dense graphs
 \end{itemize}
+
+\textbf{Example:}
+
+For a graph with vertices $\{A, B, C\}$ and edges $A \rightarrow B$, $B \rightarrow C$, the adjacency matrix is:
+
+\[
+\begin{array}{c|ccc}
+    & A & B & C \\
+\hline
+A & 0 & 1 & 0 \\
+B & 0 & 0 & 1 \\
+C & 0 & 0 & 0 \\
+\end{array}
+\]
 \end{defnbox}
 
 
