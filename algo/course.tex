@@ -2354,6 +2354,38 @@ Memoized-Fib-Aux(n, r)
 
 
 
+\vspace{2cm}
+
+\section{Key element on designing DP}
+
+
+\begin{defnbox}[title=Optimal Substructure]
+Optimal substructure means that a solution to a problem is built by making a choice that leads to one or more subproblems, and the optimal solution is obtained by solving these subproblems optimally.
+\end{defnbox}
+
+\begin{defnbox}[title=Overlapping Subproblems]
+A problem has overlapping subproblems when a naive recursive solution solves the same subproblems multiple times.
+\end{defnbox}
+
+\begin{defnbox}[title=Top-down with Memoization]
+Solve the problem recursively while storing each computed result in a table to avoid recomputation.
+\end{defnbox}
+
+\begin{defnbox}[title=Bottom-up Approach]
+Sort the subproblems by size and solve the smallest ones first.  
+This ensures that when solving a subproblem, all required smaller subproblems have already been solved.
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
