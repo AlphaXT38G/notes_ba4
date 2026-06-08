@@ -1990,6 +1990,68 @@ POSTORDER-TREE-WALK(x)
 
 
 
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+\section{Tree insert}
+\textbf{Concept and idea:}
+
+The \texttt{TREE-INSERT} operation inserts a new node into a binary search tree while preserving the BST property.
+
+It first searches for the correct position by moving down the tree, then attaches the new node as a leaf.
+
+\begin{lstlisting}
+TREE-INSERT(T, z)
+
+    y = NIL
+    x = T.root
+
+    while x != NIL
+        y = x
+        if z.key < x.key
+            x = x.left
+        else
+            x = x.right
+
+    z.p = y
+
+    if y == NIL
+        T.root = z
+
+    elseif z.key < y.key
+        y.left = z
+
+    else
+        y.right = z
+\end{lstlisting}
+
+\textbf{Goal:} Insert a node into a BST \\
+
+\textbf{Time complexity:} $O(h)$ \\
+
+\textbf{Space:} $O(1)$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \begin{warnbox}
 A BST is only efficient when \emph{balanced}. For guaranteed $O(\log n)$, use a
 self-balancing variant such as a \textbf{Red-Black tree} (height $\leq 2\log_2(n+1)$).
