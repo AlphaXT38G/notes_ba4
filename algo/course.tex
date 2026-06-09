@@ -3159,7 +3159,40 @@ These colors help DFS manage traversal order and avoid revisiting vertices.
 
 
 
-\section{Depth-First Search}
+\section{Classification of edges}
+
+\begin{defnbox}[title=Tree Edge]
+A \textbf{tree edge} is an edge discovered while exploring a new vertex during DFS.  
+It becomes part of the depth-first forest.
+\end{defnbox}
+
+\begin{defnbox}[title=Back Edge]
+A \textbf{back edge} is an edge $(u,v)$ where $v$ is an ancestor of $u$ in the DFS tree.  
+It points back toward an already discovered ancestor.
+\end{defnbox}
+
+\begin{defnbox}[title=Forward Edge]
+A \textbf{forward edge} is an edge $(u,v)$ where $v$ is a descendant of $u$ in the DFS tree, but $(u,v)$ is not a tree edge.
+\end{defnbox}
+
+\begin{defnbox}[title=Cross Edge]
+A \textbf{cross edge} is any edge that is neither a tree edge, a back edge, nor a forward edge.  
+It typically connects vertices belonging to different DFS branches.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Classification of edges}
+
+
+
 
 
 
