@@ -308,7 +308,7 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \end{prop}
 
 \begin{defn}[title=Stationarity]
-Statistical properties are time-invariant. In practice, we use \textbf{Wide-Sense Stationarity (WSS)}, which only requires the first two moments to be time-invariant.
+Statistical properties are time-invariant. In practice, we use \textbf{WSS}, which only requires the first two moments to be time-invariant.
 \end{defn}
 
 \begin{defn}[title=Wide-Sense (WSS) stationarity]
@@ -327,8 +327,8 @@ $\mathrm{DTFT}\{r_x[k]\} = \dfrac{1}{1 + a^2 - 2a\cos\omega}$
 \begin{prop}[title=Power Spectral Density (PSD)]
 \textbf{Estimator (DFT)}: $P[k] = E\left[|X_N[k]|^2/N\right]$\\
 \textbf{Exact definition (Wiener-Khinchin)}:
-\[ P_x(e^{j\omega}) = |X(\omega)|^2 = \mathrm{DTFT}\{r_x[k]\} \]
-
+\[ P_x(\omega) = |X(\omega)|^2 = \mathrm{DTFT}\{r_x[k]\} \]
+\textbf{Variance}: $\sigma_x^2 = \dfrac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi} P_x(\omega)\,d\omega = r_x[0]$
 \end{prop}
 
 \begin{thm}[title=Convolution theorem (stochastic)]
@@ -434,6 +434,17 @@ Montrer la périodiciter. Diviser les indices par N.
 \begin{defn}[title=Quantization schemes]
 \includegraphics[width=\linewidth]{images/quantization_schemes.png}
 \end{defn}
+
+\begin{defn}[title=Quantization MSE]
+\[ \sigma_e^2 = E\!\left[(x - Q(x))^2\right] \]
+\end{defn}
+
+\begin{prop}[title=Error analysis for uniform quantization]
+\textbf{Error energy}: $\sigma_e^2 = \Delta^2/12$, \quad $\Delta = (B-A)/2^R$ \\
+\textbf{Signal energy}: $\sigma_x^2 = (B-A)^2/12$ \\
+\textbf{SNR}: $\mathrm{SNR} = \sigma_x^2/\sigma_e^2 = 2^{2R}$ \\
+\textbf{SNR\textsubscript{dB}}: $10\log_{10} 2^{2R} \approx 6R\ \mathrm{dB}$
+\end{prop}
 
 \end{multicols*}
 \end{document}
