@@ -292,53 +292,47 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \begin{defn}[title=Cross-correlation \& Covariance]
 \textbf{Cross-correlation}: $R_{xy} = E[xy]$ \\
 \textbf{Covariance}: $C_{xy} = E[(x-m_x)(y-m_y)]$ \\
-\textbf{If zero-mean}: $C_{xy} = R_{xy}$ \\[2pt]
-To compute covariance, need the joint PDF $f_{xy}(x,y)$:
-\[ E[g(x,y)] = \int\!\!\int_{-\infty}^{\infty} g(x,y)\,f_{xy}(x,y)\,dx\,dy \]
 \textbf{Uncorrelated}: $E[xy]=E[x]E[y]=m_x m_y$ \\
 \textbf{Independent}: $f_{xy}(x,y)=f_x(x)f_y(y)$
 \end{defn}
 
-\begin{defn}[title=Deterministic vs Stochastic]
-\textbf{Deterministic}: $x[n]$ fully described by a formula.\\
-\textbf{Stochastic}: a machine of $\infty$ RVs indexed by $n$; each run produces one \textbf{realization} $\check{x}[n]$. \\
-$k$-th order description:
-\begin{itemize}
-  \item \textbf{1st:} $f_{X[n]}(x[n])$
-  \item \textbf{2nd:} $f_{X[n]X[m]}(x[n],x[m])$
-\end{itemize}
-Full description (all orders) is impossible.
-\end{defn}
-
-\begin{defn}[title=Stationarity]
-\textbf{1 - Strict}: all joint PDFs are time-shift invariant.\\
-\textbf{2 - WSS} (Wide-Sense stationarity):
-\begin{enumerate}
-  \item $E[x[n]]=m_x$
-  \item $E[x[n]x[m]]=r_x[n-m]$
-\end{enumerate}
-Properties: $r_x[-k]=r_x[k]$;\quad $r_x[0]=E[x[n]^2]=P_x\ge 0$.
-\end{defn}
-
-\begin{defn}[title=Cross-Correlation]
+\begin{thm}[title=Cross-Correlation]
 \[ r_{xy}[k] = \langle \mathbf{x}, \mathcal{S}^k \mathbf{y} \rangle = \sum_{n=-\infty}^{\infty} x^*[n]\,y[n+k] \]
-\end{defn}
+\end{thm}
 
-\begin{defn}[title=White Noise Process]
+\begin{prop}[title=White Noise Process]
 \textbf{Zero-mean}: $E[x[n]] = 0$ \\
 \textbf{Uncorr.}: $E[x[n]x[m]] = E[x[n]]E[x[m]]$ for $m \neq n$ \\
-\textbf{Autocorrelation}: $r_x[n] = \sigma_x^2\,\delta[n]$
+\textbf{Autocorrelation}: $r_x[n] = \sigma_x^2\,\delta[n]$ \\
+\textbf{PSD}: $P_w(\omega) = \sigma_w^2$
+\end{prop}
+
+\begin{defn}[title=Stationarity]
+Statistical properties are time-invariant. In practice, we use \textbf{Wide-Sense Stationarity (WSS)}, which only requires the first two moments to be time-invariant.
 \end{defn}
 
-\begin{prop}[title=Power Spectral Density]
+\begin{defn}[title=Wide-Sense (WSS) stationarity]
+For WSS random processes we only care about the first two moments:
+\begin{itemize}
+  \item $E[x[n]] = m_x$
+  \item $E[x[n]\,x[m]] = r[n-m]$
+\end{itemize}
+\end{defn}
+
+\begin{warn}[title=Autocorrelation (not given)]
+$x[n] = a^n u[n] \;\Rightarrow\; r_x[k] = \dfrac{a^{|k|}}{1 - a^2}$\\
+$\mathrm{DTFT}\{r_x[k]\} = \dfrac{1}{1 + a^2 - 2a\cos\omega}$
+\end{warn}
+
+\begin{prop}[title=Power Spectral Density (PSD)]
 \textbf{Estimator (DFT)}: $P[k] = E\left[|X_N[k]|^2/N\right]$\\
 \textbf{Exact definition (Wiener-Khinchin)}:
-\[ P_x(e^{j\omega}) = \sum_{k=-\infty}^{\infty} r_x[k]\,e^{-j\omega k} = \mathrm{DTFT}\{r_x[k]\} \]
+\[ P_x(e^{j\omega}) = |X(\omega)|^2 = \mathrm{DTFT}\{r_x[k]\} \]
+
 \end{prop}
 
 \begin{thm}[title=Convolution theorem (stochastic)]
-If $y[n] = h[n] * x[n]$, then:
-\[ P_y[k] = P_x[k]\,|H[k]|^2, \quad H[k] = \mathrm{DFT}\{h[n]\} \]
+If $y[n] = h[n] * x[n]$, then: $P_y(\omega) = |H(\omega)|^2 P_x(\omega)$
 \end{thm}
 
 % ============================================================
