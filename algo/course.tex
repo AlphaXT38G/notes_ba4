@@ -3253,13 +3253,104 @@ A vertex $v$ is a descendant of a vertex $u$ in the DFS forest if and only if, a
 
 
 
-\section{White Path Theorem}
 
 
 
 
 
 
+
+
+
+\section{Topological sort}
+
+
+\textbf{Concept and idea:}
+
+Topological Sort produces a linear ordering of the vertices of a Directed Acyclic Graph (DAG) such that for every edge $(u,v)$, vertex $u$ appears before vertex $v$ in the ordering.
+
+The algorithm uses DFS and relies on finishing times. Vertices that finish later are placed earlier in the topological ordering.
+
+\begin{lstlisting}
+TOPOLOGICAL-SORT(G)
+
+1. Call DFS(G) to compute finishing times v.f for all v appartenant a G.V
+2. Output vertices in order of decreasing finishing times
+\end{lstlisting}
+
+
+\textbf{Goal:} Compute a valid topological ordering of a DAG \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V)$
+
+
+---
+
+
+\textbf{Implementation note:}
+
+Instead of sorting vertices by their finishing times:
+
+\begin{itemize}
+    \item Output each vertex when it finishes and reverse the resulting list.
+    \item Or insert each finished vertex at the front of a linked list.
+\end{itemize}
+
+When DFS terminates, the linked list contains the vertices in topologically sorted order.
+
+---
+
+\textbf{Correctness idea:}
+
+We must show that for every edge $(u,v) \in E$:
+
+\[
+v.f < u.f
+\]
+
+When DFS explores $(u,v)$:
+
+\begin{itemize}
+    \item $u$ is necessarily \textbf{GRAY}.
+    
+    \item $v$ cannot be \textbf{GRAY}, because then $v$ would be an ancestor of $u$, creating a back edge. By the cycle detection lemma, the graph would not be acyclic.
+    
+    \item If $v$ is \textbf{WHITE}, then $v$ becomes a descendant of $u$. By the Parenthesis Theorem:
+    \[
+    u.d < v.d < v.f < u.f
+    \]
+    
+    \item If $v$ is \textbf{BLACK}, then $v$ has already finished. Since we are still exploring from $u$, we have:
+    \[
+    v.f < u.f
+    \]
+\end{itemize}
+
+Therefore, for every edge $(u,v)$:
+
+\[
+v.f < u.f
+\]
+
+which means that ordering vertices by decreasing finishing times guarantees that $u$ appears before $v$.
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Topological sort}
 
 
 
