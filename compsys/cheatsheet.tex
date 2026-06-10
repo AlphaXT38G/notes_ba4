@@ -329,6 +329,11 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
 
 \section{Lecture 13 - Sharing the CPU}
 
+\begin{defn}[title=Scheduling Metrics]
+    \textbf{Utilization}: fraction of time CPU executes a job. Goal: maximize.\\
+    \textbf{Turnaround time}: $T_{turnaround} = T_{completion} - T_{arrival}$. Goal: minimize.
+\end{defn}
+
 \begin{prop}[title=CPU mode \& instructions]
     CPU stores a privilege level: \textbf{Kernel mode} (high) or \textbf{User mode} (low).
     \begin{itemize}
@@ -391,6 +396,43 @@ How are processes created and destroyed?
 \begin{prop}[title=End of a process]
     \texttt{exit()} syscall: kernel destroys memory image but \textbf{keeps exit status} $\Rightarrow$ process becomes a \textbf{zombie} until parent \textbf{reaps} it via \texttt{wait()} to read the exit status.
 \end{prop}
+
+\section{Lecture 15 - CPU Scheduling}
+
+\begin{defn}[title=Scheduling Metrics]
+    \textbf{Turnaround time} = completion - arrival. \\\textbf{Response time} = first run - arrival.
+\end{defn}
+
+\begin{defn}[title=FIFO]
+    Run jobs in arrival order. Suffers from \textbf{convoy effect}: short jobs stuck behind long ones.
+\end{defn}
+
+\begin{defn}[title=SJF (Shortest Job First)]
+    Run shortest job first. Optimal turnaround if all jobs arrive simultaneously. Non-preemptive.
+\end{defn}
+
+\begin{defn}[title=STCF (Shortest Time-to-Completion First)]
+    Preemptive SJF: preempt if a new job has less remaining time. Optimal turnaround.
+\end{defn}
+
+\begin{defn}[title=Round Robin (RR)]
+    Each job runs for a fixed \textbf{quantum}, then preempted. Good response time, poor turnaround.
+\end{defn}
+
+\begin{warn}[title=Tradeoff]
+    SJF/STCF optimizes \textbf{turnaround}. RR optimizes \textbf{response time}. Hard to do both.
+\end{warn}
+
+\begin{defn}[title=MLFQ (Multi-Level Feedback Queue)]
+    Multiple queues; lower priority = longer time slice.
+    \begin{itemize}
+        \item \textbf{R1:} priority(A) $>$ priority(B) $\Rightarrow$ A runs
+        \item \textbf{R2:} priority(A) $=$ priority(B) $\Rightarrow$ RR
+        \item \textbf{R3:} new job starts at \textbf{top} priority
+        \item \textbf{R4:} uses full slice $\Rightarrow$ \textbf{demoted}; blocks early $\Rightarrow$ \textbf{keeps} priority
+        \item \textbf{R5:} periodically move all jobs to top (\textbf{priority boost}) — avoids starvation
+    \end{itemize}
+\end{defn}
 
 \section{Lecture 16 - Virtualization}
 
