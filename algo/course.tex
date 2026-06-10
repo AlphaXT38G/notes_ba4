@@ -3231,7 +3231,46 @@ In other words, DFS discovery and finishing times form properly nested intervals
 
 
 
-\section{Parentheses theorem}
+\section{White Path Theorem}
+
+
+\begin{defnbox}[title=White-Path Theorem]
+A vertex $v$ is a descendant of a vertex $u$ in the DFS forest if and only if, at the time $u.d$, there exists a path from $u$ to $v$ consisting entirely of WHITE vertices (except $u$, which has just been colored GRAY).
+
+\medskip
+
+\textbf{Explication simple :} ce théorème permet de savoir quels sommets deviendront descendants de $u$ dans l'arbre DFS. Au moment où DFS découvre $u$, tous les sommets encore atteignables par un chemin composé uniquement de sommets non visités (WHITE) seront explorés à partir de $u$ et feront donc partie de son sous-arbre DFS. Ce théorème est souvent utilisé pour démontrer formellement pourquoi DFS construit correctement ses arbres de parcours.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{White Path Theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
