@@ -3598,6 +3598,21 @@ f(S,T) = \sum_{u \in S, v \in T} f(u,v) - \sum_{u \in S, v \in T} f(v,u)
 
 
 
+
+
+
+\begin{defnbox}[title=Flow Conservation Theorem]
+For any cut $(S, T)$ in a flow network, the value of the flow satisfies:
+\[
+|f| = f(S,T)
+\]
+
+\textbf{Idea:} the total flow sent from the source is exactly equal to the net flow crossing any cut separating the source from the sink.
+\end{defnbox}
+
+
+
+
 \vspace{2cm}
 
 
