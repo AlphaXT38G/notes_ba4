@@ -4029,6 +4029,25 @@ It represents each set as a tree where each node points to its parent, and the r
 
 
 
+\begin{lstlisting}
+MAKE-SET(x)
+
+1. x.p = x
+2. x.rank = 0
+\end{lstlisting}
+
+\textbf{What it does:} creates a new set containing only $x$.
+
+\textbf{Purpose:} initialize the structure so every element starts in its own group.
+
+\textbf{Idea:} each element is initially its own root.
+
+\textbf{Time complexity:} $O(1)$
+
+\textbf{Data structure state:} single-node tree.
+
+
+
 
 
 
