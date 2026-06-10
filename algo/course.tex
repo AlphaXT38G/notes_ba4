@@ -3383,7 +3383,50 @@ A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ i
 
 
 
+\textbf{Concept and idea:}
 
+The SCC (Strongly Connected Components) algorithm decomposes a directed graph into its strongly connected components.
+
+The idea is to use two DFS passes:
+\begin{itemize}
+    \item First DFS computes finishing times.
+    \item Transpose the graph (reverse all edges).
+    \item Second DFS explores vertices in decreasing order of finishing times to identify SCCs.
+\end{itemize}
+
+\begin{lstlisting}
+SCC(G)
+
+1. Call DFS(G) to compute finishing times u.f for all u
+2. Compute G^T
+3. Call DFS(G^T), considering vertices in order of decreasing u.f
+4. Output each tree of the DFS forest as one SCC
+\end{lstlisting}
+
+\textbf{Transpose graph:}
+
+$G^T = (V, E^T)$ where:
+\[
+E^T = \{(u,v) : (v,u) \in E\}
+\]
+
+In other words, all edges of $G$ are reversed.
+
+---
+
+\textbf{Observations:}
+\begin{itemize}
+    \item $G^T$ can be built in $O(V + E)$ time using adjacency lists
+    \item $G$ and $G^T$ have exactly the same strongly connected components
+\end{itemize}
+
+---
+
+\textbf{Goal:} Decompose the graph into all SCCs \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V + E)$
 
 
 
@@ -3398,10 +3441,9 @@ A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ i
 
 
 % =========================================================
-\chapter{Graph Algorithms — Max Flow}
+\chapter{Flow networks}
 % =========================================================
 
-\section{Flow Networks}
 
 \begin{defnbox}[title=Flow network]
 A directed graph $G = (V, E)$ with:
