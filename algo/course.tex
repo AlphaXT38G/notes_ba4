@@ -4113,6 +4113,41 @@ UNION(x, y)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\subsection{LINK}
+
+
+
+\begin{lstlisting}
+LINK(x, y)
+
+1. if x.rank > y.rank
+2.     y.p = x
+3. else x.p = y
+4.     if x.rank == y.rank
+5.         y.rank = y.rank + 1
+\end{lstlisting}
+
+\textbf{What it does:} attaches one root under another.
+
+\textbf{Purpose:} merge trees while keeping them as shallow as possible.
+
+\textbf{Idea:} union by rank prevents tall trees by always attaching the smaller height tree under the larger one.
+
+\textbf{Time complexity:} $O(1)$
+
+\textbf{Data structure state:} balanced forest structure is maintained.
+
+
+
+
+
+
 
 
 
