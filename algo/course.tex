@@ -3435,6 +3435,17 @@ In other words, all edges of $G$ are reversed.
 
 
 
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3529,8 +3540,40 @@ Flow networks are used in:
 \end{defnbox}
 
 
+\begin{defnbox}[title=Flow Constraints]
+
+\textbf{Capacity constraint:} For all $u, v \in V$,
+\[
+0 \le f(u,v) \le c(u,v)
+\]
+
+\textbf{Flow conservation:} For all $u \in V \setminus \{s,t\}$,
+\[
+\sum_{v \in V} f(v,u) = \sum_{v \in V} f(u,v)
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item The amount of flow entering a node equals the amount of flow leaving it (except for source and sink)
+    \item No flow is created or destroyed inside the network
+\end{itemize}
+
+\end{defnbox}
 
 
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{SCC and magic algorithm}
 
 
 
