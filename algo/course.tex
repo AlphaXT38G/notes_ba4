@@ -4650,9 +4650,67 @@ return TRUE
 
 
 
-\subsection{Bellman-for main with negative cycle detect}
+\section{Dijkstra algorithm}
+
+\textbf{Concept and idea:}
+
+Dijkstra's algorithm computes single-source shortest paths in a weighted graph with \textbf{non-negative edge weights}.
+
+It repeatedly selects the vertex with the smallest tentative distance and “finalizes” it.
+
+\begin{lstlisting}
+DIJKSTRA(G, w, s)
+
+INIT-SINGLE-SOURCE(G, s)
+
+S = ensemble vide
+Q = G.V
+
+while Q != ensemble vide
+    u = EXTRACT-MIN(Q)
+    S = S U {u}
+
+    for each vertex v appartient a G.Adj[u]
+        RELAX(u, v, w)
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start from source with distance 0
+    \item Maintain a priority queue of unprocessed vertices
+    \item Always pick vertex with smallest current distance
+    \item Relax all outgoing edges of the chosen vertex
+    \item Once a vertex is extracted, its shortest path is finalized
+\end{itemize}
+
+\textbf{Goal:} compute shortest paths efficiently when all weights are non-negative \\
+
+\textbf{Time complexity:}
+\begin{itemize}
+    \item With binary heap: $O((V + E)\log V)$
+    \item With adjacency list + heap: $O(E \log V)$
+\end{itemize}
+\textbf{Running time:}
+
+Like Prim’s algorithm, the running time is dominated by operations on the priority queue.
+
+\begin{itemize}
+    \item If a binary heap is used: each operation costs $O(\log V)$
+    \quad $\Rightarrow O(E \log V)$
+    
+    \item More careful implementation (with efficient decrease-key structure):
+    \quad $O(V \log V + E)$
+\end{itemize}
 
 
+
+\vspace{2cm}
+
+
+
+
+
+\section{Dijkstra algorithm}
 
 
 
