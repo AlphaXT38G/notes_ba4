@@ -24,6 +24,58 @@
 
 {\centering\includegraphics[width=\linewidth,keepaspectratio]{images/io_stack.png}\par}
 
+\section{Lecture 5 - Network \& File Syscalls}
+
+{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture05/ls-l-entry-anatomy.png}\par}
+
+\begin{defn}[title=Permission bits]
+    Am I the \textbf{owner}? → use USR bits.\\
+    Am I in the \textbf{group}? → use GRP bits.\\
+    Otherwise → use OTH bits.\\
+    \textit{Only the first matching category applies — even if another gives more rights.}
+\end{defn}
+
+\begin{prop}[title=\texttt{open()} flags / permission mode]
+    \begin{tabular}{ll}
+        \texttt{O\_CREAT}  & create file if it doesn't exist \\
+        \texttt{O\_EXCL}   & fail if file already exists \\
+        \texttt{O\_APPEND} & always write at end of file \\
+        \texttt{O\_TRUNC}  & truncate file on open \\
+        \texttt{O\_RDONLY} & read only \\
+        \texttt{O\_WRONLY} & write only \\
+        \texttt{O\_RDWR}   & read + write \\
+        \hline
+        \texttt{S\_IRUSR} & read by owner \\
+        \texttt{S\_IWUSR} & write by owner \\
+        \texttt{S\_IXUSR} & execute by owner \\
+        \texttt{S\_IRGRP} & read by group \\
+        \texttt{S\_IROTH} & read by others \\
+        \texttt{0}        & no permissions \\
+    \end{tabular}
+\end{prop}
+
+\begin{prop}[title=Syscall success conditions]
+    \begin{tabular}{ll}
+        \texttt{open(O\_RDONLY)} & \texttt{r} on file \\
+        \texttt{open(O\_WRONLY)} & \texttt{w} on file \\
+        \texttt{open(O\_RDWR)}   & \texttt{r}+\texttt{w} on file \\
+        \texttt{open(O\_CREAT)}  & \texttt{w}+\texttt{x} on dir \\
+        \texttt{read(fd,...)}    & fd open, mode=read \\
+        \texttt{write(fd,...)}   & fd open, mode=write \\
+        \texttt{close(fd)}       & fd open \\
+    \end{tabular}
+
+    Also: \textbf{every directory} in the path needs \texttt{x} to be traversed.
+\end{prop}
+
+\begin{warn}[title=Closed fd]
+    Any syscall on a \textbf{closed} fd fails immediately.
+\end{warn}
+
+\begin{thm}[title=\texttt{S\_*} flags]
+    Only used with \texttt{O\_CREAT} to set the new file's permissions. \textbf{Ignored} otherwise.
+\end{thm}
+
 \section{Lecture 8 - Forwarding and IP}
 
 \begin{prop}[title=Headers]
@@ -210,9 +262,9 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     State that \textbf{outlives the process that created it} (unlike DRAM, which is volatile).
 \end{thm}
 
-\begin{defn}[title=File System]
+\begin{prop}[title=File System]
     Abstracts persistent blocks into: \textbf{Name}, \textbf{Organize}, \textbf{Share}, \textbf{Protect}. Built on \textbf{files} and \textbf{directories}.
-\end{defn}
+\end{prop}
 
 \begin{defn}[title=File]
     \textbf{Named array of bytes}, untyped. Has \textbf{data} + \textbf{metadata} (size, owner, permissions, timestamps).
@@ -222,24 +274,16 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     Fixed-size on-disk record: \textbf{metadata} + \textbf{pointers to data blocks}. One per file. Stored in a fixed array (inode table, indexed by number). Does \textbf{not} store the filename.
 \end{defn}
 
+\begin{defn}[title=Multi-level indexing]
+    $N = B/P$ (ptrs/block). Max size = $kB + NB + N^2B + N^3B$ (direct + 1/2/3-indirect).
+\end{defn}
+
 \begin{defn}[title=Directory]
     Special file containing an array of \textbf{\{filename, inode\}} pairs. Path resolution follows entries step-by-step.
 \end{defn}
 
-\begin{prop}[title=\texttt{open()} flags]
-    \begin{tabular}{ll}
-        \texttt{O\_CREAT}  & create file if it doesn't exist \\
-        \texttt{O\_EXCL}   & fail if file already exists \\
-        \texttt{O\_APPEND} & always write at end of file \\
-        \texttt{O\_TRUNC}  & truncate file on open \\
-        \texttt{O\_RDONLY} & read only \\
-        \texttt{O\_WRONLY} & write only \\
-        \texttt{O\_RDWR}   & read + write \\
-    \end{tabular}
-\end{prop}
-
 \begin{defn}[title=File Descriptor Table]
-    Per-process table caching the result of \texttt{open()} (path walk done once). Fixed entries: \textbf{0}=STDIN, \textbf{1}=STDOUT, \textbf{2}=STDERR. Each entry stores \textbf{inode}, \textbf{device}, \textbf{offset}. Each \texttt{open()} creates an independent entry with its own offset.
+    Per-process table caching the result of \texttt{open()}. Fixed entries: \textbf{0}=STDIN, \textbf{1}=STDOUT, \textbf{2}=STDERR. Each entry stores \textbf{inode}, \textbf{mode}, \textbf{offset}. Each \texttt{open()} creates an independent entry with its own offset.
 \end{defn}
 
 \begin{defn}[title=Block Allocation Strategies]
@@ -262,9 +306,9 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     \texttt{bitmap[i] = 0} $\to$ free, \texttt{1} $\to$ used.
 \end{defn}
 
-\begin{defn}[title=Disk Layout]
-    Boot block $\to$ Superblock $\to$ [data bitmap + inode bitmap] $\to$ Inodes $\to$ Data.
-\end{defn}
+\begin{thm}[title=Disk Layout]
+    Boot block, Superblock, Inode Bitmap, Data Bitmap, Inode Table, Data Blocks.
+\end{thm}
 
 \section{Lecture 12 - Processes and Threads}
 
