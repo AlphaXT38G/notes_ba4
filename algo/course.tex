@@ -3932,43 +3932,56 @@ for each edge (u, v) appartenant a G.E
 \section{Forest of trees}
 
 
-
 \begin{defnbox}[title=Disjoint-Set via Forest of Trees]
-Dans cette représentation, chaque ensemble est stocké sous forme d’un \textbf{arbre}.
+In this representation, each set is stored as a \textbf{tree}.
 
 \begin{itemize}
-    \item Chaque arbre correspond à un ensemble
-    \item La \textbf{racine} de l’arbre est le représentant de l’ensemble
-    \item Chaque nœud contient uniquement un pointeur vers son \textbf{parent}
+    \item Each tree corresponds to one set
+    \item The \textbf{root} of the tree is the representative of the set
+    \item Each node stores only a pointer to its \textbf{parent}
 \end{itemize}
 
-\textbf{Idée :} au lieu de stocker des listes, on représente les ensembles sous forme d’arbres, ce qui rend les opérations de fusion plus efficaces.
+\textbf{Idea:} instead of storing lists, we represent sets as trees, which makes unions more efficient.
+
+\textbf{Explication simple :} ici, chaque ensemble est vu comme un arbre. Tous les éléments “remontent” vers une racine commune qui représente leur groupe.
 \end{defnbox}
 
-\begin{defnbox}[title=Opérations]
+\begin{defnbox}[title=Operations]
 \begin{itemize}
-    \item \textbf{Make-Set(x) :} crée un arbre composé d’un seul nœud (x est sa propre racine)
-    \item \textbf{Find(x) :} remonte les pointeurs parents jusqu’à atteindre la racine (représentant)
-    \item \textbf{Union(x, y) :} relie la racine d’un arbre sous la racine d’un autre
+    \item \textbf{Make-Set(x):} creates a single-node tree where $x$ is its own root
+    \item \textbf{Find(x):} follows parent pointers until reaching the root (representative)
+    \item \textbf{Union(x, y):} attaches the root of one tree under the root of another
 \end{itemize}
 
-\textbf{Idée :} les opérations deviennent des manipulations simples de pointeurs sur les racines.
+\textbf{Idea:} operations are simple pointer manipulations on tree roots.
+
+\textbf{Explication simple :} Make-Set crée un groupe avec un seul élément, Find remonte jusqu’au chef du groupe, et Union fusionne deux groupes en reliant leurs racines.
 \end{defnbox}
 
-\begin{defnbox}[title=Intuition et utilité]
-Cette structure sert à gérer efficacement des ensembles dynamiques, c’est-à-dire des groupes d’éléments qui évoluent avec des fusions.
+\begin{defnbox}[title=Intuition and Purpose]
+This structure is used to efficiently manage dynamic connectivity, i.e., groups of elements that change over time.
 
-\textbf{Pourquoi c’est utile :}
+\textbf{Why it is useful:}
 \begin{itemize}
-    \item Beaucoup plus rapide que les listes pour de grandes données
-    \item Permet de fusionner facilement des groupes d’éléments
-    \item Devient très efficace avec les optimisations (compression de chemin et union par rang)
+    \item Much faster than linked lists for large datasets
+    \item Easily merges groups of elements
+    \item Becomes extremely efficient with optimizations (path compression + union by rank)
 \end{itemize}
 
-\textbf{En mots simples :} chaque ensemble est comme un arbre généalogique, et deux éléments sont dans le même ensemble s’ils ont la même racine.
+\textbf{Explication simple :} cela permet de savoir rapidement si deux éléments sont dans le même groupe, même si les groupes changent tout le temps.
 \end{defnbox}
 
 
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Forest of trees}
 
 
 
