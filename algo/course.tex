@@ -3009,7 +3009,29 @@ A directed graph $G$ is \textbf{acyclic} if and only if a Depth-First Search (DF
 \end{defnbox}
 
 
+\begin{defnbox}[title=Strongly Connected Component (SCC)]
+A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ is a \textbf{maximal set of vertices} $C \subseteq V$ such that for every pair of vertices $u, v \in C$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+\end{defnbox}
 
+\begin{defnbox}[title=Component Graph (SCC Graph)]
+For a directed graph $G = (V, E)$, its \textbf{component graph} $G_{SCC} = (V_{SCC}, E_{SCC})$ is defined as follows:
+
+\begin{itemize}
+    \item $V_{SCC}$ contains one vertex for each strongly connected component of $G$
+    \item $E_{SCC}$ contains an edge between two SCCs if there exists at least one edge in $G$ connecting a vertex in the first SCC to a vertex in the second SCC
+\end{itemize}
+
+\textbf{Intuition:} each SCC is contracted into a single “super-node”, and edges between SCCs define how these components are connected.
+\end{defnbox}
+
+
+\begin{defnbox}[title=Lemma: The SCC Graph is a DAG (Directed acyclic graph)]
+For any directed graph $G = (V, E)$, the component graph $G_{SCC}$ (formed by contracting each strongly connected component into a single vertex) is a directed acyclic graph (DAG).
+
+\medskip
+
+\textbf{Intuition:} if there were a cycle between SCCs, then all vertices in those components would be mutually reachable, meaning they would actually belong to the same strongly connected component. This contradicts the definition of SCCs being maximal.
+\end{defnbox}
 
 
 
@@ -3350,11 +3372,14 @@ which means that ordering vertices by decreasing finishing times guarantees that
 
 
 
-\section{Topological sort}
+\section{SCC and magic algorithm}
 
 
 
 
+\begin{defnbox}[title=Strongly Connected Component (SCC)]
+A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ is a \textbf{maximal set of vertices} $C \subseteq V$ such that for every pair of vertices $u, v \in C$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+\end{defnbox}
 
 
 
