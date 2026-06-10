@@ -3716,12 +3716,112 @@ Ford-Fulkerson-Method(G, s, t)
 
 
 
+\chapter{Disjoint-set data structures}
+
+
+\begin{defnbox}[title=Disjoint-Set Data Structure (Union-Find)]
+A \textbf{disjoint-set data structure} maintains a collection
+\[
+S = \{S_1, S_2, \dots, S_k\}
+\]
+of pairwise disjoint dynamic sets (sets that change over time).
+
+Each set is identified by a \textbf{representative} element, which is a member of the set.
+The representative must be consistent: if we ask for it multiple times without modifying the set, it must return the same value.
+\end{defnbox}
+
+\begin{defnbox}[title=Make-Set]
+\textbf{Make-Set}(x) creates a new set containing only $x$:
+\[
+S = \{\{x\}\}
+\]
+
+\textbf{Idea:} each element starts in its own singleton set.
+\end{defnbox}
+
+\begin{defnbox}[title=Find-Set]
+\textbf{Find-Set}(x) returns the representative of the set containing $x$.
+
+\textbf{Idea:} it identifies which component/set an element belongs to.
+\end{defnbox}
+
+\begin{defnbox}[title=Union]
+\textbf{Union}(x, y) merges the two sets containing $x$ and $y$:
+\[
+S_x \cup S_y
+\]
+
+\textbf{Idea:} combines two disjoint sets into one single set, destroying the original two sets.
+
+The representative of the new set is usually one of the two previous representatives.
+\end{defnbox}
+
+\begin{defnbox}[title=Key Properties]
+\begin{itemize}
+    \item Sets are always disjoint
+    \item Each element belongs to exactly one set
+    \item Structure evolves dynamically over time
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Disjoint-set structures are used in:
+\begin{itemize}
+    \item Kruskal’s algorithm (Minimum Spanning Tree)
+    \item Connected components in graphs
+    \item Cycle detection in undirected graphs
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Operations Summary]
+\begin{itemize}
+    \item Make-Set(x): create a new singleton set $\{x\}$
+    \item Find-Set(x): return representative of $x$
+    \item Union(x, y): merge the sets containing $x$ and $y$
+\end{itemize}
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Path Compression]
+During \textbf{Find-Set}, each visited node is directly linked to the representative (root).
+
+\textbf{Idea:} flatten the structure of the tree so that future queries become much faster.
+\end{defnbox}
+
+\begin{defnbox}[title=Union by Rank / Size]
+When performing \textbf{Union}, attach the smaller tree under the root of the larger tree (by rank or size).
+
+\textbf{Idea:} keep trees as shallow as possible to speed up future operations.
+\end{defnbox}
+
+
+\begin{defnbox}[title=Representation + Intuition]
+Each element stores:
+\begin{itemize}
+    \item a parent pointer (itself if it is a root)
+    \item optionally a rank or size
+\end{itemize}
+
+\textbf{Intuition:} the structure is a forest of trees where each tree represents a set.
+
+\textbf{Goal:} efficiently support merging sets and checking whether two elements belong to the same set.
+\end{defnbox}
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
 \section{Maximum flow - Ford Fulkerson algorithm}
-
-
-
-
-
 
 
 
