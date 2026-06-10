@@ -4568,9 +4568,45 @@ if v.d > u.d + w(u, v)
 \subsection{Bellman-for main}
 
 
+\textbf{Concept and idea:}
+
+The Bellman-Ford algorithm computes shortest paths from a single source in a weighted graph, even when negative weights are present (as long as there is no negative cycle reachable from the source).
+
+It repeatedly relaxes all edges to progressively improve distance estimates.
+
+\begin{lstlisting}
+Bellman-Ford(G, w, s)
+
+Init-Single-Source(G, s)
+
+for i = 1 to |G.V| - 1
+    for each edge (u, v) appartient a G.E
+        Relax(u, v, w)
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Initialize all distances from the source
+    \item Repeatedly relax all edges
+    \item Each pass allows shortest paths with one more edge to be found
+    \item After |V| - 1 iterations, all shortest paths are correct
+\end{itemize}
+
+\textbf{Goal:} compute shortest paths even with negative edge weights \\
+
+\textbf{Time complexity:} $O(V \cdot E)$
 
 
 
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Bellman-for main with negative cycle detect}
 
 
 
