@@ -4250,6 +4250,19 @@ Spanning trees are used to:
 
 
 
+\begin{defnbox}[title=Cut Property]
+Consider a cut $(S, V \setminus S)$ and let
+\begin{itemize}
+    \item $T$ be a tree on $S$ which is part of a MST
+    \item $e$ be a crossing edge of minimum weight
+\end{itemize}
+
+Then there exists an MST of $G$ containing $e$ and $T$.
+
+\textbf{Explication simple :} cette propriété dit du coup alors que si on coupe le graphe en deux parties, l'arête la moins chère (donc celle qui a la plus petite valuer ici comme ca) qui relie ces deux parties peut toujours faire partie d’un arbre couvrant minimal (MST).
+\end{defnbox}
+
+
 
 \vspace{2cm}
 
