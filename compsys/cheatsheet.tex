@@ -203,6 +203,69 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
     \end{itemize}
 \end{prop}
 
+
+\section{Lecture 11 - File Systems}
+
+\begin{thm}[title=Persistence]
+    State that \textbf{outlives the process that created it} (unlike DRAM, which is volatile).
+\end{thm}
+
+\begin{defn}[title=File System]
+    Abstracts persistent blocks into: \textbf{Name}, \textbf{Organize}, \textbf{Share}, \textbf{Protect}. Built on \textbf{files} and \textbf{directories}.
+\end{defn}
+
+\begin{defn}[title=File]
+    \textbf{Named array of bytes}, untyped. Has \textbf{data} + \textbf{metadata} (size, owner, permissions, timestamps).
+\end{defn}
+
+\begin{defn}[title=Inode]
+    Fixed-size on-disk record: \textbf{metadata} + \textbf{pointers to data blocks}. One per file. Stored in a fixed array (inode table, indexed by number). Does \textbf{not} store the filename.
+\end{defn}
+
+\begin{defn}[title=Directory]
+    Special file containing an array of \textbf{\{filename, inode\}} pairs. Path resolution follows entries step-by-step.
+\end{defn}
+
+\begin{prop}[title=\texttt{open()} flags]
+    \begin{tabular}{ll}
+        \texttt{O\_CREAT}  & create file if it doesn't exist \\
+        \texttt{O\_EXCL}   & fail if file already exists \\
+        \texttt{O\_APPEND} & always write at end of file \\
+        \texttt{O\_TRUNC}  & truncate file on open \\
+        \texttt{O\_RDONLY} & read only \\
+        \texttt{O\_WRONLY} & write only \\
+        \texttt{O\_RDWR}   & read + write \\
+    \end{tabular}
+\end{prop}
+
+\begin{defn}[title=File Descriptor Table]
+    Per-process table caching the result of \texttt{open()} (path walk done once). Fixed entries: \textbf{0}=STDIN, \textbf{1}=STDOUT, \textbf{2}=STDERR. Each entry stores \textbf{inode}, \textbf{device}, \textbf{offset}. Each \texttt{open()} creates an independent entry with its own offset.
+\end{defn}
+
+\begin{defn}[title=Block Allocation Strategies]
+    \textbf{Contiguous}: all blocks adjacent.
+
+    \textbf{Linked list}: each block points to the next.
+
+    \textbf{FAT} (File Allocation Table): linked list stored \textbf{in a separate table} in memory. Table can be large.
+\end{defn}
+
+\begin{prop}[title=\texttt{mv} vs \texttt{cp}]
+    Moving a file only updates \textbf{directory entries} — the inode is unchanged. Metadata-only $\Rightarrow$ much faster than \texttt{cp + rm}.
+\end{prop}
+
+\begin{defn}[title=Mounting]
+    Integrates a storage device into the directory tree without moving its contents.
+\end{defn}
+
+\begin{defn}[title=Inode \& Data Bitmap]
+    \texttt{bitmap[i] = 0} $\to$ free, \texttt{1} $\to$ used.
+\end{defn}
+
+\begin{defn}[title=Disk Layout]
+    Boot block $\to$ Superblock $\to$ [data bitmap + inode bitmap] $\to$ Inodes $\to$ Data.
+\end{defn}
+
 \section{Lecture 12 - Processes and Threads}
 
 \begin{defn}[title=Process]
