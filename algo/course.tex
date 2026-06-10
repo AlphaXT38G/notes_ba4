@@ -3004,10 +3004,34 @@ Test if $(u,v) \in E$ & $O(\deg(u))$ & $\Theta(1)$ \\
 \end{table}
 
 
+\begin{defnbox}[title=Cycle Detection Lemma]
+A directed graph $G$ is \textbf{acyclic} if and only if a Depth-First Search (DFS) of $G$ produces no back edges.
+\end{defnbox}
 
 
+\begin{defnbox}[title=Strongly Connected Component (SCC)]
+A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ is a \textbf{maximal set of vertices} $C \subseteq V$ such that for every pair of vertices $u, v \in C$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+\end{defnbox}
+
+\begin{defnbox}[title=Component Graph (SCC Graph)]
+For a directed graph $G = (V, E)$, its \textbf{component graph} $G_{SCC} = (V_{SCC}, E_{SCC})$ is defined as follows:
+
+\begin{itemize}
+    \item $V_{SCC}$ contains one vertex for each strongly connected component of $G$
+    \item $E_{SCC}$ contains an edge between two SCCs if there exists at least one edge in $G$ connecting a vertex in the first SCC to a vertex in the second SCC
+\end{itemize}
+
+\textbf{Intuition:} each SCC is contracted into a single “super-node”, and edges between SCCs define how these components are connected.
+\end{defnbox}
 
 
+\begin{defnbox}[title=Lemma: The SCC Graph is a DAG (Directed acyclic graph)]
+For any directed graph $G = (V, E)$, the component graph $G_{SCC}$ (formed by contracting each strongly connected component into a single vertex) is a directed acyclic graph (DAG).
+
+\medskip
+
+\textbf{Intuition:} if there were a cycle between SCCs, then all vertices in those components would be mutually reachable, meaning they would actually belong to the same strongly connected component. This contradicts the definition of SCCs being maximal.
+\end{defnbox}
 
 
 
@@ -3159,7 +3183,266 @@ These colors help DFS manage traversal order and avoid revisiting vertices.
 
 
 
-\section{Depth-First Search}
+\section{Classification of edges}
+
+\begin{defnbox}[title=Tree Edge]
+A \textbf{tree edge} is an edge discovered while exploring a new vertex during DFS.  
+It becomes part of the depth-first forest.
+\end{defnbox}
+
+\begin{defnbox}[title=Back Edge]
+A \textbf{back edge} is an edge $(u,v)$ where $v$ is an ancestor of $u$ in the DFS tree.  
+It points back toward an already discovered ancestor.
+\end{defnbox}
+
+\begin{defnbox}[title=Forward Edge]
+A \textbf{forward edge} is an edge $(u,v)$ where $v$ is a descendant of $u$ in the DFS tree, but $(u,v)$ is not a tree edge.
+\end{defnbox}
+
+\begin{defnbox}[title=Cross Edge]
+A \textbf{cross edge} is any edge that is neither a tree edge, a back edge, nor a forward edge.  
+It typically connects vertices belonging to different DFS branches.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Parentheses theorem}
+
+\begin{defnbox}[title=Parenthesis Theorem (DFS)]
+For any two vertices $u$ and $v$ in a depth-first search, exactly one of the following cases holds:
+
+\begin{enumerate}
+    \item
+    \[
+    u.d < u.f < v.d < v.f
+    \quad \text{or} \quad
+    v.d < v.f < u.d < u.f
+    \]
+    Neither $u$ nor $v$ is a descendant of the other.
+
+    \item
+    \[
+    u.d < v.d < v.f < u.f
+    \]
+    Vertex $v$ is a descendant of $u$.
+
+    \item
+    \[
+    v.d < u.d < u.f < v.f
+    \]
+    Vertex $u$ is a descendant of $v$.
+\end{enumerate}
+
+In other words, DFS discovery and finishing times form properly nested intervals: descendant vertices have intervals entirely contained within the intervals of their ancestors.
+
+\medskip
+
+\textbf{Explication simple :} ce théorème permet de déterminer la relation entre deux sommets uniquement en regardant leurs temps de découverte ($d$) et de fin ($f$). Il sert notamment à savoir rapidement si un sommet est descendant d'un autre dans l'arbre DFS, sans avoir à parcourir de nouveau le graphe.
+\end{defnbox}
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{White Path Theorem}
+
+
+\begin{defnbox}[title=White-Path Theorem]
+A vertex $v$ is a descendant of a vertex $u$ in the DFS forest if and only if, at the time $u.d$, there exists a path from $u$ to $v$ consisting entirely of WHITE vertices (except $u$, which has just been colored GRAY).
+
+\medskip
+
+\textbf{Explication simple :} ce théorème permet de savoir quels sommets deviendront descendants de $u$ dans l'arbre DFS. Au moment où DFS découvre $u$, tous les sommets encore atteignables par un chemin composé uniquement de sommets non visités (WHITE) seront explorés à partir de $u$ et feront donc partie de son sous-arbre DFS. Ce théorème est souvent utilisé pour démontrer formellement pourquoi DFS construit correctement ses arbres de parcours.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Topological sort}
+
+
+\textbf{Concept and idea:}
+
+Topological Sort produces a linear ordering of the vertices of a Directed Acyclic Graph (DAG) such that for every edge $(u,v)$, vertex $u$ appears before vertex $v$ in the ordering.
+
+The algorithm uses DFS and relies on finishing times. Vertices that finish later are placed earlier in the topological ordering.
+
+\begin{lstlisting}
+TOPOLOGICAL-SORT(G)
+
+1. Call DFS(G) to compute finishing times v.f for all v appartenant a G.V
+2. Output vertices in order of decreasing finishing times
+\end{lstlisting}
+
+
+\textbf{Goal:} Compute a valid topological ordering of a DAG \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V)$
+
+
+---
+
+
+\textbf{Implementation note:}
+
+Instead of sorting vertices by their finishing times:
+
+\begin{itemize}
+    \item Output each vertex when it finishes and reverse the resulting list.
+    \item Or insert each finished vertex at the front of a linked list.
+\end{itemize}
+
+When DFS terminates, the linked list contains the vertices in topologically sorted order.
+
+---
+
+\textbf{Correctness idea:}
+
+We must show that for every edge $(u,v) \in E$:
+
+\[
+v.f < u.f
+\]
+
+When DFS explores $(u,v)$:
+
+\begin{itemize}
+    \item $u$ is necessarily \textbf{GRAY}.
+    
+    \item $v$ cannot be \textbf{GRAY}, because then $v$ would be an ancestor of $u$, creating a back edge. By the cycle detection lemma, the graph would not be acyclic.
+    
+    \item If $v$ is \textbf{WHITE}, then $v$ becomes a descendant of $u$. By the Parenthesis Theorem:
+    \[
+    u.d < v.d < v.f < u.f
+    \]
+    
+    \item If $v$ is \textbf{BLACK}, then $v$ has already finished. Since we are still exploring from $u$, we have:
+    \[
+    v.f < u.f
+    \]
+\end{itemize}
+
+Therefore, for every edge $(u,v)$:
+
+\[
+v.f < u.f
+\]
+
+which means that ordering vertices by decreasing finishing times guarantees that $u$ appears before $v$.
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{SCC and magic algorithm}
+
+
+
+
+\begin{defnbox}[title=Strongly Connected Component (SCC)]
+A \textbf{strongly connected component} (SCC) of a directed graph $G = (V, E)$ is a \textbf{maximal set of vertices} $C \subseteq V$ such that for every pair of vertices $u, v \in C$, there exists a path from $u$ to $v$ and a path from $v$ to $u$.
+\end{defnbox}
+
+
+
+\textbf{Concept and idea:}
+
+The SCC (Strongly Connected Components) algorithm decomposes a directed graph into its strongly connected components.
+
+The idea is to use two DFS passes:
+\begin{itemize}
+    \item First DFS computes finishing times.
+    \item Transpose the graph (reverse all edges).
+    \item Second DFS explores vertices in decreasing order of finishing times to identify SCCs.
+\end{itemize}
+
+\begin{lstlisting}
+SCC(G)
+
+1. Call DFS(G) to compute finishing times u.f for all u
+2. Compute G^T
+3. Call DFS(G^T), considering vertices in order of decreasing u.f
+4. Output each tree of the DFS forest as one SCC
+\end{lstlisting}
+
+\textbf{Transpose graph:}
+
+$G^T = (V, E^T)$ where:
+\[
+E^T = \{(u,v) : (v,u) \in E\}
+\]
+
+In other words, all edges of $G$ are reversed.
+
+---
+
+\textbf{Observations:}
+\begin{itemize}
+    \item $G^T$ can be built in $O(V + E)$ time using adjacency lists
+    \item $G$ and $G^T$ have exactly the same strongly connected components
+\end{itemize}
+
+---
+
+\textbf{Goal:} Decompose the graph into all SCCs \\
+
+\textbf{Time complexity:} $O(V + E)$ \\
+
+\textbf{Space:} $O(V + E)$
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+
+
 
 
 
@@ -3169,10 +3452,11 @@ These colors help DFS manage traversal order and avoid revisiting vertices.
 
 
 % =========================================================
-\chapter{Graph Algorithms — Max Flow}
+\chapter{Flow networks}
 % =========================================================
 
-\section{Flow Networks}
+
+
 
 \begin{defnbox}[title=Flow network]
 A directed graph $G = (V, E)$ with:
@@ -3186,6 +3470,1256 @@ A \textbf{flow} $f$ must satisfy capacity ($0 \leq f(u,v) \leq c(u,v)$) and cons
 \end{defnbox}
 
 The \textbf{value} of a flow is $|f| = \sum_v f(s,v) - \sum_v f(v,s)$.
+
+
+
+
+\begin{defnbox}[title=Flow Network]
+A \textbf{flow network} is a directed graph $G = (V, E)$ where each edge has a capacity $c(u,v) \ge 0$.  
+It contains:
+\begin{itemize}
+    \item a \textbf{source} $s$
+    \item a \textbf{sink} $t$
+\end{itemize}
+Flow is sent from $s$ to $t$ while respecting capacities.
+\end{defnbox}
+
+\begin{defnbox}[title=Flow]
+A \textbf{flow} is a function $f(u,v)$ that represents how much “stuff” is sent along an edge, satisfying:
+\begin{itemize}
+    \item $0 \le f(u,v) \le c(u,v)$ (capacity constraint)
+    \item Flow conservation: incoming flow = outgoing flow for all vertices except $s$ and $t$
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Capacity]
+The \textbf{capacity} $c(u,v)$ is the maximum amount of flow allowed on edge $(u,v)$.
+\end{defnbox}
+
+\begin{defnbox}[title=Residual Capacity]
+The \textbf{residual capacity} represents how much additional flow can still be pushed through an edge:
+\[
+c_f(u,v) = c(u,v) - f(u,v)
+\]
+It also includes backward edges to allow flow cancellation.
+\end{defnbox}
+
+\begin{defnbox}[title=Residual Graph]
+The \textbf{residual graph} $G_f$ contains all edges with positive residual capacity.  
+It represents all possible ways to increase or adjust the current flow.
+\end{defnbox}
+
+\begin{defnbox}[title=Flow Value]
+The \textbf{value of a flow} is the total amount leaving the source:
+\[
+|f| = \sum_{v \in V} f(s,v)
+\]
+\end{defnbox}
+
+\begin{defnbox}[title=Max Flow Problem]
+The goal is to compute a flow of maximum value from $s$ to $t$ while respecting all capacity constraints.
+\end{defnbox}
+
+\begin{defnbox}[title=Key Ideas to Know]
+\begin{itemize}
+    \item Flow conservation at intermediate vertices
+    \item Capacity constraints on edges
+    \item Residual graph allows augmentation
+    \item Augmenting path increases total flow
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Flow networks are used in:
+\begin{itemize}
+    \item network routing
+    \item bipartite matching
+    \item scheduling
+    \item transportation problems
+\end{itemize}
+\end{defnbox}
+
+
+\begin{defnbox}[title=Flow Constraints]
+
+\textbf{Capacity constraint:} For all $u, v \in V$,
+\[
+0 \le f(u,v) \le c(u,v)
+\]
+
+\textbf{Flow conservation:} For all $u \in V \setminus \{s,t\}$,
+\[
+\sum_{v \in V} f(v,u) = \sum_{v \in V} f(u,v)
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item The amount of flow entering a node equals the amount of flow leaving it (except for source and sink)
+    \item No flow is created or destroyed inside the network
+\end{itemize}
+
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Cut in Flow Networks]
+A \textbf{cut} in a flow network $G = (V, E)$ is a partition of the vertices into two disjoint sets $S$ and $T = V \setminus S$ such that:
+\begin{itemize}
+    \item $s \in S$ (the source is in $S$)
+    \item $t \in T$ (the sink is in $T$)
+\end{itemize}
+
+\textbf{Idea:} a cut separates the graph into a “left side” (containing the source) and a “right side” (containing the sink).
+\textbf{Note:} Note that this equals the value of the flow; it's always the case! (talking about the net across flow)
+\begin{defnbox}[title=Net Flow Across a Cut]
+The \textbf{net flow} across a cut $(S, T)$ is defined as:
+\[
+f(S,T) = \sum_{u \in S, v \in T} f(u,v) - \sum_{u \in S, v \in T} f(v,u)
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item The first term represents the flow leaving $S$ toward $T$
+    \item The second term represents the flow coming back from $T$ to $S$
+\end{itemize}
+
+\textbf{Idea:} it measures how much flow actually crosses from the source side to the sink side of the cut.
+\end{defnbox}
+
+
+
+\end{defnbox}
+
+\medskip
+
+\textbf{Explication simple :} une coupe (cut) consiste à “couper” le graphe en deux parties : une partie qui contient la source $s$, et une autre qui contient le puits $t$. Cela permet de mesurer combien de flux peut passer d’un côté à l’autre du réseau.
+
+
+
+
+
+
+
+
+\begin{defnbox}[title=Flow Conservation Theorem]
+For any cut $(S, T)$ in a flow network, the value of the flow satisfies:
+\[
+|f| = f(S,T)
+\]
+
+\textbf{Idea:} the total flow sent from the source is exactly equal to the net flow crossing any cut separating the source from the sink.
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Capacity of a Cut]
+The \textbf{capacity} of a cut $(S, T)$ is defined as:
+\[
+c(S,T) = \sum_{u \in S, v \in T} c(u,v)
+\]
+
+\textbf{Idea:} it represents the total maximum amount of flow that can cross from the source side $S$ to the sink side $T$.
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Max-Flow Min-Cut Theorem]
+The \textbf{maximum flow value} in a flow network is equal to the \textbf{minimum capacity of any cut} separating the source from the sink:
+\[
+\max |f| = \min_{(S,T)} c(S,T)
+\]
+
+
+IN OTHER WORDS : MAX-FLOW = MIN-CUT
+
+\textbf{Idea:} the best possible flow you can send from $s$ to $t$ is exactly limited by the smallest “bottleneck” cut in the network.
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Max-Flow Min-Cut Theorem (Equivalent Statements)]
+Let $G = (V, E)$ be a flow network with source $s$, sink $t$, capacities $c$, and a flow $f$.
+The following statements are equivalent:
+
+\begin{enumerate}
+    \item $f$ is a maximum flow
+    \item The residual graph $G_f$ has no augmenting path
+    \item There exists a cut $(S,T)$ such that $|f| = c(S,T)$, and this cut is a minimum cut
+\end{enumerate}
+
+\textbf{Idea:} all three viewpoints describe the same optimal situation: no more flow can be pushed, and the flow is exactly limited by the smallest bottleneck in the network.
+\end{defnbox}
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Maximum flow - Ford Fulkerson algorithm}
+
+
+
+\textbf{Concept and idea:}
+
+The Maximum Flow problem consists in sending the maximum possible amount of flow from a source $s$ to a sink $t$ in a flow network, while respecting edge capacities and flow conservation.
+
+The Ford-Fulkerson method solves this by repeatedly finding paths where additional flow can still be pushed (called augmenting paths), and increasing the flow along these paths until no more improvements are possible.
+
+\begin{lstlisting}
+Ford-Fulkerson-Method(G, s, t)
+
+1. Initialize flow f to 0
+2. while there exists an augmenting path p in the residual network G_f
+3.     augment flow f along p
+4. return f
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item As long as there exists a path from $s$ to $t$ with available capacity on every edge
+    \item Send additional flow along this path
+    \item Update the residual network
+    \item Repeat until no augmenting path exists
+\end{itemize}
+
+\textbf{Goal:} Compute the maximum possible flow from source $s$ to sink $t$ \\
+
+\textbf{Key insight:} Each augmenting path increases the total flow, and the algorithm stops when no such path exists \\
+
+\textbf{Time complexity:} Depends on the choice of augmenting paths (can be unbounded in general)
+\textbf{Time complexity:} $O(E \cdot |f^*|)$ (for integer capacities, where $|f^*|$ is the value of the maximum flow) \\
+\textbf{Space complexity:} $O(V + E)$ (to store the residual graph)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\chapter{Disjoint-set data structures}
+
+
+\begin{defnbox}[title=Disjoint-Set Data Structure (Union-Find)]
+A \textbf{disjoint-set data structure} maintains a collection
+\[
+S = \{S_1, S_2, \dots, S_k\}
+\]
+of pairwise disjoint dynamic sets (sets that change over time).
+
+Each set is identified by a \textbf{representative} element, which is a member of the set.
+The representative must be consistent: if we ask for it multiple times without modifying the set, it must return the same value.
+\end{defnbox}
+
+\begin{defnbox}[title=Make-Set]
+\textbf{Make-Set}(x) creates a new set containing only $x$:
+\[
+S = \{\{x\}\}
+\]
+
+\textbf{Idea:} each element starts in its own singleton set.
+\end{defnbox}
+
+\begin{defnbox}[title=Find-Set]
+\textbf{Find-Set}(x) returns the representative of the set containing $x$.
+
+\textbf{Idea:} it identifies which component/set an element belongs to.
+\end{defnbox}
+
+\begin{defnbox}[title=Union]
+\textbf{Union}(x, y) merges the two sets containing $x$ and $y$:
+\[
+S_x \cup S_y
+\]
+
+\textbf{Idea:} combines two disjoint sets into one single set, destroying the original two sets.
+
+The representative of the new set is usually one of the two previous representatives.
+\end{defnbox}
+
+\begin{defnbox}[title=Key Properties]
+\begin{itemize}
+    \item Sets are always disjoint
+    \item Each element belongs to exactly one set
+    \item Structure evolves dynamically over time
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Disjoint-set structures are used in:
+\begin{itemize}
+    \item Kruskal’s algorithm (Minimum Spanning Tree)
+    \item Connected components in graphs
+    \item Cycle detection in undirected graphs
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Operations Summary]
+\begin{itemize}
+    \item Make-Set(x): create a new singleton set $\{x\}$
+    \item Find-Set(x): return representative of $x$
+    \item Union(x, y): merge the sets containing $x$ and $y$
+\end{itemize}
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Path Compression]
+During \textbf{Find-Set}, each visited node is directly linked to the representative (root).
+
+\textbf{Idea:} flatten the structure of the tree so that future queries become much faster.
+\end{defnbox}
+
+\begin{defnbox}[title=Union by Rank / Size]
+When performing \textbf{Union}, attach the smaller tree under the root of the larger tree (by rank or size).
+
+\textbf{Idea:} keep trees as shallow as possible to speed up future operations.
+\end{defnbox}
+
+
+\begin{defnbox}[title=Representation + Intuition]
+Each element stores:
+\begin{itemize}
+    \item a parent pointer (itself if it is a root)
+    \item optionally a rank or size
+\end{itemize}
+
+\textbf{Intuition:} the structure is a forest of trees where each tree represents a set.
+
+\textbf{Goal:} efficiently support merging sets and checking whether two elements belong to the same set.
+\end{defnbox}
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Connected components algorithm}
+
+
+
+\textbf{Concept and idea:}
+
+The Connected Components algorithm finds all connected components of an undirected graph by using the Union-Find (Disjoint Set) data structure to group vertices that are reachable from each other.
+
+Initially, each vertex starts in its own component, and edges are used to progressively merge these components.
+
+\begin{lstlisting}
+CONNECTED-COMPONENTS(G)
+
+for each vertex v apartenat a G.V
+    MAKE-SET(v)
+
+for each edge (u, v) appartenant a G.E
+    if FIND-SET(u) != FIND-SET(v)
+        UNION(u, v)
+
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start with each vertex in its own set
+    \item Process edges one by one
+    \item Merge sets when an edge connects two different components
+    \item At the end, each set represents a connected component
+\end{itemize}
+
+\textbf{Goal:} Compute all connected components of an undirected graph \\
+
+\textbf{Time complexity:} $O(E \cdot \alpha(V))$ \\
+
+\textbf{Space complexity:} $O(V)$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Disjoint-Set via Linked List Representation}
+
+
+
+
+
+\begin{defnbox}[title=Disjoint-Set via Linked List Representation]
+In this representation, each set is stored as a \textbf{single linked list}.
+
+Each set has a \textbf{set object} containing:
+\begin{itemize}
+    \item a pointer to the \textbf{head} of the list (the representative)
+    \item a pointer to the \textbf{tail} of the list
+\end{itemize}
+
+Each element in the list stores:
+\begin{itemize}
+    \item the value (set member)
+    \item a pointer to the set object it belongs to
+    \item a pointer to the next element in the list
+\end{itemize}
+
+\textbf{Operations:}
+\begin{itemize}
+    \item \textbf{Make-Set(x):} creates a new list containing only $x$ in $O(1)$ time
+    \item \textbf{Find(x):} follows the pointer to the set object, then returns the head (representative), in $O(1)$ time
+    \item \textbf{Union(x, y):} merges the list of $y$ into the list of $x$
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Union Operation (Linked List)]
+There are two main ways to implement \textbf{Union}:
+
+\textbf{1. Simple append strategy}
+\begin{itemize}
+    \item Append the list of $y$ to the end of the list of $x$
+    \item Use the tail pointer of $x$ to access the end in $O(1)$ time
+    \item Update the set pointer for every element in $y$’s list
+\end{itemize}
+
+\textbf{Problem:} if a large list is appended to a small one, updating pointers can take a lot of time.
+
+\textbf{2. Weighted-union heuristic}
+\begin{itemize}
+    \item Always append the smaller list to the larger list
+    \item Break ties arbitrarily
+\end{itemize}
+
+\textbf{Idea:} reduce the number of relabeling operations by avoiding expensive merges.
+\end{defnbox}
+
+\begin{defnbox}[title=Weighted-Union Theorem]
+With the weighted-union heuristic, any sequence of $m$ operations on $n$ elements takes:
+\[
+O(m + n \log n)
+\]
+
+\textbf{Idea (simple explanation):} each time an element is moved to another list, it goes into a strictly larger set. So it can only be moved a limited number of times, which keeps the total cost low.
+
+\textbf{Goal:} guarantee that even many union operations remain efficient overall.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Forest of trees}
+
+
+\begin{defnbox}[title=Disjoint-Set via Forest of Trees]
+In this representation, each set is stored as a \textbf{tree}.
+
+\begin{itemize}
+    \item Each tree corresponds to one set
+    \item The \textbf{root} of the tree is the representative of the set
+    \item Each node stores only a pointer to its \textbf{parent}
+\end{itemize}
+
+\textbf{Idea:} instead of storing lists, we represent sets as trees, which makes unions more efficient.
+
+\textbf{Explication simple :} ici, chaque ensemble est vu comme un arbre. Tous les éléments “remontent” vers une racine commune qui représente leur groupe.
+\end{defnbox}
+
+\begin{defnbox}[title=Operations]
+\begin{itemize}
+    \item \textbf{Make-Set(x):} creates a single-node tree where $x$ is its own root
+    \item \textbf{Find(x):} follows parent pointers until reaching the root (representative)
+    \item \textbf{Union(x, y):} attaches the root of one tree under the root of another
+\end{itemize}
+
+\textbf{Idea:} operations are simple pointer manipulations on tree roots.
+
+\textbf{Explication simple :} Make-Set crée un groupe avec un seul élément, Find remonte jusqu’au chef du groupe, et Union fusionne deux groupes en reliant leurs racines.
+\end{defnbox}
+
+\begin{defnbox}[title=Intuition and Purpose]
+This structure is used to efficiently manage dynamic connectivity, i.e., groups of elements that change over time.
+
+\textbf{Why it is useful:}
+\begin{itemize}
+    \item Much faster than linked lists for large datasets
+    \item Easily merges groups of elements
+    \item Becomes extremely efficient with optimizations (path compression + union by rank)
+\end{itemize}
+
+\textbf{Explication simple :} cela permet de savoir rapidement si deux éléments sont dans le même groupe, même si les groupes changent tout le temps.
+\end{defnbox}
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Global idea (Union-Find / Disjoint Set) algorithms basics}
+
+
+
+\textbf{Global idea (Union-Find / Disjoint Set):}
+
+The Union-Find structure maintains a collection of disjoint sets and supports two main operations:
+\begin{itemize}
+    \item quickly finding which set an element belongs to
+    \item efficiently merging two sets
+\end{itemize}
+
+It represents each set as a tree where each node points to its parent, and the root is the representative.
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{MAKE-SET}
+
+
+
+\begin{lstlisting}
+MAKE-SET(x)
+
+1. x.p = x
+2. x.rank = 0
+\end{lstlisting}
+
+\textbf{What it does:} creates a new set containing only $x$.
+
+\textbf{Purpose:} initialize the structure so every element starts in its own group.
+
+\textbf{Idea:} each element is initially its own root.
+
+\textbf{Time complexity:} $O(1)$
+
+\textbf{Data structure state:} single-node tree.
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{FIND-SET}
+
+
+
+\begin{lstlisting}
+FIND-SET(x)
+
+1. if x != x.p
+2.     x.p = FIND-SET(x.p)
+3. return x.p
+\end{lstlisting}
+
+\textbf{What it does:} returns the representative (root) of the set containing $x$.
+
+\textbf{Purpose:} identify which group an element belongs to.
+
+\textbf{Idea:} climb parent pointers to the root + compress the path to speed up future queries.
+
+\textbf{Time complexity:} amortized $O(\alpha(n))$
+
+\textbf{Data structure state:} trees become flatter over time (path compression).
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{UNION}
+
+
+
+\begin{lstlisting}
+UNION(x, y)
+
+1. LINK(FIND-SET(x), FIND-SET(y))
+\end{lstlisting}
+
+\textbf{What it does:} merges the two sets containing $x$ and $y$.
+
+\textbf{Purpose:} combine two separate groups into one.
+
+\textbf{Idea:} find roots first, then attach one tree to the other.
+
+\textbf{Time complexity:} amortized $O(\alpha(n))$
+
+\textbf{Data structure state:} two trees become one.
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{LINK}
+
+
+
+\begin{lstlisting}
+LINK(x, y)
+
+1. if x.rank > y.rank
+2.     y.p = x
+3. else x.p = y
+4.     if x.rank == y.rank
+5.         y.rank = y.rank + 1
+\end{lstlisting}
+
+\textbf{What it does:} attaches one root under another.
+
+\textbf{Purpose:} merge trees while keeping them as shallow as possible.
+
+\textbf{Idea:} union by rank prevents tall trees by always attaching the smaller height tree under the larger one.
+
+\textbf{Time complexity:} $O(1)$
+
+\textbf{Data structure state:} balanced forest structure is maintained.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{CONNECTED COMPONENTS WITH THIS IMPLEMENTATION}
+
+
+\begin{defnbox}[title=NEW TIME COMPLEXITY]
+Total running time if implemented as linked list with
+weighted-union heuristic
+O(V log V + E)
+\end{defnbox}
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\chapter{Minimum spanning trees}
+
+
+
+\begin{defnbox}[title=Spanning Tree]
+A \textbf{spanning tree} of a connected graph $G=(V,E)$ is a subset of edges $T \subseteq E$ such that:
+\begin{itemize}
+    \item $T$ is \textbf{acyclic} (contains no cycle)
+    \item $T$ is \textbf{spanning} (it connects all vertices in $V$)
+\end{itemize}
+
+\textbf{Equivalent property:} a spanning tree contains exactly $|V|-1$ edges.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Spanning Tree (Intuition)]
+A spanning tree is a way to connect all vertices of a graph using the minimum number of edges, without forming any cycle.
+
+\textbf{Idea:} it keeps only the “essential” connections needed to maintain connectivity.
+
+\textbf{En mots simples :} un spanning tree est une version simplifiée du graphe où tout est encore connecté, mais sans aucun cycle (aucun “chemin en boucle”).
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Properties of a Spanning Tree]
+Let $T$ be a spanning tree of a connected graph $G$:
+\begin{itemize}
+    \item $T$ connects all vertices
+    \item $T$ has no cycles
+    \item $T$ has exactly $|V|-1$ edges
+    \item There is a unique simple path between any two vertices
+\end{itemize}
+
+\textbf{Idea:} a spanning tree is minimally connected and maximally acyclic.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Why Spanning Trees are Important]
+Spanning trees are used to:
+\begin{itemize}
+    \item reduce network cost (fewer edges)
+    \item build efficient communication structures
+    \item design minimum-cost networks (MST problems)
+    \item simplify graph structures while preserving connectivity
+\end{itemize}
+
+\textbf{En mots simples :} on garde seulement les connexions essentielles pour que tout reste relié, mais en utilisant le minimum d’arêtes possible.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Spanning Tree vs General Graph]
+\begin{itemize}
+    \item A general graph may contain cycles and many redundant edges
+    \item A spanning tree removes all redundancy
+    \item It preserves connectivity but removes all cycles
+\end{itemize}
+
+\textbf{Idea:} spanning tree = skeleton of the graph.
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Cut Property]
+Consider a cut $(S, V \setminus S)$ and let
+\begin{itemize}
+    \item $T$ be a tree on $S$ which is part of a MST
+    \item $e$ be a crossing edge of minimum weight
+\end{itemize}
+
+Then there exists an MST of $G$ containing $e$ and $T$.
+
+\textbf{Explication simple :} cette propriété dit du coup alors que si on coupe le graphe en deux parties, l'arête la moins chère (donc celle qui a la plus petite valuer ici comme ca) qui relie ces deux parties peut toujours faire partie d’un arbre couvrant minimal (MST).
+\end{defnbox}
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Prim's algorithm}
+
+
+\textbf{Concept and idea:}
+
+Prim’s algorithm finds a \textbf{Minimum Spanning Tree (MST)} of a weighted graph by starting from a root vertex and repeatedly adding the cheapest edge that connects a visited vertex to an unvisited one.
+
+It grows a tree step by step, always choosing the locally optimal (minimum weight) edge.
+
+\begin{lstlisting}
+PRIM(G, w, r)
+
+Q = ensemble vide
+
+for each u appartien a G.V
+    u.key = 8
+    u.pi = NIL
+    INSERT(Q, u)
+
+DECREASE-KEY(Q, r, 0)
+
+while Q != de l'ensemble vide
+    u = EXTRACT-MIN(Q)
+
+    for each v appartien a G.Adj[u]
+        if v appartient a Q and w(u, v) < v.key
+            v.pi = u
+            DECREASE-KEY(Q, v, w(u, v))
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start from an arbitrary root vertex $r$
+    \item Maintain a priority queue of vertices not yet in the tree
+    \item Always pick the vertex with smallest connection cost (key)
+    \item Update neighbors if a cheaper connection is found
+\end{itemize}
+
+\textbf{Goal:} build a Minimum Spanning Tree by greedy expansion \\
+
+\textbf{Time complexity:}
+\begin{itemize}
+    \item Initialization: $O(V)$
+    \item Decrease-key on root: $O(\log V)$
+    \item Extract-min: $O(V \log V)$
+    \item Decrease-key operations: $O(E \log V)$
+\end{itemize}
+
+\textbf{Total:} $O(E \log V)$ (or $O(E + V \log V)$ with Fibonacci heap)
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Kruskal's algorithm}
+
+
+\textbf{Concept and idea:}
+
+Kruskal’s algorithm finds a \textbf{Minimum Spanning Tree (MST)} by sorting all edges by increasing weight and adding them one by one, as long as they do not create a cycle.
+
+It builds the MST globally (edge by edge), instead of growing it from a single source like Prim.
+
+\begin{lstlisting}
+KRUSKAL(G, w)
+
+A = ensemble vide
+
+for each vertex v appartient a G.V
+    MAKE-SET(v)
+
+sort the edges of G.E into nondecreasing order by weight w
+
+for each (u, v) taken from the sorted list
+    if FIND-SET(u) != FIND-SET(v)
+        A = A U {(u, v)}
+        UNION(u, v)
+
+return A
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start with each vertex in its own component
+    \item Sort all edges by weight (cheapest first)
+    \item Add an edge only if it connects two different components
+    \item Avoid cycles using Union-Find
+\end{itemize}
+
+\textbf{Goal:} construct a Minimum Spanning Tree by globally selecting the smallest safe edges \\
+
+\textbf{Time complexity:}
+
+ Initialize A: $O(1)$  
+ First for loop: $O(V)$ Make-Sets  
+ Sorting edges: $O(E \log E)$  
+ Second for loop: $O(E)$ Find-Set and Union operations  
+
+ Total time:  
+$O((V + E)\,\alpha(V)) + O(E \log E)$  
+$= O(E \log E)$  
+$= O(E \log V)$
+
+If edges already sorted time is O(E * alpha(V)) which is almost linear
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\chapter{THE SHORTEST PATH PROBLEM}
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{NEGATIVE WEIGHTS AND APPLICATIONS}
+
+
+
+
+
+
+\begin{defnbox}[title=Negative Weights in Graphs]
+We will allow negative edge weights.
+
+This is valid as long as there is \textbf{no negative-weight cycle reachable from the source}.
+
+If a negative cycle exists, then we could loop around it indefinitely and keep decreasing the path cost without bound.
+\end{defnbox}
+
+\begin{defnbox}[title=Why Negative Weights are a Problem]
+Some algorithms (e.g. Dijkstra's algorithm) only work correctly when all edge weights are non-negative.
+
+This is because they assume that once a vertex is processed, its shortest path is final, which is false when negative edges exist.
+\end{defnbox}
+
+\begin{defnbox}[title=Why Negative Weights are Useful]
+Negative weights are important because they model real-world situations where gains and losses exist.
+
+\textbf{En mots simples :} les poids négatifs permettent de représenter des “profits” ou des réductions de coût, pas seulement des distances.
+\end{defnbox}
+
+\begin{defnbox}[title=Example: Currency Exchange]
+Negative weights can represent currency exchange or arbitrage problems:
+\begin{itemize}
+    \item vertices = currencies
+    \item edges = exchange rates
+    \item weights = cost or gain (log-transformed)
+\end{itemize}
+
+\textbf{Idea:} finding a negative cycle corresponds to finding a way to start with money and end up with more money after a sequence of exchanges.
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Bellman ford algorithm}
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Init single source}
+
+
+\textbf{Concept and idea:}
+
+The INIT-SINGLE-SOURCE procedure initializes the shortest-path algorithm by setting the initial distance values from a source vertex $s$.
+
+All vertices are initially considered unreachable, except the source.
+
+\begin{lstlisting}
+INIT-SINGLE-SOURCE(G, s)
+
+for each v appartient a G.V
+    v.d = 8
+    v.pi = NIL
+
+s.d = 0
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Set all distances to infinity (unknown / unreachable at start)
+    \item Remove all predecessors (no known path yet)
+    \item Set source distance to 0
+\end{itemize}
+
+\textbf{Goal:} prepare the graph for shortest-path algorithms \\
+
+\textbf{Time complexity:} $O(V)$
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Relax}
+
+
+\textbf{Concept and idea:}
+
+The RELAX operation is the core step in shortest-path algorithms. It tries to improve the best known distance to a vertex $v$ by going through an adjacent vertex $u$.
+
+If a shorter path is found, it updates the distance and remembers the predecessor.
+
+\begin{lstlisting}
+RELAX(u, v, w)
+
+if v.d > u.d + w(u, v)
+    v.d = u.d + w(u, v)
+    v.pi = u
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Check if going through $u$ gives a shorter path to $v$
+    \item If yes, update the best known distance
+    \item Store $u$ as the predecessor of $v$
+\end{itemize}
+
+\textbf{Goal:} progressively improve shortest-path estimates \\
+
+\textbf{Time complexity:} $O(1)$
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Bellman-for main}
+
+
+\textbf{Concept and idea:}
+
+The Bellman-Ford algorithm computes shortest paths from a single source in a weighted graph, even when negative weights are present (as long as there is no negative cycle reachable from the source).
+
+It repeatedly relaxes all edges to progressively improve distance estimates.
+
+\begin{lstlisting}
+Bellman-Ford(G, w, s)
+
+Init-Single-Source(G, s)
+
+for i = 1 to |G.V| - 1
+    for each edge (u, v) appartient a G.E
+        Relax(u, v, w)
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Initialize all distances from the source
+    \item Repeatedly relax all edges
+    \item Each pass allows shortest paths with one more edge to be found
+    \item After |V| - 1 iterations, all shortest paths are correct
+\end{itemize}
+
+\textbf{Goal:} compute shortest paths even with negative edge weights \\
+
+\textbf{Time complexity:} $O(V \cdot E)$
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Bellman-for main with negative cycle detect}
+
+\textbf{Concept and idea:}
+
+The Bellman-Ford algorithm computes single-source shortest paths in a weighted graph and is also able to detect negative-weight cycles reachable from the source.
+
+It first relaxes all edges repeatedly, then performs an extra pass to check for improvements.
+
+\begin{lstlisting}
+Bellman-Ford(G, w, s)
+
+Init-Single-Source(G, s)
+
+for i = 1 to |G.V| - 1
+    for each edge (u, v) appartient a G.E
+        Relax(u, v, w)
+
+for each edge (u, v) appartient a G.E
+    if v.d > u.d + w(u, v)
+        return FALSE
+
+return TRUE
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Initialize all distances from the source
+    \item Relax all edges repeatedly to propagate shortest paths
+    \item Do one final pass to check if any distance can still be improved
+    \item If yes, a negative cycle exists
+\end{itemize}
+
+\textbf{Goal:} compute shortest paths and detect negative-weight cycles \\
+
+\textbf{Time complexity:} $O(V \cdot E)$
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Dijkstra algorithm}
+
+\textbf{Concept and idea:}
+
+Dijkstra's algorithm computes single-source shortest paths in a weighted graph with \textbf{non-negative edge weights}.
+
+It repeatedly selects the vertex with the smallest tentative distance and “finalizes” it.
+
+\begin{lstlisting}
+DIJKSTRA(G, w, s)
+
+INIT-SINGLE-SOURCE(G, s)
+
+S = ensemble vide
+Q = G.V
+
+while Q != ensemble vide
+    u = EXTRACT-MIN(Q)
+    S = S U {u}
+
+    for each vertex v appartient a G.Adj[u]
+        RELAX(u, v, w)
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start from source with distance 0
+    \item Maintain a priority queue of unprocessed vertices
+    \item Always pick vertex with smallest current distance
+    \item Relax all outgoing edges of the chosen vertex
+    \item Once a vertex is extracted, its shortest path is finalized
+\end{itemize}
+
+\textbf{Goal:} compute shortest paths efficiently when all weights are non-negative \\
+
+\textbf{Time complexity:}
+\begin{itemize}
+    \item With binary heap: $O((V + E)\log V)$
+    \item With adjacency list + heap: $O(E \log V)$
+\end{itemize}
+\textbf{Running time:}
+
+Like Prim’s algorithm, the running time is dominated by operations on the priority queue.
+
+\begin{itemize}
+    \item If a binary heap is used: each operation costs $O(\log V)$
+    \quad $\Rightarrow O(E \log V)$
+    
+    \item More careful implementation (with efficient decrease-key structure):
+    \quad $O(V \log V + E)$
+\end{itemize}
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Dijkstra algorithm}
+
+
+
+
+
+
+
+
+
 
 \section{Ford-Fulkerson Method}
 
