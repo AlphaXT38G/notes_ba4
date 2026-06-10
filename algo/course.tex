@@ -3933,43 +3933,40 @@ for each edge (u, v) appartenant a G.E
 
 
 
-
-
 \begin{defnbox}[title=Disjoint-Set via Forest of Trees]
-In this representation, each set is stored as a \textbf{tree}.
+Dans cette représentation, chaque ensemble est stocké sous forme d’un \textbf{arbre}.
 
 \begin{itemize}
-    \item Each tree corresponds to one set
-    \item The \textbf{root} of the tree is the representative of the set
-    \item Each node stores only a pointer to its \textbf{parent}
+    \item Chaque arbre correspond à un ensemble
+    \item La \textbf{racine} de l’arbre est le représentant de l’ensemble
+    \item Chaque nœud contient uniquement un pointeur vers son \textbf{parent}
 \end{itemize}
 
-\textbf{Idea:} instead of storing lists, we store sets as hierarchical structures (trees), which makes unions more efficient.
+\textbf{Idée :} au lieu de stocker des listes, on représente les ensembles sous forme d’arbres, ce qui rend les opérations de fusion plus efficaces.
 \end{defnbox}
 
-\begin{defnbox}[title=Operations]
+\begin{defnbox}[title=Opérations]
 \begin{itemize}
-    \item \textbf{Make-Set(x):} creates a single-node tree where $x$ is its own root
-    \item \textbf{Find(x):} follows parent pointers until reaching the root (representative)
-    \item \textbf{Union(x, y):} connects the root of one tree under the root of another
+    \item \textbf{Make-Set(x) :} crée un arbre composé d’un seul nœud (x est sa propre racine)
+    \item \textbf{Find(x) :} remonte les pointeurs parents jusqu’à atteindre la racine (représentant)
+    \item \textbf{Union(x, y) :} relie la racine d’un arbre sous la racine d’un autre
 \end{itemize}
 
-\textbf{Idea:} operations become simple pointer manipulations on tree roots.
+\textbf{Idée :} les opérations deviennent des manipulations simples de pointeurs sur les racines.
 \end{defnbox}
 
-\begin{defnbox}[title=Intuition and Purpose]
-This structure is used to efficiently manage dynamic connectivity (which elements are in the same set).
+\begin{defnbox}[title=Intuition et utilité]
+Cette structure sert à gérer efficacement des ensembles dynamiques, c’est-à-dire des groupes d’éléments qui évoluent avec des fusions.
 
-\textbf{Why it is useful:}
+\textbf{Pourquoi c’est utile :}
 \begin{itemize}
-    \item Much faster than linked lists for large datasets
-    \item Naturally supports merging groups of elements
-    \item Becomes extremely efficient with optimizations (path compression + union by rank)
+    \item Beaucoup plus rapide que les listes pour de grandes données
+    \item Permet de fusionner facilement des groupes d’éléments
+    \item Devient très efficace avec les optimisations (compression de chemin et union par rang)
 \end{itemize}
 
-\textbf{In simple words:} each set is like a family tree, and two elements are in the same set if they share the same root ancestor.
+\textbf{En mots simples :} chaque ensemble est comme un arbre généalogique, et deux éléments sont dans le même ensemble s’ils ont la même racine.
 \end{defnbox}
-
 
 
 
