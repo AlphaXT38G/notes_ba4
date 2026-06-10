@@ -4397,13 +4397,61 @@ If edges already sorted time is O(E * alpha(V)) which is almost linear
 
 
 
-\section{Kruskal's algorithm}
+\chapter{THE SHORTEST PATH PROBLEM}
 
 
 
 
 
 
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{NEGATIVE WEIGHTS AND APPLICATIONS}
+
+
+
+
+
+
+\begin{defnbox}[title=Negative Weights in Graphs]
+We will allow negative edge weights.
+
+This is valid as long as there is \textbf{no negative-weight cycle reachable from the source}.
+
+If a negative cycle exists, then we could loop around it indefinitely and keep decreasing the path cost without bound.
+\end{defnbox}
+
+\begin{defnbox}[title=Why Negative Weights are a Problem]
+Some algorithms (e.g. Dijkstra's algorithm) only work correctly when all edge weights are non-negative.
+
+This is because they assume that once a vertex is processed, its shortest path is final, which is false when negative edges exist.
+\end{defnbox}
+
+\begin{defnbox}[title=Why Negative Weights are Useful]
+Negative weights are important because they model real-world situations where gains and losses exist.
+
+\textbf{En mots simples :} les poids négatifs permettent de représenter des “profits” ou des réductions de coût, pas seulement des distances.
+\end{defnbox}
+
+\begin{defnbox}[title=Example: Currency Exchange]
+Negative weights can represent currency exchange or arbitrage problems:
+\begin{itemize}
+    \item vertices = currencies
+    \item edges = exchange rates
+    \item weights = cost or gain (log-transformed)
+\end{itemize}
+
+\textbf{Idea:} finding a negative cycle corresponds to finding a way to start with money and end up with more money after a sequence of exchanges.
+\end{defnbox}
 
 
 
