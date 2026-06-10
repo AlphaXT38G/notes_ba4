@@ -3445,6 +3445,8 @@ In other words, all edges of $G$ are reversed.
 % =========================================================
 
 
+
+
 \begin{defnbox}[title=Flow network]
 A directed graph $G = (V, E)$ with:
 \begin{itemize}
@@ -3457,6 +3459,115 @@ A \textbf{flow} $f$ must satisfy capacity ($0 \leq f(u,v) \leq c(u,v)$) and cons
 \end{defnbox}
 
 The \textbf{value} of a flow is $|f| = \sum_v f(s,v) - \sum_v f(v,s)$.
+
+
+
+
+\begin{defnbox}[title=Flow Network]
+A \textbf{flow network} is a directed graph $G = (V, E)$ where each edge has a capacity $c(u,v) \ge 0$.  
+It contains:
+\begin{itemize}
+    \item a \textbf{source} $s$
+    \item a \textbf{sink} $t$
+\end{itemize}
+Flow is sent from $s$ to $t$ while respecting capacities.
+\end{defnbox}
+
+\begin{defnbox}[title=Flow]
+A \textbf{flow} is a function $f(u,v)$ that represents how much “stuff” is sent along an edge, satisfying:
+\begin{itemize}
+    \item $0 \le f(u,v) \le c(u,v)$ (capacity constraint)
+    \item Flow conservation: incoming flow = outgoing flow for all vertices except $s$ and $t$
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Capacity]
+The \textbf{capacity} $c(u,v)$ is the maximum amount of flow allowed on edge $(u,v)$.
+\end{defnbox}
+
+\begin{defnbox}[title=Residual Capacity]
+The \textbf{residual capacity} represents how much additional flow can still be pushed through an edge:
+\[
+c_f(u,v) = c(u,v) - f(u,v)
+\]
+It also includes backward edges to allow flow cancellation.
+\end{defnbox}
+
+\begin{defnbox}[title=Residual Graph]
+The \textbf{residual graph} $G_f$ contains all edges with positive residual capacity.  
+It represents all possible ways to increase or adjust the current flow.
+\end{defnbox}
+
+\begin{defnbox}[title=Flow Value]
+The \textbf{value of a flow} is the total amount leaving the source:
+\[
+|f| = \sum_{v \in V} f(s,v)
+\]
+\end{defnbox}
+
+\begin{defnbox}[title=Max Flow Problem]
+The goal is to compute a flow of maximum value from $s$ to $t$ while respecting all capacity constraints.
+\end{defnbox}
+
+\begin{defnbox}[title=Key Ideas to Know]
+\begin{itemize}
+    \item Flow conservation at intermediate vertices
+    \item Capacity constraints on edges
+    \item Residual graph allows augmentation
+    \item Augmenting path increases total flow
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Applications]
+Flow networks are used in:
+\begin{itemize}
+    \item network routing
+    \item bipartite matching
+    \item scheduling
+    \item transportation problems
+\end{itemize}
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \section{Ford-Fulkerson Method}
 
