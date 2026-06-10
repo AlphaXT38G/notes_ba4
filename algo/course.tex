@@ -4003,18 +4003,29 @@ This structure is used to efficiently manage dynamic connectivity, i.e., groups 
 
 
 
-\section{Forest of trees}
+\section{Global idea (Union-Find / Disjoint Set) algorithms basics}
+
+
+
+\textbf{Global idea (Union-Find / Disjoint Set):}
+
+The Union-Find structure maintains a collection of disjoint sets and supports two main operations:
+\begin{itemize}
+    \item quickly finding which set an element belongs to
+    \item efficiently merging two sets
+\end{itemize}
+
+It represents each set as a tree where each node points to its parent, and the root is the representative.
+
+
+
+\vspace{2cm}
 
 
 
 
 
-
-
-
-
-
-
+\subsection{MAKE-SET}
 
 
 
