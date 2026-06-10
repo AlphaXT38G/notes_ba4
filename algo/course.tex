@@ -3629,7 +3629,25 @@ The \textbf{maximum flow value} in a flow network is equal to the \textbf{minimu
 \max |f| = \min_{(S,T)} c(S,T)
 \]
 
+
+IN OTHER WORDS : MAX-FLOW = MIN-CUT
+
 \textbf{Idea:} the best possible flow you can send from $s$ to $t$ is exactly limited by the smallest “bottleneck” cut in the network.
+\end{defnbox}
+
+
+
+\begin{defnbox}[title=Max-Flow Min-Cut Theorem (Equivalent Statements)]
+Let $G = (V, E)$ be a flow network with source $s$, sink $t$, capacities $c$, and a flow $f$.
+The following statements are equivalent:
+
+\begin{enumerate}
+    \item $f$ is a maximum flow
+    \item The residual graph $G_f$ has no augmenting path
+    \item There exists a cut $(S,T)$ such that $|f| = c(S,T)$, and this cut is a minimum cut
+\end{enumerate}
+
+\textbf{Idea:} all three viewpoints describe the same optimal situation: no more flow can be pushed, and the flow is exactly limited by the smallest bottleneck in the network.
 \end{defnbox}
 
 
