@@ -3812,6 +3812,64 @@ Each element stores:
 
 
 
+\begin{defnbox}[title=Disjoint-Set via Linked List Representation]
+In this representation, each set is stored as a \textbf{single linked list}.
+
+Each set has a \textbf{set object} containing:
+\begin{itemize}
+    \item a pointer to the \textbf{head} of the list (the representative)
+    \item a pointer to the \textbf{tail} of the list
+\end{itemize}
+
+Each element in the list stores:
+\begin{itemize}
+    \item the value (set member)
+    \item a pointer to the set object it belongs to
+    \item a pointer to the next element in the list
+\end{itemize}
+
+\textbf{Operations:}
+\begin{itemize}
+    \item \textbf{Make-Set(x):} creates a new list containing only $x$ in $O(1)$ time
+    \item \textbf{Find(x):} follows the pointer to the set object, then returns the head (representative), in $O(1)$ time
+    \item \textbf{Union(x, y):} merges the list of $y$ into the list of $x$
+\end{itemize}
+\end{defnbox}
+
+\begin{defnbox}[title=Union Operation (Linked List)]
+There are two main ways to implement \textbf{Union}:
+
+\textbf{1. Simple append strategy}
+\begin{itemize}
+    \item Append the list of $y$ to the end of the list of $x$
+    \item Use the tail pointer of $x$ to access the end in $O(1)$ time
+    \item Update the set pointer for every element in $y$’s list
+\end{itemize}
+
+\textbf{Problem:} if a large list is appended to a small one, updating pointers can take a lot of time.
+
+\textbf{2. Weighted-union heuristic}
+\begin{itemize}
+    \item Always append the smaller list to the larger list
+    \item Break ties arbitrarily
+\end{itemize}
+
+\textbf{Idea:} reduce the number of relabeling operations by avoiding expensive merges.
+\end{defnbox}
+
+\begin{defnbox}[title=Weighted-Union Theorem]
+With the weighted-union heuristic, any sequence of $m$ operations on $n$ elements takes:
+\[
+O(m + n \log n)
+\]
+
+\textbf{Idea (simple explanation):} each time an element is moved to another list, it goes into a strictly larger set. So it can only be moved a limited number of times, which keeps the total cost low.
+
+\textbf{Goal:} guarantee that even many union operations remain efficient overall.
+\end{defnbox}
+
+
+
 
 
 
