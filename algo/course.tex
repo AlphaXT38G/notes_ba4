@@ -4083,6 +4083,33 @@ FIND-SET(x)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\subsection{UNION}
+
+
+
+\begin{lstlisting}
+UNION(x, y)
+
+1. LINK(FIND-SET(x), FIND-SET(y))
+\end{lstlisting}
+
+\textbf{What it does:} merges the two sets containing $x$ and $y$.
+
+\textbf{Purpose:} combine two separate groups into one.
+
+\textbf{Idea:} find roots first, then attach one tree to the other.
+
+\textbf{Time complexity:} amortized $O(\alpha(n))$
+
+\textbf{Data structure state:} two trees become one.
+
+
 
 
 
