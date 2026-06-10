@@ -3573,7 +3573,40 @@ Flow networks are used in:
 
 
 
-\section{SCC and magic algorithm}
+\section{Maximum flow - Ford Fulkerson algorithm}
+
+
+
+\textbf{Concept and idea:}
+
+The Maximum Flow problem consists in sending the maximum possible amount of flow from a source $s$ to a sink $t$ in a flow network, while respecting edge capacities and flow conservation.
+
+The Ford-Fulkerson method solves this by repeatedly finding paths where additional flow can still be pushed (called augmenting paths), and increasing the flow along these paths until no more improvements are possible.
+
+\begin{lstlisting}
+Ford-Fulkerson-Method(G, s, t)
+
+1. Initialize flow f to 0
+2. while there exists an augmenting path p in the residual network G_f
+3.     augment flow f along p
+4. return f
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item As long as there exists a path from $s$ to $t$ with available capacity on every edge
+    \item Send additional flow along this path
+    \item Update the residual network
+    \item Repeat until no augmenting path exists
+\end{itemize}
+
+\textbf{Goal:} Compute the maximum possible flow from source $s$ to sink $t$ \\
+
+\textbf{Key insight:} Each augmenting path increases the total flow, and the algorithm stops when no such path exists \\
+
+\textbf{Time complexity:} Depends on the choice of augmenting paths (can be unbounded in general)
+\textbf{Time complexity:} $O(E \cdot |f^*|)$ (for integer capacities, where $|f^*|$ is the value of the maximum flow) \\
+\textbf{Space complexity:} $O(V + E)$ (to store the residual graph)
 
 
 
@@ -3586,6 +3619,20 @@ Flow networks are used in:
 
 
 
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Maximum flow - Ford Fulkerson algorithm}
 
 
 
