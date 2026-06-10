@@ -4270,7 +4270,55 @@ Then there exists an MST of $G$ containing $e$ and $T$.
 
 
 
-\section{CONNECTED COMPONENTS WITH THIS IMPLEMENTATION}
+\section{Prim's algorithm}
+
+
+\textbf{Concept and idea:}
+
+Prim’s algorithm finds a \textbf{Minimum Spanning Tree (MST)} of a weighted graph by starting from a root vertex and repeatedly adding the cheapest edge that connects a visited vertex to an unvisited one.
+
+It grows a tree step by step, always choosing the locally optimal (minimum weight) edge.
+
+\begin{lstlisting}
+PRIM(G, w, r)
+
+Q = ensemble vide
+
+for each u appartien a G.V
+    u.key = 8
+    u.pi = NIL
+    INSERT(Q, u)
+
+DECREASE-KEY(Q, r, 0)
+
+while Q != de l'ensemble vide
+    u = EXTRACT-MIN(Q)
+
+    for each v appartien a G.Adj[u]
+        if v appartient a Q and w(u, v) < v.key
+            v.pi = u
+            DECREASE-KEY(Q, v, w(u, v))
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start from an arbitrary root vertex $r$
+    \item Maintain a priority queue of vertices not yet in the tree
+    \item Always pick the vertex with smallest connection cost (key)
+    \item Update neighbors if a cheaper connection is found
+\end{itemize}
+
+\textbf{Goal:} build a Minimum Spanning Tree by greedy expansion \\
+
+\textbf{Time complexity:}
+\begin{itemize}
+    \item Initialization: $O(V)$
+    \item Decrease-key on root: $O(\log V)$
+    \item Extract-min: $O(V \log V)$
+    \item Decrease-key operations: $O(E \log V)$
+\end{itemize}
+
+\textbf{Total:} $O(E \log V)$ (or $O(E + V \log V)$ with Fibonacci heap)
 
 
 
@@ -4280,6 +4328,13 @@ Then there exists an MST of $G$ containing $e$ and $T$.
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\section{Kruskal's algorithm}
 
 
 
