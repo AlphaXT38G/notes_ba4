@@ -3189,10 +3189,49 @@ It typically connects vertices belonging to different DFS branches.
 
 
 
-\section{Classification of edges}
+\section{Parentheses theorem}
+
+\begin{defnbox}[title=Parenthesis Theorem (DFS)]
+For any two vertices $u$ and $v$ in a depth-first search, exactly one of the following cases holds:
+
+\begin{enumerate}
+    \item
+    \[
+    u.d < u.f < v.d < v.f
+    \quad \text{or} \quad
+    v.d < v.f < u.d < u.f
+    \]
+    Neither $u$ nor $v$ is a descendant of the other.
+
+    \item
+    \[
+    u.d < v.d < v.f < u.f
+    \]
+    Vertex $v$ is a descendant of $u$.
+
+    \item
+    \[
+    v.d < u.d < u.f < v.f
+    \]
+    Vertex $u$ is a descendant of $v$.
+\end{enumerate}
+
+In other words, DFS discovery and finishing times form properly nested intervals: descendant vertices have intervals entirely contained within the intervals of their ancestors.
+
+\medskip
+
+\textbf{Explication simple :} ce théorème permet de déterminer la relation entre deux sommets uniquement en regardant leurs temps de découverte ($d$) et de fin ($f$). Il sert notamment à savoir rapidement si un sommet est descendant d'un autre dans l'arbre DFS, sans avoir à parcourir de nouveau le graphe.
+\end{defnbox}
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\section{Parentheses theorem}
 
 
 
