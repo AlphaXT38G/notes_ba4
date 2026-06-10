@@ -4050,6 +4050,55 @@ MAKE-SET(x)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\subsection{FIND-SET}
+
+
+
+\begin{lstlisting}
+FIND-SET(x)
+
+1. if x != x.p
+2.     x.p = FIND-SET(x.p)
+3. return x.p
+\end{lstlisting}
+
+\textbf{What it does:} returns the representative (root) of the set containing $x$.
+
+\textbf{Purpose:} identify which group an element belongs to.
+
+\textbf{Idea:} climb parent pointers to the root + compress the path to speed up future queries.
+
+\textbf{Time complexity:} amortized $O(\alpha(n))$
+
+\textbf{Data structure state:} trees become flatter over time (path compression).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \vspace{2cm}
 
