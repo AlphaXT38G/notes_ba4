@@ -4178,6 +4178,127 @@ O(V log V + E)
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\chapter{Minimum spanning trees}
+
+
+
+\begin{defnbox}[title=Spanning Tree]
+A \textbf{spanning tree} of a connected graph $G=(V,E)$ is a subset of edges $T \subseteq E$ such that:
+\begin{itemize}
+    \item $T$ is \textbf{acyclic} (contains no cycle)
+    \item $T$ is \textbf{spanning} (it connects all vertices in $V$)
+\end{itemize}
+
+\textbf{Equivalent property:} a spanning tree contains exactly $|V|-1$ edges.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Spanning Tree (Intuition)]
+A spanning tree is a way to connect all vertices of a graph using the minimum number of edges, without forming any cycle.
+
+\textbf{Idea:} it keeps only the “essential” connections needed to maintain connectivity.
+
+\textbf{En mots simples :} un spanning tree est une version simplifiée du graphe où tout est encore connecté, mais sans aucun cycle (aucun “chemin en boucle”).
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Properties of a Spanning Tree]
+Let $T$ be a spanning tree of a connected graph $G$:
+\begin{itemize}
+    \item $T$ connects all vertices
+    \item $T$ has no cycles
+    \item $T$ has exactly $|V|-1$ edges
+    \item There is a unique simple path between any two vertices
+\end{itemize}
+
+\textbf{Idea:} a spanning tree is minimally connected and maximally acyclic.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Why Spanning Trees are Important]
+Spanning trees are used to:
+\begin{itemize}
+    \item reduce network cost (fewer edges)
+    \item build efficient communication structures
+    \item design minimum-cost networks (MST problems)
+    \item simplify graph structures while preserving connectivity
+\end{itemize}
+
+\textbf{En mots simples :} on garde seulement les connexions essentielles pour que tout reste relié, mais en utilisant le minimum d’arêtes possible.
+\end{defnbox}
+
+---
+
+\begin{defnbox}[title=Spanning Tree vs General Graph]
+\begin{itemize}
+    \item A general graph may contain cycles and many redundant edges
+    \item A spanning tree removes all redundancy
+    \item It preserves connectivity but removes all cycles
+\end{itemize}
+
+\textbf{Idea:} spanning tree = skeleton of the graph.
+\end{defnbox}
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{CONNECTED COMPONENTS WITH THIS IMPLEMENTATION}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
