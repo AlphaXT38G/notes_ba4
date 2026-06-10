@@ -3929,11 +3929,73 @@ for each edge (u, v) appartenant a G.E
 
 
 
-\section{Connected components algorithm}
+\section{Forest of trees}
 
 
 
 
+
+\begin{defnbox}[title=Disjoint-Set via Forest of Trees]
+In this representation, each set is stored as a \textbf{tree}.
+
+\begin{itemize}
+    \item Each tree corresponds to one set
+    \item The \textbf{root} of the tree is the representative of the set
+    \item Each node stores only a pointer to its \textbf{parent}
+\end{itemize}
+
+\textbf{Idea:} instead of storing lists, we store sets as hierarchical structures (trees), which makes unions more efficient.
+\end{defnbox}
+
+\begin{defnbox}[title=Operations]
+\begin{itemize}
+    \item \textbf{Make-Set(x):} creates a single-node tree where $x$ is its own root
+    \item \textbf{Find(x):} follows parent pointers until reaching the root (representative)
+    \item \textbf{Union(x, y):} connects the root of one tree under the root of another
+\end{itemize}
+
+\textbf{Idea:} operations become simple pointer manipulations on tree roots.
+\end{defnbox}
+
+\begin{defnbox}[title=Intuition and Purpose]
+This structure is used to efficiently manage dynamic connectivity (which elements are in the same set).
+
+\textbf{Why it is useful:}
+\begin{itemize}
+    \item Much faster than linked lists for large datasets
+    \item Naturally supports merging groups of elements
+    \item Becomes extremely efficient with optimizations (path compression + union by rank)
+\end{itemize}
+
+\textbf{In simple words:} each set is like a family tree, and two elements are in the same set if they share the same root ancestor.
+\end{defnbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Forest of trees}
 
 
 
