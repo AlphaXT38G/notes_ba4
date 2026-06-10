@@ -4463,6 +4463,73 @@ Negative weights can represent currency exchange or arbitrage problems:
 
 
 
+\vspace{2cm}
+
+
+
+
+
+\section{Bellman ford algorithm}
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Init single source}
+
+
+\textbf{Concept and idea:}
+
+The INIT-SINGLE-SOURCE procedure initializes the shortest-path algorithm by setting the initial distance values from a source vertex $s$.
+
+All vertices are initially considered unreachable, except the source.
+
+\begin{lstlisting}
+INIT-SINGLE-SOURCE(G, s)
+
+for each v appartient a G.V
+    v.d = 8
+    v.pi = NIL
+
+s.d = 0
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Set all distances to infinity (unknown / unreachable at start)
+    \item Remove all predecessors (no known path yet)
+    \item Set source distance to 0
+\end{itemize}
+
+\textbf{Goal:} prepare the graph for shortest-path algorithms \\
+
+\textbf{Time complexity:} $O(V)$
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Init single source}
+
+
+
+
+
 
 
 
