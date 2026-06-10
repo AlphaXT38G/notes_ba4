@@ -4524,8 +4524,48 @@ s.d = 0
 
 
 
-\subsection{Init single source}
+\subsection{Relax}
 
+
+\textbf{Concept and idea:}
+
+The RELAX operation is the core step in shortest-path algorithms. It tries to improve the best known distance to a vertex $v$ by going through an adjacent vertex $u$.
+
+If a shorter path is found, it updates the distance and remembers the predecessor.
+
+\begin{lstlisting}
+RELAX(u, v, w)
+
+if v.d > u.d + w(u, v)
+    v.d = u.d + w(u, v)
+    v.pi = u
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Check if going through $u$ gives a shorter path to $v$
+    \item If yes, update the best known distance
+    \item Store $u$ as the predecessor of $v$
+\end{itemize}
+
+\textbf{Goal:} progressively improve shortest-path estimates \\
+
+\textbf{Time complexity:} $O(1)$
+
+
+
+
+
+
+
+
+\vspace{2cm}
+
+
+
+
+
+\subsection{Bellman-for main}
 
 
 
