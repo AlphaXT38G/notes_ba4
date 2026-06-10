@@ -3562,6 +3562,37 @@ Flow networks are used in:
 
 
 
+\begin{defnbox}[title=Cut in Flow Networks]
+A \textbf{cut} in a flow network $G = (V, E)$ is a partition of the vertices into two disjoint sets $S$ and $T = V \setminus S$ such that:
+\begin{itemize}
+    \item $s \in S$ (the source is in $S$)
+    \item $t \in T$ (the sink is in $T$)
+\end{itemize}
+
+\textbf{Idea:} a cut separates the graph into a “left side” (containing the source) and a “right side” (containing the sink).
+\textbf{Note:} Note that this equals the value of the flow; it's always the case! (talking about the net across flow)
+\begin{defnbox}[title=Net Flow Across a Cut]
+The \textbf{net flow} across a cut $(S, T)$ is defined as:
+\[
+f(S,T) = \sum_{u \in S, v \in T} f(u,v) - \sum_{u \in S, v \in T} f(v,u)
+\]
+
+\textbf{Interpretation:}
+\begin{itemize}
+    \item The first term represents the flow leaving $S$ toward $T$
+    \item The second term represents the flow coming back from $T$ to $S$
+\end{itemize}
+
+\textbf{Idea:} it measures how much flow actually crosses from the source side to the sink side of the cut.
+\end{defnbox}
+
+
+
+\end{defnbox}
+
+\medskip
+
+\textbf{Explication simple :} une coupe (cut) consiste à “couper” le graphe en deux parties : une partie qui contient la source $s$, et une autre qui contient le puits $t$. Cela permet de mesurer combien de flux peut passer d’un côté à l’autre du réseau.
 
 
 
