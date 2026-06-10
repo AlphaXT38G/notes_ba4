@@ -4337,11 +4337,67 @@ while Q != de l'ensemble vide
 \section{Kruskal's algorithm}
 
 
+\textbf{Concept and idea:}
+
+Kruskal’s algorithm finds a \textbf{Minimum Spanning Tree (MST)} by sorting all edges by increasing weight and adding them one by one, as long as they do not create a cycle.
+
+It builds the MST globally (edge by edge), instead of growing it from a single source like Prim.
+
+\begin{lstlisting}
+KRUSKAL(G, w)
+
+A = ensemble vide
+
+for each vertex v appartient a G.V
+    MAKE-SET(v)
+
+sort the edges of G.E into nondecreasing order by weight w
+
+for each (u, v) taken from the sorted list
+    if FIND-SET(u) != FIND-SET(v)
+        A = A U {(u, v)}
+        UNION(u, v)
+
+return A
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start with each vertex in its own component
+    \item Sort all edges by weight (cheapest first)
+    \item Add an edge only if it connects two different components
+    \item Avoid cycles using Union-Find
+\end{itemize}
+
+\textbf{Goal:} construct a Minimum Spanning Tree by globally selecting the smallest safe edges \\
+
+\textbf{Time complexity:}
+
+ Initialize A: $O(1)$  
+ First for loop: $O(V)$ Make-Sets  
+ Sorting edges: $O(E \log E)$  
+ Second for loop: $O(E)$ Find-Set and Union operations  
+
+ Total time:  
+$O((V + E)\,\alpha(V)) + O(E \log E)$  
+$= O(E \log E)$  
+$= O(E \log V)$
+
+If edges already sorted time is O(E * alpha(V)) which is almost linear
 
 
 
 
 
+
+
+\vspace{2cm}
+
+
+
+
+
+\section{Kruskal's algorithm}
 
 
 
