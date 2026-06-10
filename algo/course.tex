@@ -3821,7 +3821,41 @@ Each element stores:
 
 
 
-\section{Maximum flow - Ford Fulkerson algorithm}
+\section{Connected components algorithm}
+
+
+
+\textbf{Concept and idea:}
+
+The Connected Components algorithm finds all connected components of an undirected graph by using the Union-Find (Disjoint Set) data structure to group vertices that are reachable from each other.
+
+Initially, each vertex starts in its own component, and edges are used to progressively merge these components.
+
+\begin{lstlisting}
+CONNECTED-COMPONENTS(G)
+
+for each vertex v apartenat a G.V
+    MAKE-SET(v)
+
+for each edge (u, v) appartenant a G.E
+    if FIND-SET(u) != FIND-SET(v)
+        UNION(u, v)
+
+\end{lstlisting}
+
+\textbf{Basic idea:}
+\begin{itemize}
+    \item Start with each vertex in its own set
+    \item Process edges one by one
+    \item Merge sets when an edge connects two different components
+    \item At the end, each set represents a connected component
+\end{itemize}
+
+\textbf{Goal:} Compute all connected components of an undirected graph \\
+
+\textbf{Time complexity:} $O(E \cdot \alpha(V))$ \\
+
+\textbf{Space complexity:} $O(V)$
 
 
 
@@ -3830,6 +3864,14 @@ Each element stores:
 
 
 
+
+\vspace{2cm}
+
+
+
+
+
+\section{Connected components algorithm}
 
 
 
