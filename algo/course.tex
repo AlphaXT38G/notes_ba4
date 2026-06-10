@@ -3623,6 +3623,16 @@ c(S,T) = \sum_{u \in S, v \in T} c(u,v)
 
 
 
+\begin{defnbox}[title=Max-Flow Min-Cut Theorem]
+The \textbf{maximum flow value} in a flow network is equal to the \textbf{minimum capacity of any cut} separating the source from the sink:
+\[
+\max |f| = \min_{(S,T)} c(S,T)
+\]
+
+\textbf{Idea:} the best possible flow you can send from $s$ to $t$ is exactly limited by the smallest “bottleneck” cut in the network.
+\end{defnbox}
+
+
 \vspace{2cm}
 
 
