@@ -3612,6 +3612,16 @@ For any cut $(S, T)$ in a flow network, the value of the flow satisfies:
 
 
 
+\begin{defnbox}[title=Capacity of a Cut]
+The \textbf{capacity} of a cut $(S, T)$ is defined as:
+\[
+c(S,T) = \sum_{u \in S, v \in T} c(u,v)
+\]
+
+\textbf{Idea:} it represents the total maximum amount of flow that can cross from the source side $S$ to the sink side $T$.
+\end{defnbox}
+
+
 
 \vspace{2cm}
 
