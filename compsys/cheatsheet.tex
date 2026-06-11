@@ -329,11 +329,6 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
 
 \section{Lecture 13 - Sharing the CPU}
 
-\begin{defn}[title=Scheduling Metrics]
-    \textbf{Utilization}: fraction of time CPU executes a job. Goal: maximize.\\
-    \textbf{Turnaround time}: $T_{turnaround} = T_{completion} - T_{arrival}$. Goal: minimize.
-\end{defn}
-
 \begin{prop}[title=CPU mode \& instructions]
     CPU stores a privilege level: \textbf{Kernel mode} (high) or \textbf{User mode} (low).
     \begin{itemize}
@@ -373,6 +368,10 @@ How are processes created and destroyed?
 \end{prop}
 
 \section{Lecture 14 - Memory \& Loose Ends}
+
+\begin{defn}[title=Memory image]
+    Consists of: \textbf{code}, \textbf{data}, \textbf{heap}, \textbf{stack}.
+\end{defn}
 
 \subsection{Memory virtualization}
 \begin{thm}[title=Safe illusion]
