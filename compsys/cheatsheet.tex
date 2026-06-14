@@ -105,9 +105,6 @@ Each entry is a \textbf{prefix} (e.g.\ \texttt{01**}); a packet is forwarded usi
 \texttt{a.b.c.d/n} denotes a range of addresses sharing the same first $n$ bits (prefix length); the remaining $32-n$ bits are wildcards.
 \end{defn}
 
-\subsubsection{IP subnet (subnetwork)}
-{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture08/ip-subnet-overview.png}\par}
-
 \begin{defn}[title=Broadcast IP address (+1)]
 The \texttt{biggest IP address} an IP subnet. If a packet has this destination, it's destined to \textbf{all the end-systems} and \textbf{routers} in the IP subnet.
 \end{defn}
@@ -116,19 +113,9 @@ The \texttt{biggest IP address} an IP subnet. If a packet has this destination, 
     \textbf{Global reachability:} Every end-system must be reachable from any other end-system.
 \end{prop}
  
-\subsection{Network Address Translation (NAT)}
-
-\begin{defn}[title=Definition]
+\begin{defn}[title=Network Address Translation (NAT)]
     A router becomes a NAT only when it's configured to translate between private and public addresses.
 \end{defn}
-
-\begin{prop}[title=How does it work]
-    \begin{itemize}
-        \item Resolves IP address depletion problem
-        \item Rewrites src IP add. and port \# of outg. packets
-        \item Rewrites dst IP add. and port \# of inc. packets
-    \end{itemize}
-\end{prop}
 
 \begin{thm}[title=Layering violation (but it works)]
     \begin{itemize}
@@ -136,9 +123,6 @@ The \texttt{biggest IP address} an IP subnet. If a packet has this destination, 
         \item An end-system inside a private IP subnet is \textbf{unreachable} from the outside world. [trick possible]
     \end{itemize}
 \end{thm}
-
-\subsubsection{NAT example}
-{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture08/nat-overview.png}\par}
 
 \section{Lecture 9 - Routing \& BGP}
 
@@ -169,10 +153,6 @@ The \texttt{biggest IP address} an IP subnet. If a packet has this destination, 
         \item Distance vector uses less bandwitdh
     \end{itemize}
 \end{warn}
-
-\subsection{Putting things together}
-
-\subsubsection{}
 
 \begin{thm}[title=Internet rounting challenges]
     \begin{itemize}
@@ -208,13 +188,6 @@ Routing \textbf{between} ASes. One universal protocol based on Bellman-Ford. Not
 
 \section{Lecture 10 - Link layer \& Ethernet}
 
-\begin{defn}[title=Recall: Packet Switches types]
-    \begin{itemize}
-        \item \textbf{Network layer:} L3 = \underline{Routers}
-        \item \textbf{Link layer}: L2 = \underline{Switches}. Ex: ethernet
-    \end{itemize}
-\end{defn}
-
 \begin{prop}[title=Link layer services]
     \begin{itemize}
         \item Error detection \& Reliable data delivery
@@ -227,10 +200,6 @@ Routing \textbf{between} ASes. One universal protocol based on Bellman-Ford. Not
 \end{defn}
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture10/L2-forwarding.png}\par}
 
-\begin{prop}[title=Not a real routing]
-Learn from traffic. Broadcast when unknown.
-\end{prop}
-
 \begin{thm}[title=Spanning tree Broadcast]
 The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cycles.
 \end{thm}
@@ -238,22 +207,6 @@ The naïve broadcast may lead to forwarding loops. Use spanning tree to avoid cy
 \begin{prop}[title=Address Resolution Protocol (ARP)]
 Find the MAC address associated to an IP (to build the L2 frame) via broadcast + caching.
 \end{prop}
-
-\begin{prop}[title=ARP vs DNS]
-    \begin{itemize}
-        \item \textbf{ARP:} Relies on broadcasting
-        \item \textbf{DNS:} Relies on DNS structure
-    \end{itemize}
-\end{prop}
-
-\begin{prop}[title=Three network levels]
-    \begin{itemize}
-        \item \textbf{IP Subnet:} L2 forwarding, L2 learning
-        \item \textbf{AS:} IP (L3) forwarding, intra domain routing
-        \item \textbf{Internet:} IP (L3) forwarding, BGP routing
-    \end{itemize}
-\end{prop}
-
 
 \section{Lecture 11 - File Systems}
 
@@ -340,11 +293,7 @@ Find the MAC address associated to an IP (to build the L2 frame) via broadcast +
 
 How threads can share the CPU \textbf{safely} and \textbf{fairly}?
 \begin{thm}[title=Limited direct execution (invoking the kernel)]
-    \begin{itemize}
-        \item A normal thread wants to do something high privilege $\rightarrow$ creates a \textbf{syscall}
-        \item Tries to do something illegal $\rightarrow$ \textbf{exception}
-        \item An externel entity needs attention $\rightarrow$ \textbf{interrupt}
-    \end{itemize}
+    Syscall / Exception / Interrupt
 \end{thm}
 
 How are processes created and destroyed?
@@ -469,16 +418,6 @@ How are processes created and destroyed?
         \item \textbf{Semaphore} $\rightarrow$ count available resources
     \end{itemize}
 \end{warn}
-
-\begin{prop}[title=Locks]
-Ensure atomicity via mutual exclusion:
-    \begin{itemize}
-        \item \textbf{Interrupt-lock:} disable interrupts. Simple but privileged, single-CPU only.
-        \item \textbf{Spinlock:} broken — race condition still possible.
-        \item \textbf{Test-and-set}: correct, but busy-waits (\$ CPU).
-    \end{itemize}
-\end{prop}
-
 
 \section{Units}
 
