@@ -45,7 +45,7 @@ python build.py algo iml sigproc
 - [Cheat sheet](_overview/sigproc/cheatsheet.pdf)
 
 ### Computer Systems — `compsys/`
-- [Course notes](_overview/compsys/course.pdf)
+- [Course notes](_overview/compsys/cheatsheet.pdf)
 
 ---
 
