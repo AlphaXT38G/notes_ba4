@@ -78,25 +78,6 @@
 
 \section{Lecture 8 - Forwarding and IP}
 
-\begin{prop}[title=Headers]
-\begin{itemize}
-    \item \textbf{Transport header - TCP}: SYN flag, checksum, SEQ, ACK, receiver window, src/dst port.
-    \item \textbf{Network header - IP:} src/dst IP addr. 
-\end{itemize}
-\end{prop}
-
-\subsection{Network Layer functions}
-
-\begin{defn}[title=Forwarding]
-Determines the output link for each packet.
-\textbf{How:} \textbf{read} field from packet's network layer header, \textbf{search} forwarding table for output link.
-\end{defn}
-
-\begin{defn}[title=Routing]
-Populates forwarding tables.
-\textbf{How:} routing algorithm run on a logically centralised \textbf{network controller} or the \textbf{routers themselves}
-\end{defn}
-
 \subsection{Internet (IP) forwarding}
 {\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/lecture08/forwarding-table.png}\par}
 Each entry is a \textbf{prefix} (e.g.\ \texttt{01**}); a packet is forwarded using the \textbf{longest matching prefix}.
@@ -146,6 +127,36 @@ The \texttt{biggest IP address} an IP subnet. If a packet has this destination, 
         \item End when no improvement is possible
     \end{enumerate}
 \end{prop}
+
+\begin{lstlisting}
+INIT-SINGLE-SOURCE(G, s)
+    s.d = 0
+    for v in G.V: v.d = inf; v.pi = NIL
+
+RELAX(u, v, w)
+    if v.d > u.d + w(u, v)
+        v.d = u.d + w(u, v); v.pi = u
+\end{lstlisting}
+
+\begin{lstlisting}
+BELLMAN-FORD(G, w, s)
+    INIT-SINGLE-SOURCE(G, s)
+    for i = 1 to |G.V| - 1
+        for (u, v) in G.E: 
+            RELAX(u, v, w)
+\end{lstlisting}
+
+\begin{lstlisting}
+DIJKSTRA(G, w, s)
+    INIT-SINGLE-SOURCE(G, s)
+    S = {}
+    Q = G.V   // min-priority queue (sorted by d(v))
+    while Q != {}:
+        u = EXTRACT-MIN(Q)
+        S = S U {u}
+        for each vertex v in G.Adj[u]:
+            RELAX(u, v, w)
+\end{lstlisting}
 
 \begin{warn}[title=Link state VS Distance vector]
     \begin{itemize}
