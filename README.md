@@ -25,12 +25,19 @@ python build.py algo iml sigproc
 
 | Subject | Allowed |
 |---|---|
-| Algorithms I | 1 double-sided A4 sheet, any format |
+| Computer Systems | 4 double-sided A4 sheets, any format |
 | Signal Processing | 2 double-sided A4 sheets, handwritten only |
+| Algorithms I | 1 double-sided A4 sheet, any format |
 
 ---
 
 ## Subjects
+
+### Computer Systems — `compsys/`
+- [Cheat sheet](_overview/compsys/cheatsheet.pdf)
+
+### Signal Processing — `sigproc/`
+- [Cheat sheet](_overview/sigproc/cheatsheet.pdf)
 
 ### Algorithms I — `algo/`
 - [Cheat sheet](_overview/algo/cheatsheet.pdf)
@@ -40,12 +47,6 @@ python build.py algo iml sigproc
 - [Cheat sheet](_overview/iml/cheatsheet.pdf)
 - [Course notes](_overview/iml/course.pdf)
 - [Python notes](_overview/iml/python_raw_notes.pdf)
-
-### Signal Processing — `sigproc/`
-- [Cheat sheet](_overview/sigproc/cheatsheet.pdf)
-
-### Computer Systems — `compsys/`
-- [Course notes](_overview/compsys/cheatsheet.pdf)
 
 ---
 
