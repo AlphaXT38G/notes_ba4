@@ -323,21 +323,46 @@ DIJKSTRA(G, w, s)
 \end{defn}
 
 \subsection{Process state diagram}
-{\centering\includegraphics[width=\linewidth,keepaspectratio]{images/lecture14/process_fsm.png}\par}
+{\centering\includegraphics[width=0.6\linewidth,keepaspectratio]{images/lecture14/process_fsm.png}\par}
 
 \subsection{Thread state diagram}
-{\centering\includegraphics[width=\linewidth,keepaspectratio]{images/lecture14/thread_fsm.png}\par}
+{\centering\includegraphics[width=0.6\linewidth,keepaspectratio]{images/lecture14/thread_fsm.png}\par}
 
 {\centering\includegraphics[width=\linewidth,keepaspectratio]{images/tahoe_reno.png}\par}
-{\centering\includegraphics[width=\linewidth,keepaspectratio]{images/reno_example.png}\par}
+{\centering\includegraphics[width=0.8\linewidth,keepaspectratio]{images/reno_example.png}\par}
+
+{\centering\includegraphics[width=\linewidth,keepaspectratio]{images/multi-level-indexing.png}\par}
+
 
 {\centering\includegraphics[width=\linewidth,keepaspectratio]{images/lecture13/kernel_overview.png}\par}
 
 {\centering\includegraphics[width=\linewidth,keepaspectratio]{images/partition.png}\par}
 {\centering\includegraphics[width=\linewidth,keepaspectratio]{images/read_write_on_disk.png}\par}
 
-{\centering\includegraphics[width=\linewidth,keepaspectratio]{images/multi-level-indexing.png}\par}
+\newcolumn
 
+\begin{small}
+\noindent\textbf{Web and DNS}\\
+All web client processes keep caches with the most recently retrieved web objects. All DNS client and DNS server processes keep caches with the most recently retrieved DNS records (e.g., DNS name $\to$ IP address mappings). If the TTL of a retrieved web object or DNS record is not explicitly stated, assume that it is 1 hour. Web processes communicate over TCP. DNS processes communicate over UDP.
+
+\noindent\textbf{TCP}\\
+When a TCP-related question does not mention the receiver window at all, assume that the receiver window is very large and it does not affect the rate at which data is exchanged. When you are given a scenario where Processes A and B exchange data over TCP, assume that they use the same TCP connection for all the data, unless you are explicitly told otherwise. When you are given a scenario where client Process A establishes a TCP connection with server Process B and A sends a request to B; assume that the second segment sent by A to B already carries bytes of data and has SEQ number 1. When computing the amount of time it takes for a data segment to go from Alice to Bob plus the time it takes for an ACK to go from Bob to Alice, when there is no other traffic present (so, no queuing delays): Do take into account the transmission delay experienced by the data segment, but not for the ACK.
+
+\noindent\textbf{Packet Switch Behavior}\\
+All packet switches are store-and-forward packet switches. All packet switches have infinite queues. All packet switches introduce 0 processing delays. All packet switches behave as follows: There is always one queue per link and it stores packets that are going out that link. When a packet arrives, the switch immediately examines the packet, determines the correct outgoing link, and stores the packet in the queue that feeds that link. If two packets arrive at a switch and are put in the same queue at the same time, the order in which they are put in the queue is random. Assume the order that makes the solution simpler. All queues are served following a FIFO (first in first out) policy.
+
+\noindent\textbf{Insignificant Headers \& Transmission delays}\\
+If a problem tells you that ``lower-layer headers are insignificant'': If you need to compute the transmission delay of a packet, and that packet does not carry any application-layer content (e.g., it is a TCP segment that carries an ACK but no data), then this packet experiences transmission delay 0.
+
+\noindent\textbf{IP subnets \& prefixes}\\
+Each network interface of a router has an IP address (and, of course, a MAC address). Network interfaces of L2 switches have no IP or MAC addresses. Each IP subnet has a broadcast IP address (which is the highest IP address in the subnet), but NO network IP address. Each end-system knows the IP address of its default gateway.
+
+\noindent\textbf{File access}\\
+We don't expect you to reason about bitmap accesses. We do expect you to reason about inode and data block accesses. Reading a file does not trigger a write to the file's inode to update the read access time. Closing a file does not trigger any block access. There exists a file system (FS) cache (which is the same thing as a block cache), unless you are explicitly told that it does not exist. The FS/block cache has infinite size unless you are explicitly told otherwise. The FS/block cache is write-through. I.e., when a process makes a write syscall to write N bytes to disk, this causes the FS/block cache to be updated, but it also triggers as many block accesses as necessary to write the N bytes to disk (and to update the inode of the file that's being written). Differently said: The presence of the FS/block cache may remove the need for some read block accesses, but it cannot remove the need for write block accesses.
+
+\noindent\textbf{Scheduling}\\
+If a thread terminates or blocks after running for a fraction of a time tick (e.g., after 0.99 time ticks), assume that ``nothing'' happens during the rest of the current time tick. Differently said: Assume that the OS scheduler can only run at integer time-tick values, e.g., time tick 0, time tick 1, etc.
+\end{small}
 \end{multicols*}
 
 \end{document}
