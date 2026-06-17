@@ -1,0 +1,216 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+
+\title{Algos condensed and explained}
+\author{salimek}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section{Pattern}
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries TITLE}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Explanation of the algorithm.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\small
+\ttfamily
+Algorithm(...)\\
+\quad instruction 1\\
+\quad instruction 2\\
+\quad return result
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:} $O(n)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:} $O(1)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+\[
+T(n)=2T\left(\frac{n}{2}\right)+n
+\]
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Algos (everything may not be finished and explained)}
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries INSERTION SORT}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Insertion Sort is a simple sorting algorithm that builds the final sorted array one element at a time. 
+At each iteration, the current element is inserted into its correct position inside the already sorted part of the array.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\small
+\begin{lstlisting}
+Insertion-Sort(A, n)
+
+    for j = 2 to n
+        key = A[j]
+        i = j - 1
+
+        while i > 0 and A[i] > key
+            A[i + 1] = A[i]
+            i = i - 1
+
+        A[i + 1] = key
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:} $\Theta(n^2)$ worst/average, $\Theta(n)$ best case
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:} $O(1)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:} N/A
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
