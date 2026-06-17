@@ -317,4 +317,178 @@ $\Rightarrow T(n)=\Theta(n\log n)$ by Master Theorem (case 2).
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Maximum Subarray Optimized}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Find the continuous subarray with the maximum possible sum.
+The algorithm uses divide and conquer by splitting the array,
+solving both halves recursively, and checking the subarray crossing the middle.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+FIND-MAXIMUM-SUBARRAY(A, low, high)
+
+    if high == low
+        return (low, high, A[low])
+
+    mid = (low + high) / 2
+
+    left  = FIND-MAXIMUM-SUBARRAY(A, low, mid)
+    right = FIND-MAXIMUM-SUBARRAY(A, mid+1, high)
+
+    cross = FIND-MAX-CROSSING(A, low, mid, high)
+
+    if left-sum >= right-sum and left-sum >= cross-sum
+        return (left-low, left-high, left-sum)
+
+    elseif right-sum >= left-sum and right-sum >= cross-sum
+        return (right-low, right-high, right-sum)
+
+    else
+        return (cross-low, cross-high, cross-sum)
+
+
+
+FIND-MAX-CROSSING(A, low, mid, high)
+
+    left-sum = -8
+    sum = 0
+
+    for i = mid downto low
+        sum = sum + A[i]
+
+        if sum > left-sum
+            left-sum = sum
+            max-left = i
+
+
+    right-sum = -8
+    sum = 0
+
+    for j = mid+1 to high
+        sum = sum + A[j]
+
+        if sum > right-sum
+            right-sum = sum
+            max-right = j
+
+
+    return (max-left, max-right, left-sum + right-sum)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=2T(n/2)+\Theta(n)$
+$\Rightarrow \Theta(n\log n)$ by Master Theorem.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(\log n)$ auxiliary space due to recursion stack.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=2T(n/2)+\Theta(n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
