@@ -1374,6 +1374,98 @@ No recurrence formula (bottom-up iterative algorithm).
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Heapsort}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Sort an array using a max-heap structure.
+The algorithm first builds a max-heap, then repeatedly extracts
+the maximum element and restores the heap property.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+HEAPSORT(A, n)
+
+    BUILD-MAX-HEAP(A, n)
+
+
+    for i = n downto 2
+
+        exchange A[1] with A[i]
+
+        MAX-HEAPIFY(A, 1, i-1)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n \log n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+No recurrence formula (iterative heap-based algorithm).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
 
 
 
