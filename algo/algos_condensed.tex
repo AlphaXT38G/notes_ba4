@@ -1019,4 +1019,121 @@ $T(n)=7T(n/2)+\Theta(n^2)$
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Karatsuba Multiplication}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two large integers faster than the classical multiplication method.
+The algorithm reduces the number of recursive multiplications from 4 to 3
+using a divide-and-conquer strategy.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+KARATSUBA-MULT(x, y, n)
+
+    if n == 1
+
+        return x * y
+
+
+    else
+
+        split x into xH, xL
+
+        split y into yH, yL
+
+
+        p1 = KARATSUBA-MULT(xH, yH, n/2)
+
+        p2 = KARATSUBA-MULT(xL, yL, n/2)
+
+        p3 = KARATSUBA-MULT(
+             xH + xL,
+             yH + yL,
+             n/2)
+
+
+        return p1*b^n
+               + (p3 - p1 - p2)*b^(n/2)
+               + p2
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=3T(n/2)+\Theta(n)$
+$\Rightarrow \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=3T(n/2)+\Theta(n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
 \end{document}
