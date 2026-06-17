@@ -1,0 +1,1598 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[most]{tcolorbox}
+\usepackage{xcolor}
+
+\title{Algos condensed and explained}
+\author{salimek}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+
+\section{Pattern}
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries TITLE}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Explanation of the algorithm.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\small
+\ttfamily
+Algorithm(...)\\
+\quad instruction 1\\
+\quad instruction 2\\
+\quad return result
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:} $O(n)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:} $O(1)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+\[
+T(n)=2T\left(\frac{n}{2}\right)+n
+\]
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Algos (everything may not be finished and explained)}
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries INSERTION SORT}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Insertion Sort is a simple sorting algorithm that builds the final sorted array one element at a time. 
+At each iteration, the current element is inserted into its correct position inside the already sorted part of the array.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\small
+\begin{lstlisting}
+Insertion-Sort(A, n)
+
+    for j = 2 to n
+        key = A[j]
+        i = j - 1
+
+        while i > 0 and A[i] > key
+            A[i + 1] = A[i]
+            i = i - 1
+
+        A[i + 1] = key
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:} $\Theta(n^2)$ worst/average, $\Theta(n)$ best case
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:} $O(1)$
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:} N/A
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Merge Sort}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Divide the array into two halves, recursively sort each half, and merge the sorted halves.
+The objective is to sort an array efficiently using the divide-and-conquer strategy.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+MERGE-SORT(A, p, r)
+
+    if p < r
+        q = rounddown((p+r)/2)
+
+        MERGE-SORT(A, p, q)
+        MERGE-SORT(A, q+1, r)
+
+        MERGE(A, p, q, r)
+
+
+MERGE(A,p,q,r)
+
+    n1 = q-p+1
+    n2 = r-q
+
+    create arrays L[1...n1+1], R[1...n2+1]
+
+    for i = 1 to n1
+        L[i] = A[p+i-1]
+
+    for j = 1 to n2
+        R[j] = A[q+j]
+
+    L[n1+1] = 8
+    R[n2+1] = 8
+
+    i = 1
+    j = 1
+
+    for k = p to r
+        if L[i] <= R[j]
+            A[k] = L[i]
+            i = i + 1
+
+        else
+            A[k] = R[j]
+            j = j + 1
+\end{lstlisting}
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:} $\Theta(n \log n)$ in all cases.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:} $O(n)$ auxiliary space.
+\end{tcolorbox}
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=2T(n/2)+\Theta(n)$
+$\Rightarrow T(n)=\Theta(n\log n)$ by Master Theorem (case 2).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Maximum Subarray Optimized}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Find the continuous subarray with the maximum possible sum.
+The algorithm uses divide and conquer by splitting the array,
+solving both halves recursively, and checking the subarray crossing the middle.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+FIND-MAXIMUM-SUBARRAY(A, low, high)
+
+    if high == low
+        return (low, high, A[low])
+
+    mid = (low + high) / 2
+
+    left  = FIND-MAXIMUM-SUBARRAY(A, low, mid)
+    right = FIND-MAXIMUM-SUBARRAY(A, mid+1, high)
+
+    cross = FIND-MAX-CROSSING(A, low, mid, high)
+
+    if left-sum >= right-sum and left-sum >= cross-sum
+        return (left-low, left-high, left-sum)
+
+    elseif right-sum >= left-sum and right-sum >= cross-sum
+        return (right-low, right-high, right-sum)
+
+    else
+        return (cross-low, cross-high, cross-sum)
+
+
+
+FIND-MAX-CROSSING(A, low, mid, high)
+
+    left-sum = -8
+    sum = 0
+
+    for i = mid downto low
+        sum = sum + A[i]
+
+        if sum > left-sum
+            left-sum = sum
+            max-left = i
+
+
+    right-sum = -8
+    sum = 0
+
+    for j = mid+1 to high
+        sum = sum + A[j]
+
+        if sum > right-sum
+            right-sum = sum
+            max-right = j
+
+
+    return (max-left, max-right, left-sum + right-sum)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=2T(n/2)+\Theta(n)$
+$\Rightarrow \Theta(n\log n)$ by Master Theorem.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(\log n)$ auxiliary space due to recursion stack.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=2T(n/2)+\Theta(n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Maximum Subarray Brute Force}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Checks every possible continuous subarray and keeps the one with the largest sum.
+The algorithm uses an exhaustive search approach.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+MAXIMUM-SUBARRAY-SLOW(A[1..n])
+
+    B.val = 8
+    B.i = 1
+    B.j = n
+
+    for i = 1 to n
+
+        tmp = 0
+
+        for j = i to n
+
+            tmp = tmp + A[j]
+
+            if tmp > B.val
+                B.val = tmp
+                B.i = i
+                B.j = j
+
+    return (B.i, B.j, B.val)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$\Theta(n^2)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$\Theta(n)$ input space + $\Theta(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+No recurrence formula (iterative brute force algorithm).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Matrix Multiplication Naive}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two square matrices using the standard triple nested loop approach.
+Each element of the result matrix is computed by the dot product of a row and a column.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+SQUARE-MAT-MULT(A, B, n)
+
+    create matrix C of size n x n
+
+    for i = 1 to n
+
+        for j = 1 to n
+
+            C[i][j] = 0
+
+            for k = 1 to n
+
+                C[i][j] = C[i][j] + A[i][k] * B[k][j]
+
+    return C
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n^3)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$ for the result matrix.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=8T(n/2)+\Theta(n^2)$
+$\Rightarrow T(n)=\Theta(n^3)$ by Master Theorem (case 1).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Recursive Matrix Multiplication}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two square matrices using a divide-and-conquer approach.
+The matrices are divided into smaller submatrices and recursively multiplied.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+REC-MAT-MULT(A, B, n)
+
+    create matrix C of size n x n
+
+    if n == 1
+
+        C11 = A11 * B11
+
+
+    else
+
+        partition A, B, C into n/2 x n/2 blocks
+
+
+        C11 = REC-MAT-MULT(A11,B11,n/2)
+              + REC-MAT-MULT(A12,B21,n/2)
+
+        C12 = REC-MAT-MULT(A11,B12,n/2)
+              + REC-MAT-MULT(A12,B22,n/2)
+
+        C21 = REC-MAT-MULT(A21,B11,n/2)
+              + REC-MAT-MULT(A22,B21,n/2)
+
+        C22 = REC-MAT-MULT(A21,B12,n/2)
+              + REC-MAT-MULT(A22,B22,n/2)
+
+
+    return C
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=8T(n/2)+\Theta(n^2)$
+$\Rightarrow O(n^3)$ by Master Theorem.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$ for storing matrices.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=8T(n/2)+\Theta(n^2)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Strassen's Algorithm}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two matrices using divide and conquer while reducing the number of recursive
+multiplications from 8 to 7. The algorithm uses linear combinations of submatrices
+to improve the complexity.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+STRASSEN-MAT-MULT(A, B, n)
+
+    create matrix C of size n x n
+
+    if n == 1
+
+        C11 = A11 * B11
+
+
+    else
+
+        partition A, B, C into n/2 x n/2 blocks
+
+
+        M1 = (A11 + A22) * (B11 + B22)
+
+        M2 = (A21 + A22) * B11
+
+        M3 = A11 * (B12 - B22)
+
+        M4 = A22 * (B21 - B11)
+
+        M5 = (A11 + A12) * B22
+
+        M6 = (A21 - A11) * (B11 + B12)
+
+        M7 = (A12 - A22) * (B21 + B22)
+
+
+        C11 = M1 + M4 - M5 + M7
+
+        C12 = M3 + M5
+
+        C21 = M2 + M4
+
+        C22 = M1 - M2 + M3 + M6
+
+
+    return C
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=7T(n/2)+\Theta(n^2)$
+$\Rightarrow \Theta(n^{\log_2 7}) \approx \Theta(n^{2.807})$.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$ for storing matrices.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=7T(n/2)+\Theta(n^2)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Karatsuba Multiplication}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two large integers faster than the classical multiplication method.
+The algorithm reduces the number of recursive multiplications from 4 to 3
+using a divide-and-conquer strategy.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+KARATSUBA-MULT(x, y, n)
+
+    if n == 1
+
+        return x * y
+
+
+    else
+
+        split x into xH, xL
+
+        split y into yH, yL
+
+
+        p1 = KARATSUBA-MULT(xH, yH, n/2)
+
+        p2 = KARATSUBA-MULT(xL, yL, n/2)
+
+        p3 = KARATSUBA-MULT(
+             xH + xL,
+             yH + yL,
+             n/2)
+
+
+        return p1*b^n
+               + (p3 - p1 - p2)*b^(n/2)
+               + p2
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$T(n)=3T(n/2)+\Theta(n)$
+$\Rightarrow \Theta(n^{\log_2 3}) \approx \Theta(n^{1.585})$.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=3T(n/2)+\Theta(n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries MAX-HEAPIFY}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Restore the max-heap property at a given node by comparing it with its children.
+If a child is larger, swap values and continue recursively down the heap.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+MAX-HEAPIFY(A, i, n)
+
+    l = LEFT(i)
+
+    r = RIGHT(i)
+
+
+    if l <= n and A[l] > A[i]
+
+        largest = l
+
+    else
+
+        largest = i
+
+
+
+    if r <= n and A[r] > A[largest]
+
+        largest = r
+
+
+
+    if largest != i
+
+        exchange A[i] with A[largest]
+
+        MAX-HEAPIFY(A, largest, n)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$\Theta(height(i)) = O(\log n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(\log n)$ due to recursion stack.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=T(n/2)+\Theta(1)$
+$\Rightarrow T(n)=O(\log n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Build Heap}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Transform an unordered array into a valid max-heap.
+The algorithm applies MAX-HEAPIFY bottom-up on all internal nodes
+to restore the heap property efficiently.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+BUILD-MAX-HEAP(A, n)
+
+    for i = n/2 downto 1
+
+        MAX-HEAPIFY(A, i, n)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+No recurrence formula (bottom-up iterative algorithm).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Heapsort}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Sort an array using a max-heap structure.
+The algorithm first builds a max-heap, then repeatedly extracts
+the maximum element and restores the heap property.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+HEAPSORT(A, n)
+
+    BUILD-MAX-HEAP(A, n)
+
+
+    for i = n downto 2
+
+        exchange A[1] with A[i]
+
+        MAX-HEAPIFY(A, 1, i-1)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n \log n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+No recurrence formula (iterative heap-based algorithm).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Heap Extract Max}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Remove and return the maximum element of a max-heap.
+The root is replaced by the last element, then MAX-HEAPIFY
+is used to restore the heap property.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+HEAP-EXTRACT-MAX(A, n)
+
+    if n < 1
+
+        error "heap underflow"
+
+
+    max = A[1]
+
+    A[1] = A[n]
+
+    n = n - 1
+
+
+    MAX-HEAPIFY(A, 1, n)
+
+
+    return max
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(\log n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$ auxiliary space.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=T(n/2)+\Theta(1)$
+$\Rightarrow O(\log n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
