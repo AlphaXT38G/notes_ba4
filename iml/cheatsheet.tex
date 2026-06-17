@@ -224,8 +224,6 @@ $\lambda>0$ from cross-validation. Penalizes large weights $\Rightarrow$ smoothe
 \textbf{Multi-output:} $W^\star = (\Phi^T\Phi + \lambda I_F)^{-1}\Phi^TY$
 \end{thm}
 
-\textit{vs L1 (Lasso):} L1 drives some weights to exactly 0 (sparsity); L2 shrinks all weights uniformly.
-
 % ============================================================
 \section{Kernel Methods}
 % ============================================================
@@ -234,7 +232,6 @@ $\lambda>0$ from cross-validation. Penalizes large weights $\Rightarrow$ smoothe
 \begin{defn}[title=Kernel Function]
 \[ k(x_i,x_j) = \phi(x_i)^T\phi(x_j) \quad (\text{implicit }\phi) \]
 \kv{Polynomial}{$(x_i^Tx_j + c)^d$}
-\kv{Gaussian/RBF}{$\exp\!\left(-\frac{\|x_i-x_j\|^2}{2\sigma^2}\right)$ — infinite-dim $\phi$}
 \end{defn}
 
 \begin{defn}[title=Kernel Matrix \& Vector]
@@ -253,7 +250,7 @@ Reparametrize $w = \Phi^T\alpha$, solve for $\alpha \in \R^N$:
 Choose kernel and hyperparams ($d$, $\sigma$, $\lambda$) by \textbf{cross-validation}.
 \end{warn}
 
-\textit{Kernel vs explicit $\phi$:} kernel is $O(N^2)$ in space vs $O(NF)$; beneficial when $F \gg N$.
+\textit{Kernel vs explicit $\phi$:} kernel is $O(N^2)$ in space vs $O(NF)$
 
 % ============================================================
 \section{Neural Networks / MLP}
