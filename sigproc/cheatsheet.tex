@@ -48,9 +48,6 @@ $x[n] = A\,e^{j(\omega n + \phi)}$, \quad $A\in\R$, $\omega\in\R$, $\phi\in\R$
 \toprule
 signal & sample at time $n$ \\
 \midrule
-$\mathcal{R}\mathbf{x}$ & $x[-n]$ \\
-$\mathcal{S}^d\mathbf{x}$ & $x[n+d]$ \\
-\midrule
 $\mathcal{R}\mathcal{S}^d\mathbf{x}$, \; $\mathcal{S}^{-d}\mathcal{R}\mathbf{x}$ & $x[-n+d]$ \\
 \midrule
 $\mathcal{R}\mathcal{S}^{-d}\mathbf{x}$, \; $\mathcal{S}^d\mathcal{R}\mathbf{x}$ & $x[-n-d]$ \\
@@ -105,11 +102,6 @@ $\mathcal{R}\mathcal{S}^{-d}\mathbf{x}$, \; $\mathcal{S}^d\mathcal{R}\mathbf{x}$
 
 \section{DFT: $X[k]$}
 
-\begin{defn}[title=Fourier basis vectors]
-$w_k[n] = e^{j\frac{2\pi}{N}kn}$, \quad $n,k=0,\ldots,N-1$.\\
-\textbf{Note:} $\mathbf{w}_k = \mathbf{w}_{N-k}^*$.
-\end{defn}
-
 \begin{thm}[title=Orthogonality (not orthonormality)]
 $\langle \mathbf{w}_h, \mathbf{w}_k \rangle = N\,\delta[h-k]$, where
 \[
@@ -119,15 +111,6 @@ $\langle \mathbf{w}_h, \mathbf{w}_k \rangle = N\,\delta[h-k]$, where
 
 \begin{prop}[title=DFT matrix form]
 $\mathbf{X} = \mathbf{W}\mathbf{x}$, \quad $\mathbf{x} = \tfrac{1}{N}\mathbf{W}^H\mathbf{X}$, where $W_N = e^{-j\frac{2\pi}{N}}$:
-\[
-  \mathbf{W} =
-  \begin{bmatrix}
-    W_N^0 & W_N^0 & \cdots & W_N^0 \\
-    W_N^0 & W_N^1 & \cdots & W_N^{N-1} \\
-    \vdots & & \ddots & \vdots \\
-    W_N^0 & W_N^{N-1} & \cdots & W_N^{(N-1)^2}
-  \end{bmatrix}
-\]
 $\mathbf{W}^H\mathbf{W} = N\mathbf{I}$.\\
 $W_N^n = W_N^{n\,\mathrm{mod}\,N}$ (aliasing property).
 \end{prop}
@@ -210,7 +193,7 @@ $\mathbf{h}=\mathcal{H}\boldsymbol{\delta}$. An LTI system is \emph{fully} descr
 % --- 3. FILTER PROPERTIES FROM h ---
 \begin{defn}[title=FIR vs IIR (Finite/Infinite Impulse Response)]
 \begin{itemize}
-  \item \textbf{FIR}: $\mathbf{h}$ finite support. No feedback; \emph{always} BIBO stable.
+  \item \textbf{FIR}: $\mathbf{h}$ finite support. No feedback;
   \item \textbf{IIR}: $\mathbf{h}$ infinite support.
 \end{itemize}
 \end{defn}
@@ -306,10 +289,6 @@ $\Longleftrightarrow$ all poles strictly inside the unit circle ($|p_k|<1$).
 \textbf{Autocorrelation}: $r_x[n] = \sigma_x^2\,\delta[n]$ \\
 \textbf{PSD}: $P_w(\omega) = \sigma_w^2$
 \end{prop}
-
-\begin{defn}[title=Stationarity]
-Statistical properties are time-invariant. In practice, we use \textbf{WSS}, which only requires the first two moments to be time-invariant.
-\end{defn}
 
 \begin{defn}[title=Wide-Sense (WSS) stationarity]
 For WSS random processes we only care about the first two moments:
