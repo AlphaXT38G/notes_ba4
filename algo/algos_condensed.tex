@@ -623,4 +623,116 @@ No recurrence formula (iterative brute force algorithm).
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Matrix Multiplication Naive}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Multiply two square matrices using the standard triple nested loop approach.
+Each element of the result matrix is computed by the dot product of a row and a column.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+SQUARE-MAT-MULT(A, B, n)
+
+    create matrix C of size n x n
+
+    for i = 1 to n
+
+        for j = 1 to n
+
+            C[i][j] = 0
+
+            for k = 1 to n
+
+                C[i][j] = C[i][j] + A[i][k] * B[k][j]
+
+    return C
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n^3)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$ for the result matrix.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=8T(n/2)+\Theta(n^2)$
+$\Rightarrow T(n)=\Theta(n^3)$ by Master Theorem (case 1).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
