@@ -250,6 +250,11 @@ $B(z)$: feedforward (FIR part).\\$A(z)$: feedback (IIR part). FIR: $A(z)=1$.\\
 \textbf{Poles} $p_k$: roots of $A(z)$, where $|H|\to\infty$.
 \end{defn}
 
+\begin{prop}[title=Zero symmetry]
+If $h[n]$ is \textbf{real}: zeros in conjugate pairs.\\
+If $h[n]$ is \textbf{symmetric} (linear phase): zeros in reciprocal pairs $(z_0, 1/z_0^*)$.
+\end{prop}
+
 % --- 4. STABILITY & ROC ---
 \begin{prop}[title=ROC \& causality]
 \[z \in \text{ROC}\{X(z)\} \iff \sum_{n=-\infty}^{\infty} \left|x[n]z^{-n}\right| < \infty\]
