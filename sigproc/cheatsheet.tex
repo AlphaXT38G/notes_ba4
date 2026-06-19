@@ -102,8 +102,18 @@ $\mathcal{R}\mathcal{S}^{-d}\mathbf{x}$, \; $\mathcal{S}^d\mathcal{R}\mathbf{x}$
 
 \section{DFT: $X[k]$}
 
-\begin{thm}[title=Orthogonality (not orthonormality)]
-$\langle \mathbf{w}_h, \mathbf{w}_k \rangle = N\,\delta[h-k]$, where
+\begin{thm}[title=Symmetry summary]
+\renewcommand{\arraystretch}{1}
+\begin{tabularx}{\linewidth}{@{}XX@{}}
+\toprule
+\textbf{Time domain} $x[n]$ & \textbf{Freq.\ domain} $X[k]$ \\
+\midrule
+Real & $X[N-k]=X^*[k]$ \\
+\bottomrule
+\end{tabularx}
+\end{thm}
+
+\begin{thm}[title=Dot product in C]
 \[
   \langle \mathbf{x},\mathbf{y}\rangle = \sum_{n=0}^{N-1} x^*[n]\,y[n].
 \]
