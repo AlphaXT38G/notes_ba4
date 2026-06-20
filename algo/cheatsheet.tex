@@ -10,15 +10,10 @@
 
 \cheattitle{Algorithms I}{}{BA4}
 
-\iffalse
-heaps and heapsort\\
-data strctures\\
-dynamic programmic
-\fi
-
 \begin{thm}[title=Sum of a sequence]
   $\sum_{k=m}^{n} k = \frac{(m+n)(n-m+1)}{2}$\\
-  $\sum_{k=m}^{n} z^{k} = \begin{cases} n-m+1 & z=1 \\ \frac{z^m-z^{n+1}}{1-z} & z\ne 1 \end{cases}$
+  $\sum_{k=m}^{n} z^{k} = \begin{cases} n-m+1 & z=1 \\ \frac{z^m-z^{n+1}}{1-z} & z\ne 1 \end{cases}$\\
+  $\displaystyle\sum_{i=1}^{n} \dfrac{1}{i} = \Theta(\log n)$
 \end{thm}
 
 \section{Sorting}
@@ -674,6 +669,14 @@ It changes how likely the worst case is to occur.
 \begin{prop}[title=Key Identities]
 \kv{Change of base}{$\log_b(n) = \dfrac{\log_2(n)}{\log_2(b)}$}
 \kv{Product}{$\log(a \times b) = \log(a) + \log(b)$}
+\end{prop}
+
+% ============================================================
+\section{Harmonic Series}
+% ============================================================
+
+\begin{prop}[title=Expected Value]
+$\mathbb{E}[X] = \displaystyle\sum_{i=1}^{n} \dfrac{1}{i} = \Theta(\log n)$
 \end{prop}
 
 \end{multicols*}
