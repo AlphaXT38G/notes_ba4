@@ -345,6 +345,27 @@ $\gamma>0$ adds inertia; accelerates if gradient is consistent.
 \textit{Hyperparams:} learning rate $\eta$, batch size $B$, depth $L$, width $M$, activation.\\
 \textit{Overfitting:} use dropout, weight decay (L2), data augmentation, early stopping.
 
+\section{Convolutional Neural Networks [REG/CLA]}
+\textit{When:} image/spatial data; translation-invariant features; large datasets.\\
+\textit{Output:} any type depending on final layer (same as MLP).
+
+\begin{defn}[title=Architecture]
+\textbf{Conv} $\to$ \textbf{ReLU} $\to$ \textbf{Pool} $\to$ \ldots $\to$ \textbf{Flatten} $\to$ \textbf{FC layers} $\to$ output\\
+\kv{Conv layer}{learns spatial filters; shares weights $\Rightarrow$ fewer params}
+\kv{Pooling}{reduces spatial size; max pooling keeps strongest activation}
+\kv{FC layer}{standard MLP at the end for final prediction}
+\end{defn}
+
+\begin{defn}[title=Hyperparameters]
+\kv{Filter size}{e.g.\ $3\times3$, $5\times5$}
+\kv{Stride}{step size of the sliding filter}
+\kv{Padding}{preserve spatial dims (same) or reduce (valid)}
+\kv{Depth}{number of filters per layer}
+\end{defn}
+
+\textit{Key advantage over MLP:} weight sharing + local connectivity $\Rightarrow$ translation invariance, far fewer parameters for image inputs.\\
+\textit{Training:} backprop + SGD, same as MLP.
+
 \section{K-Means Clustering [CLU]}
 \textit{When:} unsupervised; want to partition $N$ unlabeled points into $K$ groups.
 
@@ -390,10 +411,10 @@ $\gamma>0$ adds inertia; accelerates if gradient is consistent.
 \renewcommand{\arraystretch}{1.1}
 \begin{tabularx}{\linewidth}{@{}lXX@{}}
 \toprule
- & \textbf{True Pos} & \textbf{True Neg}\\
+ & \textbf{Pred Pos} & \textbf{Pred Neg}\\
 \midrule
-\textbf{Pred Pos} & TP & FP (type I)\\
-\textbf{Pred Neg} & FN (type II) & TN\\
+\textbf{True Pos} & TP & FN (type II)\\
+\textbf{True Neg} & FP (type I) & TN\\
 \bottomrule
 \end{tabularx}
 \[ P = TP+FN \quad N = FP+TN \]
