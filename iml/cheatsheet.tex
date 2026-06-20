@@ -5,21 +5,21 @@
 \usepackage{cheatsheet}
 
 \begin{document}
+\makeatletter
+\fancyfoot[C]{\scriptsize\color{black!60}%
+  \cheat@course\ \textbullet\ \ Page \thepage
+  \quad\textbullet\quad
+  \textbf{[R]}~Regression \;
+  \textbf{[C]}~Classification \;
+  \textbf{[R/C]}~Both \;
+  \textbf{[CL]}~Clustering}
+\makeatother
+
 \begin{multicols*}{4}
 
 \cheattitle{Intro to Machine Learning}{}{BA4}
 
-% ============================================================
 \section{Notations \& Core Concepts}
-% ============================================================
-
-\begin{itemize}
-  \item $x_i \in \R^D$ — sample (column vector, $D$ features)
-  \item $y_i \in \R$ (regression) or $\{0,1\}^C$ (classification)
-  \item $X \in \R^{N\times D}$, $y \in \R^N$ — dataset
-  \item $\hat{y}_i$ — prediction for sample $i$
-  \item $w^\star$ — optimal parameters
-\end{itemize}
 
 \begin{prop}[title=Empirical Risk]
 \[ R(w) = \frac{1}{N}\sum_{i=1}^{N} \ell(\hat{y}_i,\, y_i) \quad \Rightarrow \quad \min_w R(w) \]
@@ -34,9 +34,7 @@ Stop when $|R(w_k)-R(w_{k-1})|<\delta$ or $\|w_k-w_{k-1}\|<\delta$.
 $\nabla_b(a^Tb)=a$ \quad $\nabla_a\|a\|^2=2a$ \quad $\|a\|^2=a^Ta$
 \end{defn}
 
-% ============================================================
 \section{Preprocessing}
-% ============================================================
 
 \subsection{Normalization}
 \textit{Why:} avoid one feature dominating due to scale. Apply \textbf{always} before distance-based methods (KNN, K-Means) and improves convergence for gradient-based methods.
@@ -85,118 +83,11 @@ Build vocabulary of $D$ words. For each document: count occurrences $\Rightarrow
 \subsection{Images: Visual BoW}
 Extract patches $\to$ cluster patches into $D$ visual words $\to$ count occurrences per image $\to$ normalize $\Rightarrow$ $x_i \in \R^D$.
 
-% ============================================================
-\section{Linear Regression}
-% ============================================================
-\textit{When:} output is continuous; relationship is approximately linear.\\
-\textit{Output:} $\hat{y}_i \in \R$.
+\newpage
 
-\begin{defn}[title=Model \& Loss (MSE)]
-\[ \hat{y}_i = w^T x_i \qquad R(w) = \frac{1}{N}\sum_{i=1}^{N}(w^T x_i - y_i)^2 \]
-\end{defn}
+\cheattitle{Feature Engineering \& Dimensionality Reduction}{}{}
 
-\begin{thm}[title=Closed-Form Solution]
-\[ \nabla_w R = 0 \;\Rightarrow\; w^\star = (X^TX)^{-1}X^Ty \]
-If $X^TX$ not invertible: $w^\star = X^\dagger y$ (pseudo-inverse).\\
-\textbf{Multi-output ($C>1$):} $W^\star = X^\dagger Y$
-\end{thm}
-
-\begin{prop}[title=Prediction]
-\[ \hat{y} = w^{\star T}x \quad(C{=}1) \qquad \hat{y} = W^{\star T}x \quad(C{>}1) \]
-\end{prop}
-
-\textit{Pros:} exact closed-form, fast, interpretable. \textit{Cons:} only linear relationships.
-
-% ============================================================
-\section{Logistic Regression (Binary)}
-% ============================================================
-\textit{When:} binary classification ($y_i\in\{0,1\}$); approximately linearly separable.\\
-\textit{Output:} $\hat{y}_i = p(\text{class}=1\mid x_i) \in (0,1)$.
-
-\begin{defn}[title=Model]
-\[ \hat{y}_i = \sigma(w^T x_i) = \frac{1}{1+e^{-w^Tx_i}} \]
-\end{defn}
-
-\begin{defn}[title=Binary Cross-Entropy Loss]
-\[ R(w) = -\sum_{i=1}^{N}\!\Big[y_i\ln\hat{y}_i + (1-y_i)\ln(1-\hat{y}_i)\Big] \]
-\end{defn}
-
-\begin{prop}[title=Gradient (no closed form $\Rightarrow$ GD)]
-\[ \nabla_w R(w) = \sum_{i=1}^{N}(\hat{y}_i - y_i)\,x_i \]
-\end{prop}
-
-\begin{prop}[title=Prediction]
-\[ \hat{y} = \begin{cases}1 & \sigma(w^{\star T}x)\geq 0.5\\0 & \text{otherwise}\end{cases} \]
-Threshold $0.5$ can be adjusted (e.g.\ raise for high precision).
-\end{prop}
-
-% ============================================================
-\section{Multi-Class Classification}
-% ============================================================
-\textit{When:} $C>2$ classes. Labels as one-hot: $y_i\in\{0,1\}^C$.
-
-\subsection{Linear (Least Squares)}
-\[ \min_W \sum_i\|W^Tx_i - y_i\|^2 \;\Rightarrow\; W^\star = X^\dagger Y \]
-\[ \hat{y}_i = W^{\star T}x_i \in \R^C, \quad k = \argmax_j\,\hat{y}_i^{(j)} \]
-
-\subsection{Softmax (Logistic)}
-\begin{defn}[title=Softmax Output]
-\[ \hat{y}^{(k)}(x) = \frac{\exp(w^{(k)T}x)}{\sum_{j=1}^{C}\exp(w^{(j)T}x)} \approx p(\text{class}=k\mid x) \]
-\end{defn}
-
-\begin{defn}[title=Multi-Class Cross-Entropy]
-\[ R(W) = -\sum_{i=1}^{N}\sum_{k=1}^{C} y_i^{(k)}\ln\hat{y}_i^{(k)} \]
-\end{defn}
-
-\begin{prop}[title=Gradient \& Prediction]
-\[ \nabla_W R = \sum_{i=1}^{N} x_i(\hat{y}_i - y_i)^T \qquad k = \argmax_j\,\hat{y}^{(j)} \]
-\end{prop}
-
-% ============================================================
-\section{SVM — Support Vector Machines}
-% ============================================================
-\textit{When:} binary classification; want maximum-margin boundary; works well in high dim.\\
-\textit{Output:} $\hat{y} \in \{-1,+1\}$.
-
-\begin{defn}[title=Key Concept: Margin]
-Distance between the hyperplane $w^Tx+b=0$ and the closest points.
-\[ \text{margin} = \frac{2}{\|w\|} \quad\text{(maximize} \Leftrightarrow \text{minimize }\|w\|) \]
-\textbf{Support vectors:} the points defining the margin.
-\end{defn}
-
-\begin{prop}[title=Prediction]
-\[ \hat{y} = \text{sign}(w^{\star T}x + b) \]
-\end{prop}
-
-% ============================================================
-\section{k-Nearest Neighbors (KNN)}
-% ============================================================
-\textit{When:} non-linear decision boundaries; small dataset; no training phase needed.\\
-\textit{Output:} class label or continuous value.
-
-\begin{defn}[title=Distances]
-\kv{Euclidean}{$\sqrt{\sum_{d}(x_i^{(d)}-x_j^{(d)})^2}$}
-\end{defn}
-
-\begin{prop}[title=Classification]
-Find $k$ nearest neighbors $\Rightarrow$ \textbf{majority vote}.
-\end{prop}
-
-\begin{prop}[title=Regression]
-\[ \hat{y} = \frac{\sum_i w_i y_i}{\sum_i w_i} \quad w_i=\frac{1}{d_i} \text{ (inv. dist.)} \]
-\end{prop}
-
-\begin{defn}[title=Hyperparameter $k$]
-\kv{$k=1$}{very flexible, overfitting risk}
-\kv{$k$ large}{smooth, underfitting risk}
-Choose $k$ by cross-validation. Use odd $k$ for 2 classes.
-\end{defn}
-
-\textit{Cons:} no training but slow prediction $O(ND)$; sensitive to scale $\Rightarrow$ \textbf{normalize first!}; sensitive to outliers.
-
-% ============================================================
-\section{Feature Expansion \& Regularization}
-% ============================================================
+\section{Feature Expansion \& Regularization [R/C]}
 \textit{When:} data has non-linear structure but you want a linear model's tractability.
 
 \begin{defn}[title=Polynomial Expansion]
@@ -224,86 +115,7 @@ $\lambda>0$ from cross-validation. Penalizes large weights $\Rightarrow$ smoothe
 \textbf{Multi-output:} $W^\star = (\Phi^T\Phi + \lambda I_F)^{-1}\Phi^TY$
 \end{thm}
 
-% ============================================================
-\section{Kernel Methods}
-% ============================================================
-\textit{Why:} when $\phi$ is very high-dim or infinite-dim, computing $\phi(x)$ is infeasible. We only need dot products $\phi(x_i)^T\phi(x_j) = k(x_i,x_j)$.
-
-\begin{defn}[title=Kernel Function]
-\[ k(x_i,x_j) = \phi(x_i)^T\phi(x_j) \quad (\text{implicit }\phi) \]
-\kv{Polynomial}{$(x_i^Tx_j + c)^d$}
-\end{defn}
-
-\begin{defn}[title=Kernel Matrix \& Vector]
-\[ K \in \R^{N\times N},\; K_{ij}=k(x_i,x_j) \quad\text{(symmetric, PSD)} \]
-\[ k(X,x) = (k(x_1,x),\ldots,k(x_N,x))^T \in \R^N \]
-\end{defn}
-
-\begin{thm}[title=Kernel Ridge Regression]
-Reparametrize $w = \Phi^T\alpha$, solve for $\alpha \in \R^N$:
-\[ \alpha^\star = (K + \lambda I_N)^{-1}y \]
-\[ \hat{y} = y^T(K+\lambda I)^{-1}k(X,x) \]
-\textbf{Multi-output:} $\hat{y} = Y^T(K+\lambda I)^{-1}k(X,x)$
-\end{thm}
-
-\begin{warn}[title=Kernel Selection]
-Choose kernel and hyperparams ($d$, $\sigma$, $\lambda$) by \textbf{cross-validation}.
-\end{warn}
-
-\textit{Kernel vs explicit $\phi$:} kernel is $O(N^2)$ in space vs $O(NF)$
-
-% ============================================================
-\section{Neural Networks / MLP}
-% ============================================================
-\textit{When:} large datasets; complex non-linear structure; learns features automatically.\\
-\textit{Output:} any type depending on final activation.
-
-\subsection{Architecture (Forward Pass)}
-\begin{defn}[title=Layers]
-\[ z_{(1)} = f(W_{(1)}^T x) \quad z_{(l)} = f(W_{(l)}^T z_{(l-1)}) \]
-\[ \hat{y} = W_{(L)}^T z_{(L-1)} \quad\text{(or softmax for classification)} \]
-\end{defn}
-
-\begin{defn}[title=Activation Functions]
-\kv{ReLU}{$\max(0,z)$} — hidden layers (most common)
-\kv{Sigmoid}{$\frac{1}{1+e^{-z}}$} — binary output
-\kv{Softmax}{$\frac{e^{z^{(k)}}}{\sum_j e^{z^{(j)}}}$} — multi-class output
-\end{defn}
-
-\begin{thm}[title=Universal Approximation]
-Any continuous function can be approximated by a linear combination of translated/scaled ReLU (or sigmoid) functions.
-\end{thm}
-
-\subsection{Training: Backpropagation}
-\begin{defn}[title=Loss Functions]
-\kv{Regression}{$R(W)=\frac{1}{N}\sum_i\|\hat{y}_i-y_i\|^2$}
-\kv{Classification}{$R(W)=-\frac{1}{N}\sum_i\sum_k y_i^{(k)}\ln\hat{y}_i^{(k)}$}
-\end{defn}
-
-\begin{prop}[title=Backprop Algorithm]
-\textbf{1.} Forward pass: compute all $z_{(l)}$ and $\hat{y}$.\\
-\textbf{2.} Compute output sensitivity $\delta^{(k)}_{(L)} = \frac{\partial\ell_i}{\partial a^{(k)}_{(L)}}$.\\
-\textbf{3.} Propagate backward: $\delta_{(l)} \to \delta_{(l-1)}$ via chain rule.\\
-\textbf{4.} Gradient: $\frac{\partial\ell_i}{\partial W^{(k,j)}_{(l)}} = \delta^{(k)}_{(l)}\,z^{(j)}_{(l-1)}$.
-\end{prop}
-
-\subsection{SGD \& Variants}
-\begin{defn}[title=Mini-Batch SGD]
-\[ W_k \leftarrow W_{k-1} - \eta\sum_{b=1}^{B}\nabla\ell_{(b,k)}(W_{k-1}) \]
-$B$ = batch size. Full GD: $B=N$; SGD: $B=1$; mini-batch: $1<B<N$.
-\end{defn}
-
-\begin{defn}[title=SGD with Momentum]
-\[ \nu \leftarrow \gamma\nu + \eta\nabla R(W) \qquad W \leftarrow W - \nu \]
-$\gamma>0$ adds inertia; accelerates if gradient is consistent.
-\end{defn}
-
-\textit{Hyperparams:} learning rate $\eta$, batch size $B$, depth $L$, width $M$, activation.\\
-\textit{Overfitting:} use dropout, weight decay (L2), data augmentation, early stopping.
-
-% ============================================================
 \section{Dimensionality Reduction}
-% ============================================================
 \textit{Goal:} $x_i \in \R^D \to y_i \in \R^d$ with $d \ll D$, preserving structure.
 
 \subsection{PCA — Principal Component Analysis}
@@ -358,9 +170,183 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \textit{vs PCA:} autoencoder is non-linear, more powerful; has both encoder \& decoder; non-convex optimization.\\
 \textit{Applications:} compression, anomaly detection, generative models.
 
-% ============================================================
-\section{K-Means Clustering}
-% ============================================================
+\newpage
+
+\cheattitle{Models}{}{}
+
+\section{Linear Regression [R]}
+\textit{When:} output is continuous; relationship is approximately linear.\\
+\textit{Output:} $\hat{y}_i \in \R$.
+
+\begin{defn}[title=Model \& Loss (MSE)]
+\[ \hat{y}_i = w^T x_i \qquad R(w) = \frac{1}{N}\sum_{i=1}^{N}(w^T x_i - y_i)^2 \]
+\end{defn}
+
+\begin{thm}[title=Closed-Form Solution]
+\[ \nabla_w R = 0 \;\Rightarrow\; w^\star = (X^TX)^{-1}X^Ty \]
+If $X^TX$ not invertible: $w^\star = X^\dagger y$ (pseudo-inverse).\\
+\textbf{Multi-output ($C>1$):} $W^\star = X^\dagger Y$
+\end{thm}
+
+\begin{prop}[title=Prediction]
+\[ \hat{y} = w^{\star T}x \quad(C{=}1) \qquad \hat{y} = W^{\star T}x \quad(C{>}1) \]
+\end{prop}
+
+\textit{Pros:} exact closed-form, fast, interpretable. \textit{Cons:} only linear relationships.
+
+\section{Logistic Regression (Binary) [C]}
+\textit{When:} binary classification ($y_i\in\{0,1\}$); approximately linearly separable.\\
+\textit{Output:} $\hat{y}_i = p(\text{class}=1\mid x_i) \in (0,1)$.
+
+\begin{defn}[title=Model]
+\[ \hat{y}_i = \sigma(w^T x_i) = \frac{1}{1+e^{-w^Tx_i}} \]
+\end{defn}
+
+\begin{defn}[title=Binary Cross-Entropy Loss]
+\[ R(w) = -\sum_{i=1}^{N}\!\Big[y_i\ln\hat{y}_i + (1-y_i)\ln(1-\hat{y}_i)\Big] \]
+\end{defn}
+
+\begin{prop}[title=Gradient (no closed form $\Rightarrow$ GD)]
+\[ \nabla_w R(w) = \sum_{i=1}^{N}(\hat{y}_i - y_i)\,x_i \]
+\end{prop}
+
+\begin{prop}[title=Prediction]
+\[ \hat{y} = \begin{cases}1 & \sigma(w^{\star T}x)\geq 0.5\\0 & \text{otherwise}\end{cases} \]
+Threshold $0.5$ can be adjusted (e.g.\ raise for high precision).
+\end{prop}
+
+\section{Multi-Class Classification [C]}
+\textit{When:} $C>2$ classes. Labels as one-hot: $y_i\in\{0,1\}^C$.
+
+\subsection{Linear (Least Squares)}
+\[ \min_W \sum_i\|W^Tx_i - y_i\|^2 \;\Rightarrow\; W^\star = X^\dagger Y \]
+\[ \hat{y}_i = W^{\star T}x_i \in \R^C, \quad k = \argmax_j\,\hat{y}_i^{(j)} \]
+
+\subsection{Softmax (Logistic)}
+\begin{defn}[title=Softmax Output]
+\[ \hat{y}^{(k)}(x) = \frac{\exp(w^{(k)T}x)}{\sum_{j=1}^{C}\exp(w^{(j)T}x)} \approx p(\text{class}=k\mid x) \]
+\end{defn}
+
+\begin{defn}[title=Multi-Class Cross-Entropy]
+\[ R(W) = -\sum_{i=1}^{N}\sum_{k=1}^{C} y_i^{(k)}\ln\hat{y}_i^{(k)} \]
+\end{defn}
+
+\begin{prop}[title=Gradient \& Prediction]
+\[ \nabla_W R = \sum_{i=1}^{N} x_i(\hat{y}_i - y_i)^T \qquad k = \argmax_j\,\hat{y}^{(j)} \]
+\end{prop}
+
+\section{SVM --- Support Vector Machines [C]}
+\textit{When:} binary classification; want maximum-margin boundary; works well in high dim.\\
+\textit{Output:} $\hat{y} \in \{-1,+1\}$.
+
+\begin{defn}[title=Key Concept: Margin]
+Distance between the hyperplane $w^Tx+b=0$ and the closest points.
+\[ \text{margin} = \frac{2}{\|w\|} \quad\text{(maximize} \Leftrightarrow \text{minimize }\|w\|) \]
+\textbf{Support vectors:} the points defining the margin.
+\end{defn}
+
+\begin{prop}[title=Prediction]
+\[ \hat{y} = \text{sign}(w^{\star T}x + b) \]
+\end{prop}
+
+\section{k-Nearest Neighbors (KNN) [R/C]}
+\textit{When:} non-linear decision boundaries; small dataset; no training phase needed.\\
+\textit{Output:} class label or continuous value.
+
+\begin{defn}[title=Distances]
+\kv{Euclidean}{$\sqrt{\sum_{d}(x_i^{(d)}-x_j^{(d)})^2}$}
+\end{defn}
+
+\begin{prop}[title=Classification]
+Find $k$ nearest neighbors $\Rightarrow$ \textbf{majority vote}.
+\end{prop}
+
+\begin{prop}[title=Regression]
+\[ \hat{y} = \frac{\sum_i w_i y_i}{\sum_i w_i} \quad w_i=\frac{1}{d_i} \text{ (inv. dist.)} \]
+\end{prop}
+
+\begin{defn}[title=Hyperparameter $k$]
+\kv{$k=1$}{very flexible, overfitting risk}
+\kv{$k$ large}{smooth, underfitting risk}
+Choose $k$ by cross-validation. Use odd $k$ for 2 classes.
+\end{defn}
+
+\textit{Cons:} no training but slow prediction $O(ND)$; sensitive to scale $\Rightarrow$ \textbf{normalize first!}; sensitive to outliers.
+
+\section{Kernel Methods [R/C]}
+\textit{Why:} when $\phi$ is very high-dim or infinite-dim, computing $\phi(x)$ is infeasible. We only need dot products $\phi(x_i)^T\phi(x_j) = k(x_i,x_j)$.
+
+\begin{defn}[title=Kernel Function]
+\[ k(x_i,x_j) = \phi(x_i)^T\phi(x_j) \quad (\text{implicit }\phi) \]
+\kv{Polynomial}{$(x_i^Tx_j + c)^d$}
+\end{defn}
+
+\begin{defn}[title=Kernel Matrix \& Vector]
+\[ K \in \R^{N\times N},\; K_{ij}=k(x_i,x_j) \quad\text{(symmetric, PSD)} \]
+\[ k(X,x) = (k(x_1,x),\ldots,k(x_N,x))^T \in \R^N \]
+\end{defn}
+
+\begin{thm}[title=Kernel Ridge Regression]
+Reparametrize $w = \Phi^T\alpha$, solve for $\alpha \in \R^N$:
+\[ \alpha^\star = (K + \lambda I_N)^{-1}y \]
+\[ \hat{y} = y^T(K+\lambda I)^{-1}k(X,x) \]
+\textbf{Multi-output:} $\hat{y} = Y^T(K+\lambda I)^{-1}k(X,x)$
+\end{thm}
+
+\begin{warn}[title=Kernel Selection]
+Choose kernel and hyperparams ($d$, $\sigma$, $\lambda$) by \textbf{cross-validation}.
+\end{warn}
+
+\textit{Kernel vs explicit $\phi$:} kernel is $O(N^2)$ in space vs $O(NF)$
+
+\section{Neural Networks / MLP [R/C]}
+\textit{When:} large datasets; complex non-linear structure; learns features automatically.\\
+\textit{Output:} any type depending on final activation.
+
+\subsection{Architecture (Forward Pass)}
+\begin{defn}[title=Layers]
+\[ z_{(1)} = f(W_{(1)}^T x) \quad z_{(l)} = f(W_{(l)}^T z_{(l-1)}) \]
+\[ \hat{y} = W_{(L)}^T z_{(L-1)} \quad\text{(or softmax for classification)} \]
+\end{defn}
+
+\begin{defn}[title=Activation Functions]
+\kv{ReLU}{$\max(0,z)$} — hidden layers (most common)
+\kv{Sigmoid}{$\frac{1}{1+e^{-z}}$} — binary output
+\kv{Softmax}{$\frac{e^{z^{(k)}}}{\sum_j e^{z^{(j)}}}$} — multi-class output
+\end{defn}
+
+\begin{thm}[title=Universal Approximation]
+Any continuous function can be approximated by a linear combination of translated/scaled ReLU (or sigmoid) functions.
+\end{thm}
+
+\subsection{Training: Backpropagation}
+\begin{defn}[title=Loss Functions]
+\kv{Regression}{$R(W)=\frac{1}{N}\sum_i\|\hat{y}_i-y_i\|^2$}
+\kv{Classification}{$R(W)=-\frac{1}{N}\sum_i\sum_k y_i^{(k)}\ln\hat{y}_i^{(k)}$}
+\end{defn}
+
+\begin{prop}[title=Backprop Algorithm]
+\textbf{1.} Forward pass: compute all $z_{(l)}$ and $\hat{y}$.\\
+\textbf{2.} Compute output sensitivity $\delta^{(k)}_{(L)} = \frac{\partial\ell_i}{\partial a^{(k)}_{(L)}}$.\\
+\textbf{3.} Propagate backward: $\delta_{(l)} \to \delta_{(l-1)}$ via chain rule.\\
+\textbf{4.} Gradient: $\frac{\partial\ell_i}{\partial W^{(k,j)}_{(l)}} = \delta^{(k)}_{(l)}\,z^{(j)}_{(l-1)}$.
+\end{prop}
+
+\subsection{SGD \& Variants}
+\begin{defn}[title=Mini-Batch SGD]
+\[ W_k \leftarrow W_{k-1} - \eta\sum_{b=1}^{B}\nabla\ell_{(b,k)}(W_{k-1}) \]
+$B$ = batch size. Full GD: $B=N$; SGD: $B=1$; mini-batch: $1<B<N$.
+\end{defn}
+
+\begin{defn}[title=SGD with Momentum]
+\[ \nu \leftarrow \gamma\nu + \eta\nabla R(W) \qquad W \leftarrow W - \nu \]
+$\gamma>0$ adds inertia; accelerates if gradient is consistent.
+\end{defn}
+
+\textit{Hyperparams:} learning rate $\eta$, batch size $B$, depth $L$, width $M$, activation.\\
+\textit{Overfitting:} use dropout, weight decay (L2), data augmentation, early stopping.
+
+\section{K-Means Clustering [CL]}
 \textit{When:} unsupervised; want to partition $N$ unlabeled points into $K$ groups.
 
 \begin{prop}[title=Algorithm]
@@ -373,33 +359,18 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \begin{warn}[title=Key Caveats]
 \kv{Convergence}{guaranteed, but may reach local minimum (not global)}
 \kv{Initialization}{run multiple times with different random inits}
-\kv{Scale}{always normalize features — K-Means uses Euclidean distance!}
+\kv{Scale}{always normalize features --- K-Means uses Euclidean distance!}
 \kv{Choose $K$}{elbow method on within-cluster variance}
 \end{warn}
 
 \textit{Complexity:} $O(NKD)$ per iteration.\\
 \textit{Limitation:} assumes spherical clusters; sensitive to outliers.
 
-% ============================================================
-\section{Overfitting, Underfitting \& CV}
-% ============================================================
+\newpage
 
-\begin{defn}[title=Bias-Variance]
-\kv{Underfitting}{high error on train \& test (model too simple)}
-\kv{Overfitting}{low train error, high test error (model too complex)}
-\end{defn}
+\cheattitle{Evaluation \& Summary}{}{}
 
-\begin{defn}[title=Cross-Validation Strategies]
-\kv{Val.\ set}{80/20 split; fast but estimate depends on random split}
-\kv{K-fold}{split in $K$ parts, rotate; $K{=}5$ or $10$ is standard}
-\kv{LOOCV}{$K=N$; exact but very expensive}
-\end{defn}
-
-\textit{Rule:} never use test set to choose hyperparameters — use validation/CV only.
-
-% ============================================================
-\section{Evaluation — Regression}
-% ============================================================
+\section{Evaluation --- Regression}
 
 \begin{defn}[title=Regression Metrics]
 \kv{MSE}{$\frac{1}{N}\sum(y_i-\hat{y}_i)^2$} — penalizes large errors
@@ -414,9 +385,7 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \kv{MAE vs MSE}{MAE if outliers shouldn't dominate; MSE if large errors are critical}
 \end{defn}
 
-% ============================================================
-\section{Evaluation — Classification}
-% ============================================================
+\section{Evaluation --- Classification}
 
 \begin{defn}[title=Confusion Matrix (binary)]
 \renewcommand{\arraystretch}{1.1}
@@ -432,19 +401,19 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \end{defn}
 
 \begin{defn}[title=Metrics]
-\kv{Accuracy}{$\frac{TP+TN}{TP+TN+FP+FN}$} — \textit{misleading if imbalanced!}
-\kv{Precision}{$\frac{TP}{TP+FP}$} — of all predicted pos, how many are truly pos
-\kv{Recall}{$\frac{TP}{TP+FN}$} — of all true pos, how many were detected
-\kv{FPR}{$\frac{FP}{FP+TN}$} — fraction of negatives falsely flagged
-\kv{F1}{$2\cdot\frac{P\cdot R}{P+R}$} — harmonic mean; use when imbalanced
+\kv{Accuracy}{$\frac{TP+TN}{TP+TN+FP+FN}$}
+\kv{Precision}{$\frac{TP}{TP+FP}$}
+\kv{Recall}{$\frac{TP}{TP+FN}$}
+\kv{FPR}{$\frac{FP}{FP+TN}$}
+\kv{F1}{$2\cdot\frac{\text{Prec}\cdot\text{Rec}}{\text{Prec}+\text{Rec}}$}
 \end{defn}
 
-\begin{defn}[title=Interpretation]
-\kv{High Precision}{few false alarms (spam filter, recommend.)}
-\kv{High Recall}{few misses (cancer detection, fraud detection)}
-\kv{F1$\approx 1$}{excellent balance precision/recall}
-\kv{F1$\approx 0$}{poor model}
-\kv{Precision vs Recall}{trade-off: adjust threshold to prioritize one}
+\begin{defn}[title=Interpretation --- Goal $\to$ Metric]
+\kv{Reduce FP}{$\uparrow$ Precision (spam filter, recommendations)}
+\kv{Reduce FN}{$\uparrow$ Recall (cancer detection, fraud)}
+\kv{Balance FP \& FN}{$\uparrow$ F1 (imbalanced classes)}
+\kv{Reduce FPR}{$\downarrow$ FP/(FP+TN): fewer false alarms on negatives}
+\kv{Imbalanced data}{F1 or weighted avg; \textit{Accuracy misleading!}}
 \end{defn}
 
 \textbf{Multi-class:} $C\times C$ confusion matrix. Compute precision/recall per class (one-vs-all) then average.
@@ -453,9 +422,22 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
   \item \kv{Weighted avg}{weight by class size; use if imbalanced}
 \end{itemize}
 
-% ============================================================
+\section{Overfitting, Underfitting \& CV}
+
+\begin{defn}[title=Bias-Variance]
+\kv{Underfitting}{high error on train \& test (model too simple)}
+\kv{Overfitting}{low train error, high test error (model too complex)}
+\end{defn}
+
+\begin{defn}[title=Cross-Validation Strategies]
+\kv{Val.\ set}{80/20 split; fast but estimate depends on random split}
+\kv{K-fold}{split in $K$ parts, rotate; $K{=}5$ or $10$ is standard}
+\kv{LOOCV}{$K=N$; exact but very expensive}
+\end{defn}
+
+\textit{Rule:} never use test set to choose hyperparameters --- use validation/CV only.
+
 \section{Model Comparison Summary}
-% ============================================================
 
 {\footnotesize
 \renewcommand{\arraystretch}{1.2}
@@ -463,7 +445,7 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \toprule
 \textbf{Model} & \textbf{T} & \textbf{Train} & \textbf{Hyper}\\
 \midrule
-Lin.\ Reg.   & R   & closed form    & —\\
+Lin.\ Reg.   & R   & closed form    & ---\\
 Log.\ Reg.   & C   & GD             & $\eta$\\
 Softmax      & C   & GD             & $\eta$\\
 SVM          & C   & QP solver      & $C$\\
