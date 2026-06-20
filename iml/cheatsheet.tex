@@ -9,10 +9,9 @@
 \fancyfoot[C]{\scriptsize\color{black!60}%
   \cheat@course\ \textbullet\ \ Page \thepage
   \quad\textbullet\quad
-  \textbf{[R]}~Regression \;
-  \textbf{[C]}~Classification \;
-  \textbf{[R/C]}~Both \;
-  \textbf{[CL]}~Clustering}
+  \textbf{\lbrack REG\rbrack}~Regression \;
+  \textbf{\lbrack CLA\rbrack}~Classification \;
+  \textbf{\lbrack CLU\rbrack}~Clustering}
 \makeatother
 
 \begin{multicols*}{4}
@@ -87,7 +86,7 @@ Extract patches $\to$ cluster patches into $D$ visual words $\to$ count occurren
 
 \cheattitle{Feature Engineering \& Dimensionality Reduction}{}{}
 
-\section{Feature Expansion \& Regularization [R/C]}
+\section{Feature Expansion \& Regularization [R/CLA]}
 \textit{When:} data has non-linear structure but you want a linear model's tractability.
 
 \begin{defn}[title=Polynomial Expansion]
@@ -115,7 +114,7 @@ $\lambda>0$ from cross-validation. Penalizes large weights $\Rightarrow$ smoothe
 \textbf{Multi-output:} $W^\star = (\Phi^T\Phi + \lambda I_F)^{-1}\Phi^TY$
 \end{thm}
 
-\section{Dimensionality Reduction}
+\section{Dimensionality Reduction [R/CLA/CLU]}
 \textit{Goal:} $x_i \in \R^D \to y_i \in \R^d$ with $d \ll D$, preserving structure.
 
 \subsection{PCA — Principal Component Analysis}
@@ -174,7 +173,7 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 
 \cheattitle{Models}{}{}
 
-\section{Linear Regression [R]}
+\section{Linear Regression [REG]}
 \textit{When:} output is continuous; relationship is approximately linear.\\
 \textit{Output:} $\hat{y}_i \in \R$.
 
@@ -194,7 +193,7 @@ If $X^TX$ not invertible: $w^\star = X^\dagger y$ (pseudo-inverse).\\
 
 \textit{Pros:} exact closed-form, fast, interpretable. \textit{Cons:} only linear relationships.
 
-\section{Logistic Regression (Binary) [C]}
+\section{Logistic Regression (Binary) [CLA]}
 \textit{When:} binary classification ($y_i\in\{0,1\}$); approximately linearly separable.\\
 \textit{Output:} $\hat{y}_i = p(\text{class}=1\mid x_i) \in (0,1)$.
 
@@ -215,7 +214,7 @@ If $X^TX$ not invertible: $w^\star = X^\dagger y$ (pseudo-inverse).\\
 Threshold $0.5$ can be adjusted (e.g.\ raise for high precision).
 \end{prop}
 
-\section{Multi-Class Classification [C]}
+\section{Multi-Class Classification [CLA]}
 \textit{When:} $C>2$ classes. Labels as one-hot: $y_i\in\{0,1\}^C$.
 
 \subsection{Linear (Least Squares)}
@@ -235,7 +234,7 @@ Threshold $0.5$ can be adjusted (e.g.\ raise for high precision).
 \[ \nabla_W R = \sum_{i=1}^{N} x_i(\hat{y}_i - y_i)^T \qquad k = \argmax_j\,\hat{y}^{(j)} \]
 \end{prop}
 
-\section{SVM --- Support Vector Machines [C]}
+\section{SVM --- Support Vector Machines [R/CLA]}
 \textit{When:} binary classification; want maximum-margin boundary; works well in high dim.\\
 \textit{Output:} $\hat{y} \in \{-1,+1\}$.
 
@@ -249,7 +248,7 @@ Distance between the hyperplane $w^Tx+b=0$ and the closest points.
 \[ \hat{y} = \text{sign}(w^{\star T}x + b) \]
 \end{prop}
 
-\section{k-Nearest Neighbors (KNN) [R/C]}
+\section{k-Nearest Neighbors (KNN) [R/CLA]}
 \textit{When:} non-linear decision boundaries; small dataset; no training phase needed.\\
 \textit{Output:} class label or continuous value.
 
@@ -273,7 +272,7 @@ Choose $k$ by cross-validation. Use odd $k$ for 2 classes.
 
 \textit{Cons:} no training but slow prediction $O(ND)$; sensitive to scale $\Rightarrow$ \textbf{normalize first!}; sensitive to outliers.
 
-\section{Kernel Methods [R/C]}
+\section{Kernel Methods [R/CLA]}
 \textit{Why:} when $\phi$ is very high-dim or infinite-dim, computing $\phi(x)$ is infeasible. We only need dot products $\phi(x_i)^T\phi(x_j) = k(x_i,x_j)$.
 
 \begin{defn}[title=Kernel Function]
@@ -299,7 +298,7 @@ Choose kernel and hyperparams ($d$, $\sigma$, $\lambda$) by \textbf{cross-valida
 
 \textit{Kernel vs explicit $\phi$:} kernel is $O(N^2)$ in space vs $O(NF)$
 
-\section{Neural Networks / MLP [R/C]}
+\section{Neural Networks / MLP [R/CLA]}
 \textit{When:} large datasets; complex non-linear structure; learns features automatically.\\
 \textit{Output:} any type depending on final activation.
 
@@ -346,7 +345,7 @@ $\gamma>0$ adds inertia; accelerates if gradient is consistent.
 \textit{Hyperparams:} learning rate $\eta$, batch size $B$, depth $L$, width $M$, activation.\\
 \textit{Overfitting:} use dropout, weight decay (L2), data augmentation, early stopping.
 
-\section{K-Means Clustering [CL]}
+\section{K-Means Clustering [CLU]}
 \textit{When:} unsupervised; want to partition $N$ unlabeled points into $K$ groups.
 
 \begin{prop}[title=Algorithm]
@@ -422,6 +421,21 @@ $\gamma>0$ adds inertia; accelerates if gradient is consistent.
   \item \kv{Weighted avg}{weight by class size; use if imbalanced}
 \end{itemize}
 
+\section{Evaluation --- Clustering}
+
+\textbf{Without labels} (unsupervised):
+
+\begin{defn}[title=Inertia (Within-cluster variance)]
+\[ W = \sum_{k=1}^{K}\sum_{i:c_i=k}\|x_i - \mu_k\|^2 \]
+Lower $W$ = tighter clusters.
+\end{defn}
+
+\begin{prop}[title=Choose $K$ --- Elbow Method]
+Plot $W$ vs $K$. Choose $K$ at the "elbow" where gain diminishes.
+\end{prop}
+
+\textbf{With labels} (supervised): training is unsupervised but if ground truth labels are available, Accuracy, Precision, Recall, F1 apply identically to classification.
+
 \section{Overfitting, Underfitting \& CV}
 
 \begin{defn}[title=Bias-Variance]
@@ -445,18 +459,18 @@ $\gamma>0$ adds inertia; accelerates if gradient is consistent.
 \toprule
 \textbf{Model} & \textbf{T} & \textbf{Train} & \textbf{Hyper}\\
 \midrule
-Lin.\ Reg.   & R   & closed form    & ---\\
-Log.\ Reg.   & C   & GD             & $\eta$\\
-Softmax      & C   & GD             & $\eta$\\
-SVM          & C   & QP solver      & $C$\\
-KNN          & R/C & none           & $k$\\
-Ridge        & R   & closed form    & $\lambda$\\
-Kernel Ridge & R/C & closed form    & $\lambda,k$\\
-MLP          & R/C & SGD+backprop   & $\eta,L,M$\\
-PCA          & DR  & eigendecomp    & $d$\\
-Kernel PCA   & DR  & eigendecomp    & $d,k$\\
-Autoencoder  & DR  & SGD            & arch\\
-K-Means      & CL  & iterative      & $K$\\
+Lin.\ Reg.   & REG     & closed form    & ---\\
+Log.\ Reg.   & CLA     & GD             & $\eta$\\
+Softmax      & CLA     & GD             & $\eta$\\
+SVM          & REG/CLA & QP solver      & $C$\\
+KNN          & REG/CLA & none           & $k$\\
+Ridge        & REG     & closed form    & $\lambda$\\
+Kernel Ridge & REG/CLA & closed form    & $\lambda,k$\\
+MLP          & REG/CLA & SGD+backprop   & $\eta,L,M$\\
+PCA          & DR      & eigendecomp    & $d$\\
+Kernel PCA   & DR      & eigendecomp    & $d,k$\\
+Autoencoder  & DR      & SGD            & arch\\
+K-Means      & CLU     & iterative      & $K$\\
 \bottomrule
 \end{tabular}
 }
@@ -482,9 +496,6 @@ K-Means      & unsupervised; local min; \textbf{normalize!}\\
 \bottomrule
 \end{tabular}
 }
-
-\vspace{2pt}
-{\footnotesize R=Reg. \; C=Classif. \; DR=Dim.\ Red. \; CL=Clustering}
 
 \end{multicols*}
 \end{document}
