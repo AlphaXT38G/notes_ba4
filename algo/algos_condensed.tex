@@ -4837,6 +4837,135 @@ $d[v]=d[u]+1$ when $v$ is discovered from $u$.
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Depth-First Search}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Explore a graph by going as deep as possible along each branch before
+backtracking. DFS assigns discovery and finishing times to vertices and
+uses colors to track the exploration state.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+DFS(G)
+
+    for each u in G.V
+
+        u.color = WHITE
+
+
+    time = 0
+
+
+    for each u in G.V
+
+        if u.color == WHITE
+
+            DFS-VISIT(G,u)
+\end{lstlisting}
+
+
+\begin{lstlisting}
+DFS-VISIT(G, u)
+
+    time = time + 1
+
+    u.d = time
+
+    u.color = GRAY
+
+
+    for each v in Adj[u]
+
+        if v.color == WHITE
+
+            DFS-VISIT(G,v)
+
+
+    u.color = BLACK
+
+    time = time + 1
+
+    u.f = time
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(V+E)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(V)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+$T(V,E)=T(V-1,E)+O(E)$
+$\Rightarrow O(V+E)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
