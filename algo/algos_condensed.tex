@@ -2437,4 +2437,122 @@ No recurrence formula (constant-time operation).
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Linked List Search}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Search for an element with a given key in a linked list.
+The algorithm starts from the head and traverses each node until
+the key is found or the end of the list is reached.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+LIST-SEARCH(L, k)
+
+    x = L.head
+
+
+    while x != NIL and x.key != k
+
+        x = x.next
+
+
+    return x
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(1)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+No recurrence formula (iterative traversal).
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
