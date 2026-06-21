@@ -5075,6 +5075,118 @@ $T(V,E)=O(V+E)$
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Strongly Connected Components}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Decompose a directed graph into maximal sets of vertices where every
+vertex is reachable from every other vertex.
+The algorithm uses two DFS passes and the transpose graph.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+SCC(G)
+
+    DFS(G)
+
+    // compute finishing times u.f
+
+
+    Compute G^T
+
+    // reverse all edges
+
+
+    DFS(G^T)
+
+    considering vertices
+
+    in decreasing order of u.f
+
+
+    output each DFS tree
+
+    as one SCC
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(V+E)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(V+E)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+Two DFS traversals:
+$T(V,E)=2O(V+E)=O(V+E)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
