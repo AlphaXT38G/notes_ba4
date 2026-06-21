@@ -159,6 +159,10 @@ Center kernel: $\tilde{K} = K - \mathbf{1}_N K - K\mathbf{1}_N + \mathbf{1}_N K\
 \kv{Sparse}{add $\ell_1$ penalty on latent code $\Rightarrow$ sparse activations}
 \end{defn}
 
+\begin{center}
+\includegraphics[width=\linewidth]{images/denoising_autoencoder.png}
+\end{center}
+
 \textit{vs PCA:} autoencoder is non-linear, more powerful; has both encoder \& decoder; non-convex optimization.\\
 \textit{Applications:} compression, anomaly detection, generative models.
 
@@ -184,6 +188,9 @@ If $X^TX$ not invertible: $w^\star = X^\dagger y$ (pseudo-inverse).\\
 \[ \hat{y} = w^{\star T}x \quad(C{=}1) \qquad \hat{y} = W^{\star T}x \quad(C{>}1) \]
 \end{prop}
 
+\begin{warn}[title=Invertibility]
+$X^TX$ invertible $\Leftrightarrow$ columns of $X$ linearly independent ($X$ full rank). Otherwise use pseudo-inverse $X^\dagger$.
+\end{warn}
 \textit{Pros:} exact closed-form, fast, interpretable. \textit{Cons:} only linear relationships.
 
 \section{Logistic Regression (Binary) [CLA]}
