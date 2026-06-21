@@ -4594,6 +4594,132 @@ or $T(i,j)=T(i-1,j)+\Theta(1)$ depending on direction.
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Bottom-Up Optimal BST}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Construct a binary search tree with minimum expected search cost.
+The algorithm uses dynamic programming to find the optimal root
+and recursively builds the best possible subtrees.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+OPTIMAL-BST(p, q, n)
+
+    let e, w, root be new tables
+
+
+    for i = 1 to n+1
+
+        e[i,i-1] = 0
+
+        w[i,i-1] = 0
+
+
+    for l = 1 to n
+
+        for i = 1 to n-l+1
+
+            j = i+l-1
+
+            e[i,j] = 8
+
+            w[i,j] = w[i,j-1] + p[j]
+
+
+            for r = i to j
+
+                t = e[i,r-1]
+                    + e[r+1,j]
+                    + w[i,j]
+
+
+                if t < e[i,j]
+
+                    e[i,j] = t
+
+                    root[i,j] = r
+
+
+    return e and root
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n^3)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+$e[i,j]=\min_{i \leq r \leq j}
+(e[i,r-1]+e[r+1,j]+w[i,j])$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
