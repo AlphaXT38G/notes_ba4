@@ -36,51 +36,44 @@ $\nabla_b(a^Tb)=a$ \quad $\nabla_a\|a\|^2=2a$ \quad $\|a\|^2=a^Ta$
 \section{Preprocessing}
 
 \subsection{Normalization}
-\textit{Why:} avoid one feature dominating due to scale. Apply \textbf{always} before distance-based methods (KNN, K-Means) and improves convergence for gradient-based methods.
-
+\textbf{Always} apply before distance-based methods (KNN, K-Means); improves GD convergence.
 \begin{defn}[title=Methods]
 \renewcommand{\arraystretch}{1.2}
 \begin{tabular}{@{}lll@{}}
-\textbf{Method} & \textbf{Formula} & \textbf{Range}\\
-Z-score & $\frac{x^{(d)}-\mu_d}{\sigma_d}$ & $\mu{=}0,\,\sigma{=}1$\\
-Min-max & $\frac{x^{(d)}-\min_d}{\max_d-\min_d}$ & $[0,1]$\\
+\textbf{Method} & \textbf{Formula} & \textbf{Result}\\
+Z-score  & $\frac{x^{(d)}-\mu_d}{\sigma_d}$ & $\mu{=}0,\sigma{=}1$\\
+Min-max  & $\frac{x^{(d)}-\min_d}{\max_d-\min_d}$ & $[0,1]$\\
 Max norm & $\frac{x^{(d)}}{\max_d}$ & $[-1,1]$\\
 \end{tabular}
 \end{defn}
-
 \textbf{Bias term:} append $1$ to $x_i$ so $D\leftarrow D+1$.
 
 \subsection{Missing Data}
-\begin{itemize}
-  \item Drop the sample (loses info)
-  \item Fill with global constant
-  \item Fill with feature mean
-  \item Fill with class-conditioned mean (best)
-\end{itemize}
+\kv{Drop}{loses info}
+\kv{Global constant / mean}{fast, ignores class}
+\kv{Class-conditioned mean}{best}
 
 \subsection{Noise / Binning}
-Sort $\to$ partition into bins (equal width or equal frequency) $\to$ replace each value by bin mean/median.
+Sort $\to$ bins (equal width \textit{or} equal freq.) $\to$ replace by bin mean/median.
 
 \subsection{Imbalanced Data}
-\textit{Problem:} 99\% negative class $\Rightarrow$ predicting always negative gives 99\% accuracy but misses all positives.
-
-\begin{defn}[title=Sampling Methods]
-\kv{Oversampling}{replicate or generate (SMOTE) minority samples}
+Skewed classes $\Rightarrow$ accuracy misleading (predicting majority always gives high acc.).
+\begin{defn}[title=Fixes]
+\kv{Oversampling}{replicate/generate (SMOTE) minority samples}
 \kv{Undersampling}{remove redundant majority samples}
-\end{defn}
-
-\begin{defn}[title=Cost-Sensitive Reweighting]
-\[ R = \frac{1}{N}\sum_i \beta_i\,\ell(\hat{y}_i,y_i), \quad \beta_i = 1 - \frac{N_k}{N} \]
-$N_k$ = size of class $k$ of sample $i$. Smaller class $\Rightarrow$ larger $\beta_i$.
+\kv{Reweighting}{$R = \frac{1}{N}\sum_i \beta_i\,\ell_i,\quad \beta_i = 1 - \frac{N_k}{N}$}
 \end{defn}
 
 \subsection{Text: Bag of Words (BoW)}
-Build vocabulary of $D$ words. For each document: count occurrences $\Rightarrow$ normalize by total words $\Rightarrow$ $x_i \in \R^D$.
-
-\textit{Limits:} no word order; frequent stopwords dominate; sparse vectors.
+Vocabulary of $D$ words $\to$ count occurrences per doc $\to$ normalize $\Rightarrow x_i\in\R^D$.\\
+\textit{Limits:} no word order; stopwords dominate; sparse.
 
 \subsection{Images: Visual BoW}
-Extract patches $\to$ cluster patches into $D$ visual words $\to$ count occurrences per image $\to$ normalize $\Rightarrow$ $x_i \in \R^D$.
+Extract patches $\to$ cluster into $D$ visual words $\to$ count $\to$ normalize $\Rightarrow x_i\in\R^D$.
+
+\subsection{Data Augmentation}
+Add samples via label-preserving transforms $\Rightarrow$ less overfitting.\\
+\textit{Images:} flip, rotate, crop, affine transform, color jitter.
 
 \newpage
 
