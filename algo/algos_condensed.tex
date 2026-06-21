@@ -5187,6 +5187,120 @@ $T(V,E)=2O(V+E)=O(V+E)$
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Maximum Flow - Ford Fulkerson}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Find the maximum possible flow from a source $s$ to a sink $t$ in a flow
+network while respecting capacities.
+The algorithm repeatedly finds augmenting paths in the residual graph and
+increases the flow until no improvement is possible.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+FORD-FULKERSON(G, s, t)
+
+    initialize flow f = 0
+
+
+    while there exists an
+
+    augmenting path p in Gf
+
+
+        augment flow f along p
+
+
+        update residual graph
+
+
+    return f
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+
+$O(E \cdot |f^*|)$
+
+for integer capacities.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+
+$O(V+E)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+$f = f + f_p$
+
+where $f_p$ is the bottleneck capacity of the augmenting path.
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
