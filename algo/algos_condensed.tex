@@ -3229,6 +3229,109 @@ No recurrence formula (iterative tree traversal).
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Inorder Tree Walk}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Traverse all nodes of a binary search tree in sorted order.
+The algorithm follows the in-order strategy:
+left subtree, node, then right subtree.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+INORDER-TREE-WALK(x)
+
+    if x != NIL
+
+        INORDER-TREE-WALK(x.left)
+
+        print key[x]
+
+        INORDER-TREE-WALK(x.right)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(h)$ recursion stack.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=T(n_L)+T(n_R)+\Theta(1)$
+$\Rightarrow O(n)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
