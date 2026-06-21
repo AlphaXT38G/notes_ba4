@@ -5955,6 +5955,130 @@ $T(V,E)=O(E\log V)$
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries KRUSKAL'S ALGORITHM}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Kruskal's algorithm constructs a Minimum Spanning Tree (MST) by selecting
+the smallest weight edges while avoiding cycles using the Union-Find data structure.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+KRUSKAL(G, w)
+
+    A = empty set
+
+    for each vertex v in G.V
+
+        MAKE-SET(v)
+
+
+    sort edges of G.E by increasing weight
+
+
+    for each edge (u,v) in sorted order
+
+        if FIND-SET(u) != FIND-SET(v)
+
+            A = A U {(u,v)}
+            UNION(u,v)
+
+
+    return A
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+
+$O(E\log E)$
+
+$=O(E\log V)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+
+$O(V)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+Sorting dominates:
+
+$T(E)=O(E\log E)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
