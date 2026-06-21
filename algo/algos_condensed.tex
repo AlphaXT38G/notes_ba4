@@ -4481,6 +4481,119 @@ $c[i,j]=\max(c[i-1,j],c[i,j-1])$
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Print LCS}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Reconstruct the longest common subsequence using the direction table
+computed by the LCS dynamic programming algorithm.
+The algorithm follows the stored arrows to rebuild the optimal sequence.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+PRINT-LCS(b, X, i, j)
+
+    if i == 0 or j == 0
+
+        return
+
+
+    if b[i,j] == "diagonal"
+
+        PRINT-LCS(b, X, i-1, j-1)
+
+        print x_i
+
+
+    elseif b[i,j] == "up"
+
+        PRINT-LCS(b, X, i-1, j)
+
+
+    else
+
+        PRINT-LCS(b, X, i, j-1)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(m+n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(m+n)$ recursion stack.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+$T(i,j)=T(i-1,j-1)+\Theta(1)$  
+or $T(i,j)=T(i-1,j)+\Theta(1)$ depending on direction.
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
