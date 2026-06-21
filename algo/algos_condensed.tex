@@ -4205,6 +4205,153 @@ $\Rightarrow O(n^2)$ with dynamic programming.
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Matrix Chain Order}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Find the optimal parenthesization of a matrix chain to minimize
+the number of scalar multiplications.
+The algorithm uses dynamic programming by storing optimal costs
+for smaller subchains.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+MATRIX-CHAIN-ORDER(p)
+
+    n = p.length - 1
+
+    let m[1..n,1..n] and s[1..n,1..n]
+
+
+    for i = 1 to n
+
+        m[i,i] = 0
+
+
+    for l = 2 to n
+
+        for i = 1 to n-l+1
+
+            j = i+l-1
+
+            m[i,j] = 8
+
+
+            for k = i to j-1
+
+                q = m[i,k]
+                    + m[k+1,j]
+                    + p[i-1]*p[k]*p[j]
+
+
+                if q < m[i,j]
+
+                    m[i,j] = q
+
+                    s[i,j] = k
+
+
+    return m and s
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n^3)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n^2)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$m[i,j]=\min_{i \leq k < j}
+(m[i,k]+m[k+1,j]+p[i-1]p[k]p[j])$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
