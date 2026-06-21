@@ -4349,6 +4349,151 @@ $m[i,j]=\min_{i \leq k < j}
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Longest Common Subsequence}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Find the longest subsequence appearing in the same order in two sequences.
+The algorithm uses dynamic programming by storing solutions of smaller
+prefixes to build the optimal subsequence.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+LCS-LENGTH(X, Y, m, n)
+
+    let b[1..m,1..n] and c[0..m,0..n]
+
+
+    for i = 1 to m
+
+        c[i,0] = 0
+
+
+    for j = 0 to n
+
+        c[0,j] = 0
+
+
+    for i = 1 to m
+
+        for j = 1 to n
+
+            if x_i == y_j
+
+                c[i,j] = c[i-1,j-1] + 1
+
+                b[i,j] = "<-"
+
+
+            else if c[i-1,j] >= c[i,j-1]
+
+                c[i,j] = c[i-1,j]
+
+                b[i,j] = "up"
+
+
+            else
+
+                c[i,j] = c[i,j-1]
+
+                b[i,j] = "<-"
+
+
+    return c and b
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(mn)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(mn)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+If $x_i=y_j$:
+$c[i,j]=c[i-1,j-1]+1$
+
+Else:
+$c[i,j]=\max(c[i-1,j],c[i,j-1])$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
