@@ -6290,6 +6290,132 @@ $T(V,E)=O(VE)$
 
 
 
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries DIJKSTRA}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Dijkstra's algorithm computes shortest paths from a source vertex in a graph
+with non-negative edge weights. It repeatedly selects the closest unprocessed
+vertex and relaxes its outgoing edges.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+DIJKSTRA(G,w,s)
+
+    INIT-SINGLE-SOURCE(G,s)
+
+    S = empty set
+    Q = G.V
+
+    while Q != empty
+
+        u = EXTRACT-MIN(Q)
+
+        S = S U {u}
+
+
+        for each v in G.Adj[u]
+
+            RELAX(u,v,w)
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+
+$O(E\log V)$ with binary heap
+
+$O(V\log V + E)$ with efficient decrease-key
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+
+$O(V)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+
+Greedy shortest path:
+
+$T(V,E)=O((V+E)\log V)$
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
