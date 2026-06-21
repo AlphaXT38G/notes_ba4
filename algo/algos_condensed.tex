@@ -3952,4 +3952,144 @@ $\Rightarrow O(n^2)$ with memoization.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{tcolorbox}[
+    colback=gray!30,
+    colframe=black,
+    boxrule=1pt,
+    arc=0mm
+]
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\centering
+{\Huge\bfseries Memoized Cut Rod Aux}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=gray!10,
+    colframe=black,
+    arc=0mm
+]
+\small
+Compute the optimal revenue for a rod of length $n$ using memoization.
+The algorithm stores previously computed solutions to avoid solving the same
+subproblems multiple times.
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=black!5,
+    colframe=black,
+    arc=0mm,
+    title=Pseudo-code
+]
+\tiny
+\begin{lstlisting}
+Memoized-Cut-Rod-Aux(p, n, r)
+
+    if r[n] >= 0
+
+        return r[n]
+
+
+    if n == 0
+
+        q = 0
+
+    else
+
+        q = 8
+
+        for i = 1 to n
+
+            q = max(q,
+                p[i] +
+                Memoized-Cut-Rod-Aux(p, n-i, r))
+
+
+    r[n] = q
+
+    return q
+\end{lstlisting}
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=cyan!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Time Complexity:}
+$O(n^2)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=violet!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Space Complexity:}
+$O(n)$
+\end{tcolorbox}
+
+
+\begin{tcolorbox}[
+    colback=pink!20,
+    colframe=black,
+    arc=0mm
+]
+\small
+\textbf{Recurrence Formula:}
+$T(n)=\sum_{i=1}^{n}T(n-i)+O(n)$
+with memoization $\Rightarrow O(n^2)$.
+\end{tcolorbox}
+
+\end{tcolorbox}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
