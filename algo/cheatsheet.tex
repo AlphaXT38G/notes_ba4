@@ -35,9 +35,6 @@ In-place. $\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sor
 \textbf{Init:} $j{=}2$, trivial. \textbf{Maint:} key inserted correctly. \textbf{Term:} $A$ sorted.
 \end{prop}
 
-\subsection{Divide-and-conquer} % A retirer si besoin d'espace
-{\centering\includegraphics[width=\linewidth,height=2.8cm,keepaspectratio]{images/divide-and-conquer.png}\par}
-
 \subsection{Merge Sort}
 \begin{lstlisting}
 MERGE(A, p, q, r)
@@ -77,8 +74,6 @@ Sometimes solution is to prove something stronger
 
 \subsection{Recursion trees}
 Draw tree, sum cost per level, sum all levels.
-
-{\centering\includegraphics[width=\linewidth,height=4cm,keepaspectratio]{images/recursion-trees.png}\par}
 
 \subsection{Master method}
 \begin{thm}[title=Master Theorem]
@@ -261,16 +256,7 @@ CONNECTED-COMPONENTS(G)
             UNION(u, v)
 \end{lstlisting}
 
-\noindent\includegraphics[width=0.56\linewidth]{images/linkedList_representation.png}\hfill\includegraphics[width=0.38\linewidth]{images/tree_representation.png}
-
 \section{Traversing/Searching a Graph G=(V,E)}
-
-\begin{tabular}{lll}
- & \textbf{Adj. list} & \textbf{Adj. matrix} \\
-Space & $\Theta(V{+}E)$ & $\Theta(V^2)$ \\
-List G.adj[u] & $\Theta(\deg(u))$ & $\Theta(V)$ \\
-$(u,v)\in E$? & $O(\deg(u))$ & $\Theta(1)$ \\
-\end{tabular}
 
 \subsection{BFS - Breadth-First Search}
 
@@ -348,10 +334,6 @@ TOPOLOGICAL-SORT(G):
 Same as DFS: $\Theta(V+E)$
 \end{prop}
 
-\begin{center} % A retirer si besoin d'espace
-  \includegraphics[width=\linewidth]{images/topological-sort.png}
-\end{center}
-
 \subsection{Strongly connected components (SCC)}
 \begin{lstlisting}
 SCC(G):
@@ -366,31 +348,10 @@ SCC(G):
 Same as DFS: $\Theta(V+E)$
 \end{prop}
 
-\begin{center} % A retirer si besoin d'espace
-  \includegraphics[width=\linewidth]{images/scc.png}
-\end{center}
-
 \section{Flow network}
-\subsection{Definitions}
-\begin{center}
-    \includegraphics[width=\linewidth]{images/flow_network.png}
-\end{center}
-
-\begin{defn}[title=Formally]
-\begin{itemize}
-    \item Source: $s\in V$, sink: $t\in V$
-    \item Directed graph (DG): $G=(V,E)$
-    \item Each (u, v) has a capacity $c(u,v) \ge 0$
-    \item No antiparallel: if $(u,v)\in E$, then $(v,u)\not\in E$
-\end{itemize}
-\end{defn}
 
 \begin{thm}[title=Capacity constraint]
 $\forall u,v\in V$, $0\le f(u,v)\le c(u,v)$
-\end{thm}
-\begin{thm}[title=Flow conservation]
-$\forall u\in V\setminus\{s,t\}$,
-$\sum_{v\in V} f(u,v) = \sum_{v\in V} f(v,u)$
 \end{thm}
 
 \begin{defn}[title=Cut]
@@ -414,14 +375,6 @@ FORD-FULKERSON-METHOD(G, s, t)
 
 \subsection{Min cut problem}
 
-\begin{defn}[title=Min cut]
-It is a cut where the capacity crossing it is the minimum among all cuts.
-\end{defn}
-
-\begin{prop}[title=Net flow accross cut]
-$f(S,T) = \sum_{u\in S, v\in T} f(u,v) - \sum_{u\in S, v\in T} f(v,u)$
-\end{prop}
-
 \begin{thm}[title=Max-flow min-cut theorem ($\Leftrightarrow$)]
 \begin{itemize}
   \item f is the maximum flow
@@ -436,7 +389,7 @@ $G=(V,E)$, $V=L\cup R$. Connect $s\to\forall u\in L$ and $\forall v\in R\to t$, 
 \end{prop}
 
 \begin{prop}[title=Edge-disjoint paths]
-Max \# edge-disjoint paths from $s$ to $t$ = min edges to remove to disconnect $s$ from $t$ = max flow (all capacities 1).
+Max \# edge-disjoint paths from $s$ to $t$ = min edges to remove to disconnect $s$ from $t$ = max flow (c=1).
 \end{prop}
 
 
