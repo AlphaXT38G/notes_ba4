@@ -107,16 +107,8 @@ FIND-MAXIMUM-SUBARRAY(A, low, high)
 $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
 \end{prop}
 
-\section{Matrix Multiplication}
+\section{Matrix Multiplication - Strassen's Algorithm}
 
-$c_{ij}=\sum_{k=1}^n a_{ik}b_{kj}$. \textbf{Naive:} $\Theta(n^3)$ time, $\Theta(n^2)$ space.
-
-\subsection{Raw Divide-and-Conquer}
-\begin{prop}[title=Runtime]
-8 calls: $T(n)=8T(n/2)+\Theta(n^2)=\Theta(n^3)$
-\end{prop}
-
-\subsection{Strassen's Algorithm using Divide-and-Conquer}
 Only \textbf{7} recursive calls. Partition as before, compute:
 \begin{lstlisting}
 M1=(A11+A22)(B11+B22)  M5=(A11+A12)B22
@@ -131,15 +123,9 @@ $T(n)=7T(n/2)+\Theta(n^2)=\Theta(n^{\lg 7})\approx\Theta(n^{2.807})$
 \end{prop}
 
 \section{Karatsuba's Algorithm}
-\textbf{Problem:} multiply two $n$-digit integers $x,y$ in base $b$.
-
-\textbf{Divide:} split each number in two halves of $n/2$ digits:
-\[x=x_H b^{n/2}+x_L \qquad y=y_H b^{n/2}+y_L\]
-\[x\cdot y=x_Hy_H\cdot b^n+(x_Hy_L+x_Ly_H)\cdot b^{n/2}+x_Ly_L\]
-
-\textbf{Key:} naively 4 products, but:
-\[x_Hy_L+x_Ly_H=(x_H{+}x_L)(y_H{+}y_L)-x_Hy_H-x_Ly_L\]
-So only \textbf{3 recursive multiplications} needed.
+$x=x_H b^{n/2}+x_L$, $y=y_H b^{n/2}+y_L$.\\
+$\rightarrow xy=x_Hy_H b^n+(x_Hy_L+x_Ly_H)b^{n/2}+x_Ly_L$\\
+Only 3 products: $x_Hy_L+x_Ly_H=(x_H{+}x_L)(y_H{+}y_L)-x_Hy_H-x_Ly_L$.
 
 \begin{prop}[title=Runtime]
 $T(n)=3T(n/2)+\Theta(n)=\Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
@@ -232,19 +218,27 @@ CONNECTED-COMPONENTS(G)
             UNION(u, v)
 \end{lstlisting}
 
+\begin{thm}[title=Parenthesis theorem]
+For all $u,v$, exactly one of:
+\begin{itemize}
+  \item \textbf{Neither ances.:} $u.d<u.f<v.d<v.f$ (or >)
+  \item \textbf{$v$ descendant of $u$:} $u.d<v.d<v.f<u.f$
+  \item \textbf{$u$ descendant of $v$:} $v.d<u.d<u.f<v.f$
+\end{itemize}
+\end{thm}
+
 \section{Traversing/Searching a Graph G=(V,E)}
 
 \begin{lstlisting}
 BFS(G, s)
     for each u in G.V - {s}
         u.color = WHITE; u.d = inf; u.pi = NIL
-    s.color = GRAY; s.d = 0; s.pi = NIL
-    Q = {s}
+    s.color = GRAY; s.d = 0; s.pi = NIL; Q = {s}
     while Q != {}
         u = DEQUEUE(Q)
         for each v in G.Adj[u]
             if v.color == WHITE
-                v.color = GRAY
+                v.color = GRAY;
                 v.d = u.d + 1; v.pi = u
                 ENQUEUE(Q, v)
         u.color = BLACK
@@ -260,14 +254,11 @@ DFS(G)
     time = 0
     for each u in G.V
         if u.color == WHITE: DFS-VISIT(G, u)
-
 DFS-VISIT(G, u)
-    time = time + 1; u.d = time
-    u.color = GRAY
+    time = time + 1; u.d = time; u.color = GRAY
     for each v in G.Adj[u]
         if v.color == WHITE: DFS-VISIT(v)
-    u.color = BLACK
-    time = time + 1; u.f = time
+    u.color = BLACK; time = time + 1; u.f = time
 \end{lstlisting}
 
 \begin{prop}[title=Runtime]
@@ -282,17 +273,8 @@ $\Theta(V+E)$
 \textbf{UDG:} only tree/back edges. | \textbf{DAG:} no back edge.
 \end{defn}
 \begin{center} % A retirer si besoin d'espace
-  \includegraphics[width=\linewidth]{images/classification_of_edges.png}
+  \includegraphics[width=0.8\linewidth]{images/classification_of_edges.png}
 \end{center}
-
-\begin{thm}[title=Parenthesis theorem]
-For all $u,v$, exactly one of:
-\begin{itemize}
-  \item \textbf{Neither ances.:} $u.d<u.f<v.d<v.f$ (or >)
-  \item \textbf{$v$ descendant of $u$:} $u.d<v.d<v.f<u.f$
-  \item \textbf{$u$ descendant of $v$:} $v.d<u.d<u.f<v.f$
-\end{itemize}
-\end{thm}
 
 \begin{lstlisting}
 TOPOLOGICAL-SORT(G):
@@ -323,14 +305,10 @@ Same as DFS: $\Theta(V+E)$
 $\forall u,v\in V$, $0\le f(u,v)\le c(u,v)$
 \end{thm}
 
-\begin{defn}[title=Cut]
-Partition of $V$ into two disjoint sets $S$ and $T$ such that $s\in S$ and $t\in T$. $c(S,T)=\sum_{u\in S, v\in T} c(u,v)$.
-\end{defn}
-
 \subsection{Maximum flow problem - Ford-Fulkerson method}
 
 \begin{prop}[title={Residual network $G_f=(V,E_f)$}]
-$c_f(u,v)$: additional flow possible (forward edge) or removable (backward edge).
+$c_f(u,v)$: additional flow possible or removable.
 \end{prop}
 
 \begin{lstlisting}
@@ -351,14 +329,10 @@ FORD-FULKERSON-METHOD(G, s, t)
 \end{thm}
 
 \subsection{Applications of max flow}
-\begin{prop}[title=Bipartite matching as flow]
-$G=(V,E)$, $V=L\cup R$. Connect $s\to\forall u\in L$ and $\forall v\in R\to t$, all capacities 1. Run Ford-Fulkerson.
-\end{prop}
-
-\begin{prop}[title=Edge-disjoint paths]
-Max \# edge-disjoint paths from $s$ to $t$ = min edges to remove to disconnect $s$ from $t$ = max flow (c=1).
-\end{prop}
-
+\begin{enumerate}
+  \item Bipartite matching as flow.
+  \item Edge-disjoint paths
+\end{enumerate}
 
 % ============================================================
 \section{Spanning Trees}
@@ -414,15 +388,6 @@ $O(E\lg E) = O(E\lg V)$ (sorting dominates).
 
 \section{Shortest Paths}
 
-\begin{defn}[title=Problem variants]
-\begin{itemize}
-  \item \kv{Single-source}{from $s$ to all vertices}
-  \item \kv{Single-dest.}{reverse edges $\to$ single-source}
-  \item \kv{Single-pair}{no better worst case than single-s.}
-  \item \kv{All-pairs}{solve single-source for each vertex}
-\end{itemize}
-\end{defn}
-
 \begin{warn}[title=Negative weights]
 Allowed but no negative-weight cycle.
 \end{warn}
@@ -457,16 +422,15 @@ BELLMAN-FORD(G, w, s)
 \end{lstlisting}
 
 \begin{thm}[title=Correctness]
-\textbf{Invariant:} $l$(v) is at most the length of the shortest path from s to v using at most i edges after the i’th iteration. 
-\textbf{Intuition:} Après l'itération i, pour tout sommet v dont le plus court chemin depuis s utilise au plus i arêtes, $l$(v) vaut déjà sa valeur finale.
+\textbf{Invariant:} Après l'itération i, pour tout sommet v dont le plus court chemin depuis s utilise au plus i arêtes, $l$(v) vaut déjà sa valeur finale.
 \end{thm}
 
 \begin{prop}[title=Negative cycle detection]
-Run a $|V|$-th iteration: if any edge $(u,v)$ can still be relaxed, the shortest path to $v$ would require more than $|V|-1$ edges, implying a cycle. Since relaxing it decreases the cost, that cycle must be negative.
+If any edge can still be relaxed with one more iter.
 \end{prop}
 
 \begin{prop}[title=Runtime]
-$\Theta(E\cdot V)$. Good for distributed routing: each vertex repeatedly asks neighbors for best path.
+$\Theta(E\cdot V)$.
 \end{prop}
 
 Non-negative weights only. (an algo like Prim's)
@@ -493,8 +457,6 @@ The runtime is the same as Prim's algorithm.
 
 % ============================================================
 \section{Probabilistic Analysis}
-
-Worst case rarely happens. Randomization helps avoid worst-case and adversarial inputs (e.g., random pivot in quicksort). Also necessary in cryptography.
 
 \begin{defn}[title=Indicator RV]
 $I\{A\} = \begin{cases}1 & A\text{ occurs}\\0 & \text{otherwise}\end{cases}$ \quad $\E[I\{A\}] = P\{A\}$
@@ -561,6 +523,10 @@ RANDOMIZED-PARTITION(A, p, r)
     return PARTITION(A, p, r)
 \end{lstlisting}
 It changes how likely the worst case is to occur.
+
+\newcolumn
+
+Online algo à mettre ici
 
 \end{multicols*}
 \end{document}
