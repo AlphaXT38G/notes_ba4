@@ -274,15 +274,6 @@ DFS-VISIT(G, u)
 $\Theta(V+E)$
 \end{prop}
 
-\begin{thm}[title=Parenthesis theorem]
-For all $u,v$, exactly one of:
-\begin{itemize}
-  \item \textbf{Neither ances.:} $u.d<u.f<v.d<v.f$ (or >)
-  \item \textbf{$v$ descendant of $u$:} $u.d<v.d<v.f<u.f$
-  \item \textbf{$u$ descendant of $v$:} $v.d<u.d<u.f<v.f$
-\end{itemize}
-\end{thm}
-
 \begin{defn}[title=Classification of edges]
 \textcolor{orange}{\textbf{Tree:}} found by exploring $(u,v)$ in DF forest\\
 \textcolor{blue}{\textbf{Back:}} $(u,v)$, $u$ descendant of $v$\\
@@ -293,6 +284,15 @@ For all $u,v$, exactly one of:
 \begin{center} % A retirer si besoin d'espace
   \includegraphics[width=\linewidth]{images/classification_of_edges.png}
 \end{center}
+
+\begin{thm}[title=Parenthesis theorem]
+For all $u,v$, exactly one of:
+\begin{itemize}
+  \item \textbf{Neither ances.:} $u.d<u.f<v.d<v.f$ (or >)
+  \item \textbf{$v$ descendant of $u$:} $u.d<v.d<v.f<u.f$
+  \item \textbf{$u$ descendant of $v$:} $v.d<u.d<u.f<v.f$
+\end{itemize}
+\end{thm}
 
 \begin{lstlisting}
 TOPOLOGICAL-SORT(G):
