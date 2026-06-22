@@ -42,6 +42,7 @@ python build.py algo iml sigproc
 ### Algorithms I — `algo/`
 - [Cheat sheet](_overview/algo/cheatsheet.pdf)
 - [Course notes](_overview/algo/course.pdf)
+- [Condensed algos](_overview/algo/algos_condensed.pdf)
 
 ### Intro to Machine Learning — `iml/`
 - [Cheat sheet](_overview/iml/cheatsheet.pdf)
