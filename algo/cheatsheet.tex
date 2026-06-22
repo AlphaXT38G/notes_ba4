@@ -11,14 +11,13 @@
 \cheattitle{Algorithms I}{}{BA4}
 
 \begin{thm}[title=Sum of a sequence]
-  $\sum_{k=m}^{n} k = \frac{(m+n)(n-m+1)}{2}$\\
+  $\sum_{k=m}^{n} k = \frac{(m+n)(n-m+1)}{2}$ ;  $\sum_{i=1}^{n} \frac{1}{i} = \Theta(\log n)$\\
   $\sum_{k=m}^{n} z^{k} = \begin{cases} n-m+1 & z=1 \\ \frac{z^m-z^{n+1}}{1-z} & z\ne 1 \end{cases}$\\
-  $\displaystyle\sum_{i=1}^{n} \dfrac{1}{i} = \Theta(\log n)$
+  $\log_b n = \frac{\log_2 n}{\log_2 b}$ ; $\log(ab) = \log a + \log b$
 \end{thm}
 
 \section{Sorting}
 
-\subsection{Insertion Sort}
 \begin{lstlisting}
 INSERTION-SORT(A, n)
     for j = 2 to n
@@ -35,7 +34,6 @@ In-place. $\Theta(n^2)$ worst, $\Theta(n)$ best. \textbf{Inv:} $A[1..j{-}1]$ sor
 \textbf{Init:} $j{=}2$, trivial. \textbf{Maint:} key inserted correctly. \textbf{Term:} $A$ sorted.
 \end{prop}
 
-\subsection{Merge Sort}
 \begin{lstlisting}
 MERGE(A, p, q, r)
     n1 = q-p+1; n2 = r-q
@@ -68,14 +66,9 @@ Not in-place. $T(n)=2T(n/2)+\Theta(n)=\Theta(n\lg n)$
   \item Use \textbf{induction} to find constants \& verify.
 \end{enumerate}
 
-\begin{prop}[title=Unintuitive trick]
-Sometimes solution is to prove something stronger
-\end{prop}
-
 \subsection{Recursion trees}
 Draw tree, sum cost per level, sum all levels.
 
-\subsection{Master method}
 \begin{thm}[title=Master Theorem]
 $T(n)=aT(n/b)+f(n)$, $a\ge1$, $b>1$, $\alpha=\log_b a$:\\[2pt]
 \begin{tabular}{@{}l@{$\;\Rightarrow\;$}l@{}}
@@ -173,8 +166,6 @@ MAX-HEAPIFY(A, i, n)
 $T(n) \le T(2n/3) + \Theta(1) = O(\lg n)$
 \end{prop}
 
-\subsection{Build-Max-Heap}
-
 \begin{lstlisting}
 BUILD-MAX-HEAP(A, n)
     for i = floor(n/2) downto 1
@@ -184,8 +175,6 @@ BUILD-MAX-HEAP(A, n)
 \begin{prop}[title=Runtime]
 $O(n)$ (tighter than the naive $O(n \lg n)$)
 \end{prop}
-
-\subsection{Heapsort}
 
 \begin{lstlisting}
 HEAPSORT(A, n)
@@ -223,22 +212,12 @@ MAX-HEAP-INSERT(A, key, n)
 \texttt{Insert}: $O(\lg n)$, \texttt{Maximum}: $O(1)$, \texttt{Extract-Max}: $O(\lg n)$, \texttt{Increase-Key}: $O(\lg n)$
 \end{prop}
 
-\section{Data Structures for items}
-
-\textbf{Stack} (LIFO): +: \texttt{PUSH(S,x)}, -: \texttt{POP(S)}.
-\textbf{Queue} (FIFO): +: \texttt{ENQUEUE(Q,x)}, -: \texttt{DEQUEUE(Q)}.
-
-\newpage
-
 \section{Data Structures for Disjoint Sets}
 Each set identified by a representative.
 
 \begin{defn}[title=Operations]
 \begin{itemize}
   \item \texttt{MAKE-SET(x)}: $S_i = \{x\}$, add to $\mathcal{S}$
-\end{itemize}
-Let $x \in S_x$, $y \in S_y$
-\begin{itemize}
   \item \texttt{UNION(x, y)}: $\mathcal{S} = \mathcal{S} \setminus \{S_x, S_y\} \cup \{S_x \cup S_y\}$
   \item \texttt{FIND(x)}: return representative of $x$ in $S_x$
 \end{itemize}
@@ -254,8 +233,6 @@ CONNECTED-COMPONENTS(G)
 \end{lstlisting}
 
 \section{Traversing/Searching a Graph G=(V,E)}
-
-\subsection{BFS - Breadth-First Search}
 
 \begin{lstlisting}
 BFS(G, s)
@@ -276,8 +253,6 @@ BFS(G, s)
 \begin{prop}[title=BFS properties]
 Search for all vertices from $s$. Runtime: $O(V+E)$.
 \end{prop}
-
-\subsection{DFS - Depth-First Search}
 
 \begin{lstlisting}
 DFS(G)
@@ -319,8 +294,6 @@ For all $u,v$, exactly one of:
   \includegraphics[width=\linewidth]{images/classification_of_edges.png}
 \end{center}
 
-\subsection{Topological sort}
-
 \begin{lstlisting}
 TOPOLOGICAL-SORT(G):
     Call DFS(G) to compute v.f for all v in G.V
@@ -331,7 +304,6 @@ TOPOLOGICAL-SORT(G):
 Same as DFS: $\Theta(V+E)$
 \end{prop}
 
-\subsection{Strongly connected components (SCC)}
 \begin{lstlisting}
 SCC(G):
     Call DFS(G) to compute u.f for all u
@@ -370,8 +342,6 @@ FORD-FULKERSON-METHOD(G, s, t)
     return f
 \end{lstlisting}
 
-\subsection{Min cut problem}
-
 \begin{thm}[title=Max-flow min-cut theorem ($\Leftrightarrow$)]
 \begin{itemize}
   \item f is the maximum flow
@@ -393,16 +363,10 @@ Max \# edge-disjoint paths from $s$ to $t$ = min edges to remove to disconnect $
 % ============================================================
 \section{Spanning Trees}
 
-\begin{defn}[title=Definition]
-Set $T$ of edges that is acyclic and spanning (connects all vertices of $G$).
-\textbf{Goal of MST problem: }Find a spanning tree of min total weight.
-\end{defn}
-
 \begin{thm}[title=Cut property (safe edge)]
 Given any cut, a minimum-weight crossing edge belongs to some MST.
 \end{thm}
 
-\subsection{Prim's algorithm}
 \begin{lstlisting}
 PRIM(G, w, r)    // G undirected ; w: E -> R weights
     Q = {}             // min-priority (sorted by w)
@@ -424,10 +388,9 @@ T is always a subtree of a MST.
 \end{thm}
 
 \begin{prop}[title=Prim's runtime]
-$O(E\lg V)$ with binary heap. $O(V\lg V+E)$ with Fibonacci heap.
+$O(E\lg V)$: binary heap. $O(V\lg V+E)$: Fibo. heap.
 \end{prop}
 
-\subsection{Kruskal's algorithm}
 \begin{lstlisting}
 KRUSKAL(G, w)
     A = {}
@@ -485,8 +448,6 @@ RELAX(u, v, w)
         v.d = u.d + w(u, v); v.pi = u
 \end{lstlisting}
 
-\subsection{Bellman-Ford}
-
 \begin{lstlisting}
 BELLMAN-FORD(G, w, s)
     INIT-SINGLE-SOURCE(G, s)
@@ -508,7 +469,6 @@ Run a $|V|$-th iteration: if any edge $(u,v)$ can still be relaxed, the shortest
 $\Theta(E\cdot V)$. Good for distributed routing: each vertex repeatedly asks neighbors for best path.
 \end{prop}
 
-\subsection{Dijkstra's Algorithm}
 Non-negative weights only. (an algo like Prim's)
 
 \begin{lstlisting}
@@ -537,8 +497,7 @@ The runtime is the same as Prim's algorithm.
 Worst case rarely happens. Randomization helps avoid worst-case and adversarial inputs (e.g., random pivot in quicksort). Also necessary in cryptography.
 
 \begin{defn}[title=Indicator RV]
-\[I\{A\} = \begin{cases}1 & A\text{ occurs}\\0 & \text{otherwise}\end{cases}\]
-\textbf{Lemma:} $\E[I\{A\}] = P\{A\}$
+$I\{A\} = \begin{cases}1 & A\text{ occurs}\\0 & \text{otherwise}\end{cases}$ \quad $\E[I\{A\}] = P\{A\}$
 \end{defn}
 
 \begin{prop}[title=Hiring Problem]
@@ -552,7 +511,6 @@ $\leq e^{-q(q-1)/(2n)}$.
 
 % ============================================================
 \section{Data Structure: Hash Tables}
-Insert, Delete and Search in $O(1)$
 
 \begin{defn}[title=Hash function]
 $h: U\to\{0,\ldots,m{-}1\}$ maps key universe to $m$ slots.\\
@@ -596,31 +554,13 @@ QUICKSORT(A, p, r)
 In-place $\Theta(n^2)$ worst, $\Theta(n\lg(n))$ on best/average
 \end{prop}
 
-
-\subsection{Randomized version}
 \begin{lstlisting}
 RANDOMIZED-PARTITION(A, p, r)
     i = RANDOM(p, r)
     exchange A[r] with A[i]
     return PARTITION(A, p, r)
-
-RANDOMIZED-QUICKSORT(A, p, r)
-    if p < r
-        q = RANDOMIZED-PARTITION(A, p, r)
-        RANDOMIZED-QUICKSORT(A, p, q-1)
-        RANDOMIZED-QUICKSORT(A, q+1, r)
 \end{lstlisting}
 It changes how likely the worst case is to occur.
-
-% ============================================================
-\section{Logarithm Identities}
-% ============================================================
-
-\begin{prop}[title=Key Identities]
-\kv{Change of base}{$\log_b(n) = \dfrac{\log_2(n)}{\log_2(b)}$}
-\kv{Product}{$\log(a \times b) = \log(a) + \log(b)$}
-\end{prop}
-
 
 \end{multicols*}
 \end{document}
