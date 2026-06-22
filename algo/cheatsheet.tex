@@ -87,8 +87,6 @@ $f=\Omega(n^{\alpha+\varepsilon})$, $af(n/b)\le cf(n)$ & $T=\Theta(f(n))$ \\
 
 \section{Maximum-Subarray Problem}
 
-{\centering\includegraphics[width=\linewidth,height=1.5cm,keepaspectratio]{images/max-crossing-subarray.png}\par}
-
 \begin{lstlisting}
 FIND-MAX-CROSSING-SUBARRAY(A, low, mid, high)
     ls=-inf; rs=-inf; sum=0
@@ -155,8 +153,7 @@ $T(n)=3T(n/2)+\Theta(n)=\Theta(n^{\log_2 3})\approx\Theta(n^{1.585})$
 \end{prop}
 
 \section{Heaps}
-\subsection{Max-Heapify}
-Assumes subtrees rooted at \texttt{LEFT}$(i)$ and \texttt{RIGHT}$(i)$ are already max-heaps.
+Assume \texttt{LEFT}$(i)$ and \texttt{RIGHT}$(i)$ are already max-heaps.
 
 \begin{lstlisting}
 MAX-HEAPIFY(A, i, n)
