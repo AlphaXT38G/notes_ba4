@@ -405,7 +405,7 @@ Given any cut, a minimum-weight crossing edge belongs to some MST.
 \subsection{Prim's algorithm}
 \begin{lstlisting}
 PRIM(G, w, r)    // G undirected ; w: E -> R weights
-    Q = {}          // min-priority queue (min-heap)
+    Q = {}             // min-priority (sorted by w)
     for each u in G.V:
         u.key = inf
         u.pi = NIL             // u.pi = parent in T
