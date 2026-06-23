@@ -524,7 +524,10 @@ RANDOMIZED-PARTITION(A, p, r)
 \end{lstlisting}
 It changes how likely the worst case is to occur.
 
-\newcolumn
+\begin{prop}[title=Probability x compared to y]
+$\Pr[x \leftrightarrow y] = \frac{2}{|\text{rk}(x)-\text{rk}(y)|+1}$.\\
+$\text{rk}(x)$ = position of $x$ in sorted order.
+\end{prop}
 
 \section{Online Algorithms}
 
@@ -562,15 +565,6 @@ Independent nonneg.\ RVs $X_1,\ldots,X_n$ with known distributions; accept one i
 Threshold $\tau=\mathbb{E}[M]/2$, accept first $X_i\geq\tau$:
 $\mathbb{E}[\text{ALG}]\geq\tfrac{1}{2}\mathbb{E}[\max_i X_i]$. Tight.
 \end{thm}
-
-\begin{defn}[title=Secretary vs Prophet]
-\begin{tabular}{@{}lll@{}}
- & \textbf{Secretary} & \textbf{Prophet} \\
-Info & observed weights & distributions \\
-Benchmark & max weight & $\mathbb{E}[\max_i X_i]$ \\
-Guarantee & $1/e$ success & $1/2$ exp.\ value \\
-\end{tabular}
-\end{defn}
 
 \vfill
 \begin{center}
