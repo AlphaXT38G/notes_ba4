@@ -331,7 +331,7 @@ FORD-FULKERSON-METHOD(G, s, t)
 \subsection{Applications of max flow}
 \begin{enumerate}
   \item Bipartite matching as flow.
-  \item Edge-disjoint paths
+  \item Edge-disjoint paths.
 \end{enumerate}
 
 % ============================================================
@@ -526,7 +526,56 @@ It changes how likely the worst case is to occur.
 
 \newcolumn
 
-Online algo à mettre ici
+\section{Online Algorithms}
+
+\begin{defn}[title=Competitive Ratio]
+ALG is \textbf{$r$-competitive} if $\forall I$: $\text{cost}_\text{ALG}(I) \leq r \cdot \text{cost}_\text{OPT}(I) + c$. Strong: $c=0$.
+\end{defn}
+
+\subsection{Expert Advice ($N$ experts, $T$ rounds)}
+$N$ experts predict YES/NO. $M_i$ = mistakes of expert $i$. \textbf{Elimination} (majority vote, delete wrong experts): $M_\text{ALG} \leq \lg N$ if a perfect expert exists.
+
+\textbf{Weighted Majority}: init $w_i=1$, halve weight on mistake, predict by weighted majority.
+\begin{thm}
+$M_\text{WM} \leq 2.41(\min_i M_i + \lg N)$
+\end{thm}
+
+\subsection{Ski Rental}
+Rent 1/day or buy at cost $B$. \textbf{Rent-then-buy}: rent $B$ days then buy $\Rightarrow$ 2-competitive ($T\leq B$: ALG$=T=$OPT; $T>B$: ALG$=2B$, OPT$=B$).
+\begin{thm}
+No deterministic algo beats ratio 2. Randomized: $e/(e{-}1)\approx1.58$.
+\end{thm}
+
+\subsection{Caching}
+Cache of $k$ pages; miss = cost 1. \textbf{Belady (OPT)}: evict farthest-in-future. \textbf{LRU}/\textbf{FIFO}: $k$-competitive. \textbf{LIFO}: not competitive. No deterministic algo beats $k$.
+
+\subsection{Secretary Problem}
+$n$ candidates, random arrival order. \textbf{Sample-then-record}: reject first $r{-}1$, accept first new record.
+\[ \Pr[\text{success}] = \frac{1}{n}\sum_{i=r}^{n}\frac{r-1}{i-1} \approx \frac{r}{n}\ln\!\tfrac{n}{r} \]
+\begin{thm}
+Optimal $r=n/e$ gives $\Pr[\text{success}]\approx 1/e\approx 0.368$. Tight: no algo beats $1/e$.
+\end{thm}
+
+\subsection{Prophet Inequality}
+Independent nonneg.\ RVs $X_1,\ldots,X_n$ with known distributions; accept one irrevocably. Prophet gets $M=\max_i X_i$.
+\begin{thm}
+Threshold $\tau=\mathbb{E}[M]/2$, accept first $X_i\geq\tau$:
+$\mathbb{E}[\text{ALG}]\geq\tfrac{1}{2}\mathbb{E}[\max_i X_i]$. Tight.
+\end{thm}
+
+\begin{defn}[title=Secretary vs Prophet]
+\begin{tabular}{@{}lll@{}}
+ & \textbf{Secretary} & \textbf{Prophet} \\
+Info & observed weights & distributions \\
+Benchmark & max weight & $\mathbb{E}[\max_i X_i]$ \\
+Guarantee & $1/e$ success & $1/2$ exp.\ value \\
+\end{tabular}
+\end{defn}
+
+\vfill
+\begin{center}
+\textit{Bon courage.}
+\end{center}
 
 \end{multicols*}
 \end{document}
