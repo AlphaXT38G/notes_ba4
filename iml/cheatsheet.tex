@@ -74,6 +74,37 @@ No closed form: use GD. Predict class \(1\) if \(\hat y\ge\tau\).
 The main diff. between them is the loss function.
 \end{thm}
 
+\section{Classification Metrics}
+
+\begin{defn}[title=Confusion Matrix (binary)]
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{@{}lXX@{}}
+\toprule
+ & \textbf{Pred Pos} & \textbf{Pred Neg}\\
+\midrule
+\textbf{True Pos} & TP & FN (type II)\\
+\textbf{True Neg} & FP (type I) & TN\\
+\bottomrule
+\end{tabularx}
+\[ P = TP+FN \quad N = FP+TN \]
+\end{defn}
+
+\begin{defn}[title=Metrics]
+\kv{Accuracy}{$\frac{TP+TN}{TP+TN+FP+FN}$}
+\kv{Precision}{$\frac{TP}{TP+FP}$}
+\kv{Recall}{$\frac{TP}{TP+FN}$}
+\kv{FPR}{$\frac{FP}{FP+TN}$}
+\kv{F1}{$2\cdot\frac{\text{Prec}\cdot\text{Rec}}{\text{Prec}+\text{Rec}}$}
+\end{defn}
+
+\begin{prop}[title=Interpretation --- Goal $\to$ Metric]
+\kv{Reduce FP}{$\uparrow$ Precision (spam filter, recommendations)}
+\kv{Reduce FN}{$\uparrow$ Recall (cancer detection, fraud)}
+\kv{Balance FP \& FN}{$\uparrow$ F1 (imbalanced classes)}
+\kv{Reduce FPR}{$\downarrow$ FP/(FP+TN): fewer false alarms on negatives}
+\kv{Imbalanced data}{F1 or weighted avg; \textit{Accuracy misleading!}}
+\end{prop}
+
 
 \end{multicols*}
 \end{document}
