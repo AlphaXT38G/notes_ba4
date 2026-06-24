@@ -236,7 +236,7 @@ Extract patches $\to$ cluster into $D$ visual words $\to$ count $\to$ normalize 
 \kv{Class-conditioned mean}{best}
 
 \subsection{Noise / Binning}
-Sort $\to$ bins (equal width \textit{or} equal freq.) $\to$ replace by bin mean/median.
+Sort $\to$ bins $\to$ replace by bin mean/median.
 
 \section{Imbalanced Data}
 \begin{prop}[title=Sampling Methods]
@@ -250,6 +250,38 @@ R=\frac1N\sum_i\beta_i\ell(\hat y_i,y_i)
 \]
 Do not optimize \(\beta_i\): trivial 0-loss solutions.
 \end{thm}
+
+\section{Neural Networks}
+\begin{center}
+\includegraphics[width=0.65\linewidth]{images/mlp-zoom.png}
+\end{center}
+
+\begin{prop}[title=Backpropagation]
+For neuron \(k\) in layer \(l\):
+\[
+a^{(k)}_{(l)}=\sum_jW^{(k,j)}_{(l)}z^{(j)}_{(l-1)},\quad
+z^{(k)}_{(l)}=f(a^{(k)}_{(l)})
+\]
+\[
+\delta^{(k)}_{(l)}=\frac{\partial\ell_i}{\partial a^{(k)}_{(l)}},\qquad
+\frac{\partial\ell_i}{\partial W^{(k,j)}_{(l)}}=
+\delta^{(k)}_{(l)}z^{(j)}_{(l-1)}
+\]
+\end{prop}
+
+\begin{prop}[title=Stochastic Gradient Descent (SGD)]
+Momentum: Accelerates consistent directions and damps oscillations.
+\[
+\nu\leftarrow\gamma\nu+\eta\nabla R(W),\qquad W\leftarrow W-\nu
+\]
+\end{prop}
+
+\begin{defn}[title=Neural Network Regularization]
+\textbf{Dropout:} zero each neuron w.p.\ $p$ during train.\\
+\textbf{Early stopping:} stop when val.\ loss starts rising.\\
+\textbf{Weight decay:} $+\lambda\|W\|_F^2$ in loss (L2 for NNs).\\
+\textbf{Data augmentation:} flip/crop/rotate.
+\end{defn}
 
 \end{multicols*}
 \end{document}
