@@ -439,5 +439,18 @@ K-means exploits compactness; fails on non-compact clusters such as concentric c
 \includegraphics[width=\linewidth]{images/attention.png}
 \end{center}
 
+\section{Transformers}
+\begin{center}
+\includegraphics[width=\linewidth]{images/self_attention.png}
+\end{center}
+
+\begin{prop}[title=Transformer Blocks]
+Transformer encoder/decoder are stacks of blocks with multi-head attention, feed-forward layers, and Add \& Norm. Main advantage over RNNs: self-attention can process inputs in parallel instead of sequentially.
+\end{prop}
+
+\begin{defn}[title=Decoder Details]
+Masked self-attention prevents attending to future tokens. Cross-attention in the decoder attends over encoder outputs. GPT is a decoder transformer using masked multi-head self-attention and no cross-attention.
+\end{defn}
+
 \end{multicols*}
 \end{document}
