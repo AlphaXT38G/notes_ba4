@@ -145,12 +145,9 @@ Prediction: \(\hat y=\mathrm{sign}(w^Tx+b)\). L2 regularization.
 \section{k-Nearest Neighbors}
 \begin{prop}[title=No training beyond storing data !]
 \textbf{Classification:} majority vote.\\
-\textbf{Regression:} average or weighted average
+\textbf{Regression:} average or weighted average\\
+\textbf{Normalize} ; Small \(k\): outlier-sensitive, overfit risk. \\Large \(k\): smoother, underfit risk.
 \end{prop}
-
-\begin{warn}[title=kNN Tricks]
-Small \(k\): flexible, outlier-sensitive, overfit risk. Large \(k\): smoother, underfit risk. Choose \(k\) by V/CV. \textbf{Normalize}.
-\end{warn}
 
 \section{Feature Expansion + CV}
 \begin{prop}[title=Polynomial Features - Cover idea]
@@ -168,6 +165,10 @@ Never use test data to choose hyperparameters.\\
 \textbf{LOOCV:} train \(N\) times, expensive.\\
 \textbf{K-fold:} train \(K\) times, common \(K=5,10\).
 \end{thm}
+
+\begin{warn}[title=Overfitting Risk]
+High-degree $\phi \Rightarrow F\gg N \Rightarrow$ overfitting.
+\end{warn}
 
 \section{Ridge + Kernels}
 \begin{prop}[title=L2 / Ridge Regression]
@@ -190,7 +191,7 @@ K_{ij}=k(x_i,x_j)\in\R^{N\times N} \quad K=K^T,\qquad K\succeq0
 \end{prop}
 
 \begin{thm}[title=Representer Theorem]
-The minimizer of any regularized empirical risk can be written as:
+The minimizer of any regularized empirical risk:
 \[
 w^\star=\Phi^T\alpha=\sum_i\alpha_i\phi(x_i)
 \]
