@@ -142,7 +142,6 @@ Use when data is linearly separable; no misclassification allowed.
 Prediction: \(\hat y=\mathrm{sign}(w^Tx+b)\). L2 regularization.
 \end{thm}
 
-
 \section{k-Nearest Neighbors}
 \begin{prop}[title=No training beyond storing data !]
 \textbf{Classification:} majority vote.\\
@@ -169,6 +168,43 @@ Never use test data to choose hyperparameters.\\
 \textbf{LOOCV:} train \(N\) times, expensive.\\
 \textbf{K-fold:} train \(K\) times, common \(K=5,10\).
 \end{thm}
+
+\section{Ridge + Kernels}
+\begin{prop}[title=L2 / Ridge Regression]
+\[
+E(w)=\sum_i(\phi(x_i)^Tw-y_i)^2+\lambda\|w\|^2
+\]
+\[
+w^\star=(\Phi^T\Phi+\lambda I_F)^{-1}\Phi^Ty
+\]
+\(\lambda\uparrow\): weights shrink toward \(0\), simpler model, underfit as \(\lambda\to\infty\). Adding \(\lambda I\) helps invertibility issue.
+\end{prop}
+
+\begin{prop}[title=Kernel Trick]
+\[
+k(x_i,x_j)=\phi(x_i)^T\phi(x_j)
+\]
+\[
+K_{ij}=k(x_i,x_j)\in\R^{N\times N} \quad K=K^T,\qquad K\succeq0
+\]
+\end{prop}
+
+\begin{thm}[title=Representer Theorem]
+The minimizer of any regularized empirical risk can be written as:
+\[
+w^\star=\Phi^T\alpha=\sum_i\alpha_i\phi(x_i)
+\]
+Optimize $\alpha$ instead of $w$ $\Rightarrow$ everything via $K$.
+\end{thm}
+
+\begin{prop}[title=Kernel Ridge Regression]
+\[
+\alpha^\star=(K+\lambda I_N)^{-1}y
+\]
+\[
+\hat y=y^T(K+\lambda I_N)^{-1}k(X,x) \quad \text{(same with Y)}
+\]
+\end{prop}
 
 \end{multicols*}
 \end{document}
