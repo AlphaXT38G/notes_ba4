@@ -207,6 +207,37 @@ Optimize $\alpha$ instead of $w$ $\Rightarrow$ everything via $K$.
 \]
 \end{prop}
 
+\section{Data Representation}
+
+\begin{defn}[title=Normalization]
+\[
+\text{min-max: }x\leftarrow\frac{x-\min}{\max-\min}\in[0,1]
+\]
+\[
+\text{z-score: }x\leftarrow\frac{x-\mu}{\sigma}
+\]
+\[
+\text{max: }x\leftarrow x/\max,\quad
+\text{decimal: }x\leftarrow x/10^j
+\]
+\end{defn}
+
+\subsection{Images: Bag of Words (BoW)}
+\begin{center}
+\includegraphics[width=0.8\linewidth]{images/bag_of_words.png}
+\end{center}
+
+\subsection{Images: Visual BoW}
+Extract patches $\to$ cluster into $D$ visual words $\to$ count $\to$ normalize $\Rightarrow x_i\in\R^D$.
+
+\subsection{Missing Data}
+\kv{Drop}{loses info}\\
+\kv{Global mean}{fast, ignores class}\\
+\kv{Class-conditioned mean}{best}
+
+\subsection{Noise / Binning}
+Sort $\to$ bins (equal width \textit{or} equal freq.) $\to$ replace by bin mean/median.
+
 
 \end{multicols*}
 \end{document}
