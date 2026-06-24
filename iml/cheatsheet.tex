@@ -26,5 +26,44 @@ R(w)=\frac1N\sum_{i=1}^{N}\ell(\hat y_i,y_i),\qquad
 \textbf{Gradient descent:} \(w_{t+1}=w_t-\eta\nabla_w R(w_t)\).
 \end{thm}
 
+\section{Linear Regression}
+\begin{prop}[title=Model + Objective]
+\[
+\hat y_i=w^T x_i,\qquad
+R(w)=\frac1N\sum_i(w^Tx_i-y_i)^2
+\]
+\[
+\nabla_wR(w)=\frac2N\sum_i(w^Tx_i-y_i)x_i
+\]
+\[
+X^TXw^\star=X^Ty,\quad
+w^\star=(X^TX)^{-1}X^Ty = X^\dagger y
+\]
+\textbf{Fails if:} \(N<D\) \(\Rightarrow\) \(\mathrm{rank}(X)<D\).
+\end{prop}
+
+\begin{prop}[title=Multi-output Regression]
+\[
+\hat y_i=W^Tx_i\in\R^C
+\]
+\[
+\min_W\sum_i\|W^Tx_i-y_i\|^2,\qquad
+W^\star=X^\dagger Y
+\]
+\end{prop}
+
+\begin{defn}[title=Regression Metrics]
+\[
+\mathrm{MSE}=\frac1N\sum_i(y_i-\hat y_i)^2 ;\quad
+\mathrm{MAE}=\frac1N\sum_i|\hat y_i-y_i|,
+\]
+\[
+\mathrm{RMSE}=\sqrt{\mathrm{MSE}} ;\quad
+\mathrm{MAPE}=\frac1N\sum_i
+\left|\frac{\hat y_i-y_i}{y_i}\right|
+\]
+\end{defn}
+
+
 \end{multicols*}
 \end{document}
