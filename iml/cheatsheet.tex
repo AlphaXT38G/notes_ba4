@@ -426,6 +426,18 @@ Initialization matters; run multiple initializations. Euclidean distance makes f
 K-means exploits compactness; fails on non-compact clusters such as concentric circles.
 \end{prop}
 
+\section{NLP, RNNs, Attention}
+\begin{defn}[title=Word Representations]
+\textbf{Word2Vec}: dense \(\R^d\) embeddings trained self-supervised from context; similar words \(\approx\) nearby vectors (king\(-\)man\(+\)woman\(\approx\)queen).
+\end{defn}
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/rnn.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/attention.png}
+\end{center}
 
 \end{multicols*}
 \end{document}
