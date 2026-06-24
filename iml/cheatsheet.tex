@@ -154,7 +154,22 @@ No training beyond storing data.
 Small \(k\): flexible, outlier-sensitive, overfit risk. Large \(k\): smoother, underfit risk. Choose \(k\) by V/CV. \textbf{Normalize}.
 \end{warn}
 
+\section{Feature Expansion + CV}
+\begin{prop}[title=Polynomial Features - Cover idea]
+Nonlinear high-dimensional mapping can make patterns more linearly separable.
+\end{prop}
 
+\begin{defn}[title=Over/Underfitting]
+\textbf{Underfit:} train and test errors $\uparrow$; model too simple.\\
+\textbf{Overfit:} train error $\downarrow$, valid./test error $\uparrow$; complex.
+\end{defn}
+
+\begin{thm}[title=Cross-validation]
+Never use test data to choose hyperparameters.\\
+\textbf{Validation set:} fast, split-dependent.\\
+\textbf{LOOCV:} train \(N\) times, expensive.\\
+\textbf{K-fold:} train \(K\) times, common \(K=5,10\).
+\end{thm}
 
 \end{multicols*}
 \end{document}
