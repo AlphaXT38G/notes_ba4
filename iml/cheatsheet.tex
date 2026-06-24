@@ -39,17 +39,8 @@ R(w)=\frac1N\sum_i(w^Tx_i-y_i)^2
 X^TXw^\star=X^Ty,\quad
 w^\star=(X^TX)^{-1}X^Ty = X^\dagger y
 \]
-\textbf{Fails if:} \(N<D\) \(\Rightarrow\) \(\mathrm{rank}(X)<D\).
-\end{prop}
-
-\begin{prop}[title=Multi-output Regression]
-\[
-\hat y_i=W^Tx_i\in\R^C
-\]
-\[
-\min_W\sum_i\|W^Tx_i-y_i\|^2,\qquad
-W^\star=X^\dagger Y
-\]
+\textbf{Fails if:} \(N<D\) \(\Rightarrow\) \(\mathrm{rank}(X)<D\).\\
+\textbf{Multi-output:} \(W^\star=X^\dagger Y\).
 \end{prop}
 
 \begin{defn}[title=Regression Metrics]
