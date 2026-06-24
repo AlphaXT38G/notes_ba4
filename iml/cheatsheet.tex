@@ -238,6 +238,18 @@ Extract patches $\to$ cluster into $D$ visual words $\to$ count $\to$ normalize 
 \subsection{Noise / Binning}
 Sort $\to$ bins (equal width \textit{or} equal freq.) $\to$ replace by bin mean/median.
 
+\section{Imbalanced Data}
+\begin{prop}[title=Sampling Methods]
+\textbf{Oversampling:} + minority; naive duplication can overfit; SMOTE-like neighbors can add noise.\\
+\textbf{Undersampling:} - majority; random removal may discard important samples; remove redundancy.
+\end{prop}
+
+\begin{thm}[title=Cost-sensitive Risk]
+\[
+R=\frac1N\sum_i\beta_i\ell(\hat y_i,y_i)
+\]
+Do not optimize \(\beta_i\): trivial 0-loss solutions.
+\end{thm}
 
 \end{multicols*}
 \end{document}
