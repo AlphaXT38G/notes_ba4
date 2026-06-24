@@ -304,6 +304,43 @@ Convs: translation equivariance.\\
 Pooling/stride: downsampling + robustness.
 \end{warn}
 
+\section{Dimensionality Reduction}
+\begin{defn}[title=Goal]
+Given \(x_i\in\R^D\), find \(y_i\in\R^d\), \(d<D\), preserving useful structure. Reduces cost and can regularize.
+\end{defn}
+
+\begin{prop}[title=PCA Projection]
+\[
+\bar x=\frac1N\sum_i x_i,\qquad
+y_i=W^T(x_i-\bar x)
+\]
+\[
+W^TW=I_d
+\]
+Covariance:
+\[
+C=\frac1N\sum_i(x_i-\bar x)(x_i-\bar x)^T
+\]
+1D objective:
+\[
+\max_{\|w\|=1}w^TCw\quad\Rightarrow\quad Cw=\lambda w
+\]
+Pick eigenvectors of \(C\) with largest eigenvalues. Projected variance equals eigenvalue.
+\end{prop}
+
+\begin{prop}[title=PCA Reconstruction]
+\[
+\hat x_i=\bar x+Wy_i=\bar x+WW^T(x_i-\bar x)
+\]
+PCA minimizes reconstruction error among linear orthogonal projections. Keeping all \(D\) components loses no information and decorrelates features. Keep \(d\) such that:
+\[
+\sum_{j=1}^{d}\lambda_j\ge0.9\sum_{k=1}^{D}\lambda_k
+\]
+\end{prop}
+
+\begin{warn}[title=PCA Tricks]
+PCA is unsupervised: labels do not affect components. It is sensitive to feature scale; normalize/standardize first. Principal components are ordered by eigenvalues, not eigenvector magnitudes. PCA can reduce noise and be seen as a linear autoencoder.
+\end{warn}
 
 \end{multicols*}
 \end{document}
