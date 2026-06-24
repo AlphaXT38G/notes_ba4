@@ -44,15 +44,10 @@ w^\star=(X^TX)^{-1}X^Ty = X^\dagger y
 \end{prop}
 
 \begin{defn}[title=Regression Metrics]
-\[
-\mathrm{MSE}=\frac1N\sum_i(y_i-\hat y_i)^2 ;\quad
-\mathrm{MAE}=\frac1N\sum_i|\hat y_i-y_i|,
-\]
-\[
-\mathrm{RMSE}=\sqrt{\mathrm{MSE}} ;\quad
-\mathrm{MAPE}=\frac1N\sum_i
-\left|\frac{\hat y_i-y_i}{y_i}\right|
-\]
+\kv{MSE}{$\frac{1}{N}\sum(y_i-\hat{y}_i)^2$} — penalizes large errors
+\kv{RMSE}{$\sqrt{\text{MSE}}$} — same unit as $y$; more interpretable
+\kv{MAE}{$\frac{1}{N}\sum|y_i-\hat{y}_i|$} — robust to outliers
+\kv{MAPE}{$\frac{1}{N}\sum\left|\frac{y_i-\hat{y}_i}{y_i}\right|$} — relative; undef.\ if $y_i{=}0$
 \end{defn}
 
 \section{Binary Classification}
