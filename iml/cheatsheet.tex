@@ -406,5 +406,20 @@ PCA/eigenfaces minimize reconstruction error and may keep nuisance variation (e.
 \end{defn}
 \fi
 
+\section{K-means}
+\begin{prop}[title=Problem + Algorithm]
+Unsupervised clustering into \(K\) groups with compact clusters.
+\begin{enumerate}
+\item Initialize centers \(\mu_1,\ldots,\mu_K\).
+\item Assign each \(x_i\) to nearest \(\mu_k\).
+\item Update each \(\mu_k\) as mean of assigned points.
+\item Repeat until assignments/centers stop changing.
+\end{enumerate}
+\end{prop}
+
+\begin{warn}[title=K-means Tricks]
+Initialization matters; run multiple initializations. Euclidean distance makes feature scaling crucial. Elbow method helps choose \(K\).
+\end{warn}
+
 \end{multicols*}
 \end{document}
