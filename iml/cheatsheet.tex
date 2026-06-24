@@ -143,5 +143,18 @@ Prediction: \(\hat y=\mathrm{sign}(w^Tx+b)\). L2 regularization.
 \end{thm}
 
 
+\section{k-Nearest Neighbors}
+\begin{prop}[title=kNN Algorithm]
+No training beyond storing data.
+\textbf{Classification:} majority vote.\\
+\textbf{Regression:} average or weighted average
+\end{prop}
+
+\begin{warn}[title=kNN Tricks]
+Small \(k\): flexible, outlier-sensitive, overfit risk. Large \(k\): smoother, underfit risk. Choose \(k\) by V/CV. \textbf{Normalize}.
+\end{warn}
+
+
+
 \end{multicols*}
 \end{document}
