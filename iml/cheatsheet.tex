@@ -26,6 +26,10 @@ R(w)=\frac1N\sum_{i=1}^{N}\ell(\hat y_i,y_i),\qquad
 \textbf{Gradient descent:} \(w_{t+1}=w_t-\eta\nabla_w R(w_t)\).
 \end{thm}
 
+\begin{thm}[title=Things to know]
+  \[\sigma(z)=\frac1{1+e^{-z}}\]
+\end{thm}
+
 \section{Linear Regression}
 \begin{prop}[title=Model + Objective]
 \[
@@ -51,25 +55,20 @@ w^\star=(X^TX)^{-1}X^Ty = X^\dagger y
 \section{Binary Classification}
 \begin{prop}[title=Logistic Regression]
 \[
-\sigma(z)=\frac1{1+e^{-z}};\quad
-p(y_i|x_i,w)=\hat y_i^{y_i}(1-\hat y_i)^{1-y_i}
+\hat y_i=\sigma(w^Tx_i),\quad \nabla_wR(w)=\sum_i(\hat y_i-y_i)x_i
 \]
 \[
 R(w)=-\sum_i\left[y_i\ln\hat y_i+(1-y_i)\ln(1-\hat y_i)\right]
 \]
-\[
-\nabla_wR(w)=\sum_i(\hat y_i-y_i)x_i
-\]
-No closed form: use GD. Predict class \(1\) if \(\hat y\ge\tau\).
+No closed form: use GD. \textbf{Boundary}: $w^Tx=0$.\\
+$\boldsymbol{\tau\uparrow}$ $\Rightarrow$ $\uparrow$Prec ;\quad $\boldsymbol{\tau\downarrow}$ $\Rightarrow$ $\uparrow$Rec.
 \end{prop}
 
 \begin{thm}[title=Least Square vs Logistic vs SVM]
 The main diff. between them is the loss function.
 \end{thm}
 
-\section{Classification Metrics}
-
-\begin{defn}[title=Confusion Matrix (binary)]
+\begin{defn}[title=Confusion Matrix]
 \renewcommand{\arraystretch}{1.1}
 \begin{tabularx}{\linewidth}{@{}lXX@{}}
 \toprule
@@ -79,7 +78,6 @@ The main diff. between them is the loss function.
 \textbf{True Neg} & FP (type I) & TN\\
 \bottomrule
 \end{tabularx}
-\[ P = TP+FN \quad N = FP+TN \]
 \end{defn}
 
 \begin{defn}[title=Metrics]
