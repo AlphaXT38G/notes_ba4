@@ -432,16 +432,16 @@ K-means exploits compactness; fails on non-compact clusters such as concentric c
 \end{defn}
 
 \begin{center}
-\includegraphics[width=\linewidth]{images/rnn.png}
+\includegraphics[width=0.95\linewidth]{images/rnn.png}
 \end{center}
 
 \begin{center}
-\includegraphics[width=\linewidth]{images/attention.png}
+\includegraphics[width=0.8\linewidth]{images/attention.png}
 \end{center}
 
 \section{Transformers}
 \begin{center}
-\includegraphics[width=\linewidth]{images/self_attention.png}
+\includegraphics[width=0.8\linewidth]{images/self_attention.png}
 \end{center}
 
 \begin{prop}[title=Transformer Blocks]
@@ -450,6 +450,27 @@ Transformer encoder/decoder are stacks of blocks with multi-head attention, feed
 
 \begin{defn}[title=Decoder Details]
 Masked self-attention prevents attending to future tokens. Cross-attention in the decoder attends over encoder outputs. GPT is a decoder transformer using masked multi-head self-attention and no cross-attention.
+\end{defn}
+
+\begin{warn}[title=Common Checks]
+Logistic regression is a classifier, not regression.\\
+Cross-entropy is differentiable and trainable by GD.\\
+RBF kernel has an infinite-dimensional feature view.\\
+kNN works for regression and classification; \(k\) is not learned by GD.\\
+K-means converges, but not always to the desired/global solution.\\
+PCA components are ordered by eigenvalues; labels do not change PCA.\\
+Self-attention parallelizes sequence processing unlike recurrent encoders.
+\end{warn}
+
+\begin{defn}[title=Parameter Counting]
+Fully connected layer \(n_{\mathrm{in}}\to n_{\mathrm{out}}\):
+\[
+\#\mathrm{params}=(n_{\mathrm{in}}+1)n_{\mathrm{out}}
+\]
+Convolution layer with kernel \(H_K\times W_K\), \(C_{\mathrm{in}}\) input channels, \(C_{\mathrm{out}}\) filters:
+\[
+\#\mathrm{params}=(H_KW_KC_{\mathrm{in}}+1)C_{\mathrm{out}}
+\]
 \end{defn}
 
 \end{multicols*}
