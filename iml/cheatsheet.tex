@@ -253,7 +253,7 @@ Do not optimize \(\beta_i\): trivial 0-loss solutions.
 
 \section{Neural Networks}
 \begin{center}
-\includegraphics[width=0.65\linewidth]{images/mlp-zoom.png}
+\includegraphics[width=0.9\linewidth]{images/mlp-zoom.png}
 \end{center}
 
 \begin{prop}[title=Backpropagation]
@@ -282,6 +282,28 @@ Momentum: Accelerates consistent directions and damps oscillations.
 \textbf{Weight decay:} $+\lambda\|W\|_F^2$ in loss (L2 for NNs).\\
 \textbf{Data augmentation:} flip/crop/rotate.
 \end{defn}
+
+\section{Convolutional Neural Network (CNN)}
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/CNN_details.png}
+\end{center}
+
+\begin{defn}[title=Output Size \& Params]
+Output size: \(\lfloor(W-F+2P)/S\rfloor+1\).\\
+Same padding: \(P=(F-1)/2\).\\
+Params: \((F^2C_{\mathrm{in}}+1)\times C_{\mathrm{out}}\) (far fewer than FC).
+\end{defn}
+
+\begin{prop}[title=Transposed Conv]
+It upsamples: output size \((W{-}1)S+F\).
+\end{prop}
+
+\begin{warn}[title=CNN Tricks]
+Convs: translation equivariance.\\
+Pooling/stride: downsampling + robustness.
+\end{warn}
+
 
 \end{multicols*}
 \end{document}
