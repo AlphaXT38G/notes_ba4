@@ -380,10 +380,31 @@ Non-convex; trained by SGD/backprop. Decoder gives low/latent \(\to\) output map
 \includegraphics[width=\linewidth]{images/denoising_autoencoder.png}
 \end{center}
 
-
 \begin{center} % Peut être dans une autre section
 \includegraphics[width=\linewidth]{images/panda.png}
 \end{center}
+
+\iffalse
+\section{LDA + Clustering}
+\begin{prop}[title=Fisher LDA]
+Supervised dimensionality reduction using class labels. Want low within-class variance and high between-class separation.
+\[
+S_W=\sum_{c=1}^{C}\sum_{i\in c}(x_i-\mu_c)(x_i-\mu_c)^T
+\]
+\[
+S_B=\sum_{c=1}^{C}N_c(\mu_c-\bar x)(\mu_c-\bar x)^T
+\]
+\[
+J(w)=\frac{w^TS_Bw}{w^TS_Ww},\qquad
+S_Bw=\lambda S_Ww
+\]
+Take eigenvectors with largest eigenvalues. At most \(C-1\) useful dimensions because \(\mathrm{rank}(S_B)\le C-1\).
+\end{prop}
+
+\begin{defn}[title=PCA vs LDA]
+PCA/eigenfaces minimize reconstruction error and may keep nuisance variation (e.g. illumination). LDA/fisherfaces keep discriminative directions for labels/classes.
+\end{defn}
+\fi
 
 \end{multicols*}
 \end{document}
