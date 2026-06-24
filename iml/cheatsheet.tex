@@ -342,5 +342,48 @@ PCA minimizes reconstruction error among linear orthogonal projections. Keeping 
 PCA is unsupervised: labels do not affect components. It is sensitive to feature scale; normalize/standardize first. Principal components are ordered by eigenvalues, not eigenvector magnitudes. PCA can reduce noise and be seen as a linear autoencoder.
 \end{warn}
 
+\section{Kernel PCA + Autoencoders}
+\begin{prop}[title=Kernel PCA]
+Do PCA in feature space:
+\[
+x_i\mapsto\phi(x_i),\qquad K_{ij}=k(x_i,x_j)
+\]
+Representer:
+\[
+w=\sum_{j=1}^{N}a_j\phi(x_j),\qquad Ka=\lambda Na
+\]
+Projection:
+\[
+y_i=\phi(x_i)^Tw=\sum_{j=1}^{N}a_jk(x_i,x_j)
+\]
+For non-centered data:
+\[
+\tilde K=K-\mathbf1_NK-K\mathbf1_N+\mathbf1_NK\mathbf1_N
+\]
+Kernel PCA maps high \(\to\) low, but unlike PCA it does not naturally provide low \(\to\) high reconstruction.
+\end{prop}
+
+\begin{defn}[title=Autoencoder]
+\textbf{Encoder:} input \(\to\) latent representation. \textbf{Decoder:} latent \(\to\) reconstruction. Train with:
+\[
+R=\frac1N\sum_i\|\hat x_i-x_i\|^2
+\]
+Non-convex; trained by SGD/backprop. Decoder gives low/latent \(\to\) output mapping, so latent vectors can generate samples.
+\end{defn}
+
+\begin{prop}[title=Variants]
+\textbf{Deep AE:} stacked layers \(z^{(j)}=f^{(j)}(W_{(j)}^Tz^{(j-1)})\).\\
+\textbf{Denoising AE:} corrupt input, reconstruct clean input; learns robust representation.
+\end{prop}
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/denoising_autoencoder.png}
+\end{center}
+
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/panda.png}
+\end{center}
+
 \end{multicols*}
 \end{document}
