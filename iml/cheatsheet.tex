@@ -453,13 +453,10 @@ Masked self-attention prevents attending to future tokens. Cross-attention in th
 \end{defn}
 
 \begin{warn}[title=Common Checks]
-Logistic regression is a classifier, not regression.\\
-Cross-entropy is differentiable and trainable by GD.\\
 RBF kernel has an infinite-dimensional feature view.\\
 kNN works for regression and classification; \(k\) is not learned by GD.\\
 K-means converges, but not always to the desired/global solution.\\
-PCA components are ordered by eigenvalues; labels do not change PCA.\\
-Self-attention parallelizes sequence processing unlike recurrent encoders.
+PCA components are ordered by eigenvalues; labels do not change PCA.
 \end{warn}
 
 \begin{defn}[title=Parameter Counting]
