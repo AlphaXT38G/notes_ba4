@@ -345,7 +345,7 @@ PCA minimizes reconstruction error among linear orthogonal projections. (Uncorre
 \end{warn}
 
 \section{Kernel PCA + Autoencoders}
-\textit{When:} non-linear structure in data.
+No reconstruction. \textit{When:} non-linear structure in data.
 
 \begin{prop}[title=Kernel PCA]
 \[
@@ -362,7 +362,7 @@ y_i=\phi(x_i)^Tw=\sum_{j=1}^{N}a_jk(x_i,x_j)
 Kernel PCA maps high \(\to\) low, but unlike PCA it does not naturally provide low \(\to\) high reconstruction.
 \end{prop}
 
-\textit{When:} non-linear structure; need encoder \& decoder; large data.
+Reconstruction possible. \textit{When:} non-linear structure; need encoder \& decoder; large data.
 
 \begin{defn}[title=Autoencoder]
 \textbf{Encoder:} input \(\to\) latent representation. \textbf{Decoder:} latent \(\to\) reconstruction. Train with:
