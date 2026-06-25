@@ -339,7 +339,8 @@ PCA minimizes reconstruction error among linear orthogonal projections. Keeping 
 \end{prop}
 
 \begin{warn}[title=PCA Tricks]
-PCA is unsupervised: labels do not affect components. It is sensitive to feature scale; normalize/standardize first. Principal components are ordered by eigenvalues, not eigenvector magnitudes. PCA can reduce noise and be seen as a linear autoencoder.
+\textbf{Invariant under addition} ($x_i+c$): mean shifts by $c$, covariance unchanged $\Rightarrow$ same eigenvectors/values.\\
+\textbf{Not invariant under scaling} ($Dx_i$): covariance changes $\Rightarrow$ eigenvectors change. Normalize first.
 \end{warn}
 
 \section{Kernel PCA + Autoencoders}
