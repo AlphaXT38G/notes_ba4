@@ -313,14 +313,12 @@ Pooling/stride: downsampling + robustness.
 \end{center}
 
 \section{Dimensionality Reduction}
+\textit{Limitation:} only captures linear structure.
 
 \begin{prop}[title=PCA Projection]
 \[
 \bar x=\frac1N\sum_i x_i,\qquad
-y_i=W^T(x_i-\bar x)
-\]
-\[
-W^TW=I_d
+y_i=W^T(x_i-\bar x),\quad W^TW=I_d
 \]
 Covariance:
 \[
@@ -348,6 +346,8 @@ PCA minimizes reconstruction error among linear orthogonal projections. (Uncorre
 \end{warn}
 
 \section{Kernel PCA + Autoencoders}
+\textit{When:} non-linear structure in data.
+
 \begin{prop}[title=Kernel PCA]
 \[
 x_i\mapsto\phi(x_i),\qquad K_{ij}=k(x_i,x_j)
@@ -362,6 +362,8 @@ y_i=\phi(x_i)^Tw=\sum_{j=1}^{N}a_jk(x_i,x_j)
 \]
 Kernel PCA maps high \(\to\) low, but unlike PCA it does not naturally provide low \(\to\) high reconstruction.
 \end{prop}
+
+\textit{When:} non-linear structure; need encoder \& decoder; large data.
 
 \begin{defn}[title=Autoencoder]
 \textbf{Encoder:} input \(\to\) latent representation. \textbf{Decoder:} latent \(\to\) reconstruction. Train with:
@@ -414,13 +416,9 @@ Unsupervised clustering into \(K\) groups with compact clusters.
 \end{prop}
 
 \begin{warn}[title=K-means Tricks]
-Initialization matters; run multiple initializations. Euclidean distance makes feature scaling crucial. Elbow method helps choose \(K\).
-\end{warn}
-
-\section{Spectral Clustering}
-\begin{prop}[title=Connectivity Instead of Compactness]
+Initialization matters; run multiple initializations. Euclidean distance makes feature scaling crucial. Elbow method helps choose \(K\).\\
 K-means exploits compactness; fails on non-compact clusters such as concentric circles.
-\end{prop}
+\end{warn}
 
 \section{NLP, RNNs, Attention}
 \begin{defn}[title=Word Representations]
