@@ -304,10 +304,15 @@ Convs: translation equivariance.\\
 Pooling/stride: downsampling + robustness.
 \end{warn}
 
+\begin{center}
+\includegraphics[width=\linewidth]{images/conv.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=\linewidth]{images/panda.png}
+\end{center}
+
 \section{Dimensionality Reduction}
-\begin{defn}[title=Goal]
-Given \(x_i\in\R^D\), find \(y_i\in\R^d\), \(d<D\), preserving useful structure. Reduces cost and can regularize.
-\end{defn}
 
 \begin{prop}[title=PCA Projection]
 \[
@@ -325,27 +330,25 @@ C=\frac1N\sum_i(x_i-\bar x)(x_i-\bar x)^T
 \[
 \max_{\|w\|=1}w^TCw\quad\Rightarrow\quad Cw=\lambda w
 \]
-Pick eigenvectors of \(C\) with largest eigenvalues. Projected variance equals eigenvalue.
 \end{prop}
 
 \begin{prop}[title=PCA Reconstruction]
 \[
 \hat x_i=\bar x+Wy_i=\bar x+WW^T(x_i-\bar x)
 \]
-PCA minimizes reconstruction error among linear orthogonal projections. Keeping all \(D\) components loses no information and decorrelates features (uncorrelated = covariance matrix diagonal in the new space). Keep \(d\) such that:
+PCA minimizes reconstruction error among linear orthogonal projections. (Uncorrelated = covariance matrix diagonal in the new space). Keep \(d\) such that:
 \[
 \sum_{j=1}^{d}\lambda_j\ge0.9\sum_{k=1}^{D}\lambda_k
 \]
 \end{prop}
 
-\begin{warn}[title=PCA Tricks]
+\begin{warn}[title=Reduces cost and can regularize]
 \textbf{Invariant under addition} ($x_i+c$): mean shifts by $c$, covariance unchanged $\Rightarrow$ same eigenvectors/values.\\
 \textbf{Not invariant under scaling} ($Dx_i$): covariance changes $\Rightarrow$ eigenvectors change. Normalize first.
 \end{warn}
 
 \section{Kernel PCA + Autoencoders}
 \begin{prop}[title=Kernel PCA]
-Do PCA in feature space:
 \[
 x_i\mapsto\phi(x_i),\qquad K_{ij}=k(x_i,x_j)
 \]
@@ -356,10 +359,6 @@ w=\sum_{j=1}^{N}a_j\phi(x_j),\qquad Ka=\lambda Na
 Projection:
 \[
 y_i=\phi(x_i)^Tw=\sum_{j=1}^{N}a_jk(x_i,x_j)
-\]
-For non-centered data:
-\[
-\tilde K=K-\mathbf1_NK-K\mathbf1_N+\mathbf1_NK\mathbf1_N
 \]
 Kernel PCA maps high \(\to\) low, but unlike PCA it does not naturally provide low \(\to\) high reconstruction.
 \end{prop}
@@ -379,10 +378,6 @@ Non-convex; trained by SGD/backprop. Decoder gives low/latent \(\to\) output map
 
 \begin{center}
 \includegraphics[width=\linewidth]{images/denoising_autoencoder.png}
-\end{center}
-
-\begin{center} % Peut être dans une autre section
-\includegraphics[width=\linewidth]{images/panda.png}
 \end{center}
 
 \iffalse
