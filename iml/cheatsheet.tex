@@ -332,7 +332,7 @@ Pick eigenvectors of \(C\) with largest eigenvalues. Projected variance equals e
 \[
 \hat x_i=\bar x+Wy_i=\bar x+WW^T(x_i-\bar x)
 \]
-PCA minimizes reconstruction error among linear orthogonal projections. Keeping all \(D\) components loses no information and decorrelates features. Keep \(d\) such that:
+PCA minimizes reconstruction error among linear orthogonal projections. Keeping all \(D\) components loses no information and decorrelates features (uncorrelated = covariance matrix diagonal in the new space). Keep \(d\) such that:
 \[
 \sum_{j=1}^{d}\lambda_j\ge0.9\sum_{k=1}^{D}\lambda_k
 \]
