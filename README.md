@@ -77,4 +77,4 @@ Each subject folder contains `.tex` sources; run `build.py` to recompile.
 
 **Salim Chaoui El Faiz** — [GitHub](https://github.com/SalimThePokemonMaster)
 
-**Sami Kabbaj** — [GitHub](https://github.com/SamiPro206)
+**Sami Kabbaj** — [GitHub](https://github.com/SamiPr0)
