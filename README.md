@@ -1,6 +1,6 @@
 # Notes BA4
 
-LaTeX notes for the BA4 semester.
+LaTeX notes for the BA4 semester at EPFL.
 
 ---
 
