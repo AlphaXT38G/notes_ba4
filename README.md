@@ -75,6 +75,6 @@ Each subject folder contains `.tex` sources; run `build.py` to recompile.
 
 ## Authors
 
-**sαlimek** — [GitHub](https://github.com/SalimMc)
-
-**Sami Kabbaj** — [GitHub](https://github.com/SamiPr0)
+<a href="https://github.com/AlphaXT38G/notes_ba4/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=AlphaXT38G/notes_ba4" alt="Contributors">
+</a>
