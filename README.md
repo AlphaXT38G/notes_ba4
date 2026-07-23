@@ -1,6 +1,6 @@
 # Notes BA4
 
-LaTeX notes for the BA4 semester at EPFL.
+LaTeX notes for the BA4 IN semester at EPFL.
 
 ---
 
@@ -21,7 +21,7 @@ python build.py algo iml sigproc
 
 ---
 
-## Exam Instructions
+## Exam Instructions (for spring 2026 session)
 
 | Subject | Allowed |
 |---|---|
@@ -44,16 +44,21 @@ python build.py algo iml sigproc
 - [Course notes](_overview/algo/course.pdf)
 - [Condensed algos](_overview/algo/algos_condensed.pdf)
 
-### Intro to Machine Learning — `iml/`
+### Introduction to Machine Learning — `iml/`
 - [Cheat sheet](_overview/iml/cheatsheet.pdf)
 - [Course notes](_overview/iml/course.pdf)
 - [Python notes](_overview/iml/python_raw_notes.pdf)
+
+### Introduction aux sciences du vivant (pour IC) — `isv/`
+- [Course notes](_overview/isv/course.pdf)
+- [Basic non formateed course notes](_overview/isv/SV_notes_basic.pdf)
+
 
 ---
 
 ## Setup
 
-[LaTeX environment setup tutorial](https://www.youtube.com/watch?v=4lyHIQl4VM8)
+[LaTeX environment setup tutorial for VS code](https://www.youtube.com/watch?v=4lyHIQl4VM8)
 
 ---
 
@@ -63,13 +68,15 @@ python build.py algo iml sigproc
 notes_ba4/
 ├── _overview/      # Compiled PDFs, one folder per subject
 ├── _shared/        # Shared LaTeX style files
-├── algo/
-├── iml/
-├── sigproc/
-└── compsys/
+├── algo/           # Algorithms I course
+├── iml/            # Introduction to machine learning course
+├── sigproc/        # Signal processing course
+├── compsys/        # Computer systems course
+└── isv/            # Intoduction aux sciences du vivant (pour IC) course
 ```
 
 Each subject folder contains `.tex` sources; run `build.py` to recompile.
+The `.tex` disponible for each course, for each folder may change but are mainly composed of `course.tex` and `cheatsheet.tex`. 
 
 ---
 
